@@ -27,8 +27,8 @@ FONT VARIABLES:
   --font-micro     (Micro 5)         → Tailwind: font-micro
 
 WHO USES WHAT:
-  font-fragment  → body, nav links, descriptions, code, timestamps, terminal prompts
-  font-jetbrains → hero name, page titles, card titles, badges, buttons, accent text
+  font-fragment  → body, nav links, descriptions, code, timestamps, terminal prompts, banner hint text
+  font-jetbrains → hero name, page titles, card titles, badges, buttons, accent text, audio player, clock
   font-micro     → navbar "HARSH" logo, section heading labels (18-24px, distinctive pixel feel)
   font-nf        → tech badge glyphs, powerline symbols (decorative only)
 
@@ -83,12 +83,21 @@ email:     harshyadav.build@gmail.com
 cal:       https://cal.com/harshistaken
 ```
 
+## Responsive Breakpoints (player/clock)
+```
+<560px:  hide clock entirely
+560-629: IST only
+≥630px:  IST + UTC
+<360px:  navbar HARSH → H
+```
+
 ## Key Constraints
-- NEVER hardcode hex in components — use var(--token)
+- NEVER hardcode hex in components — use var(--token) — EXCEPTION: banner border/buttons (dark GIF surface)
 - NEVER use Lucide icons — use HugeIcons
 - NEVER use Lora, Geist Mono, or Press Start 2P fonts — removed
 - NEVER use CSS spinners/skeletons — use braille spinner
 - NEVER use `any` in TypeScript
 - ALL components must work in dark + light themes
-- ALL animations must respect prefers-reduced-motion
+- ALL animations must respect prefers-reduced-motion (use motion-safe: prefix)
 - Nav links /blogs and /about are greyed out (--text-muted) in v1 — not linked
+- Audio player: volume capped at 0.6, auto-stops at 1:40, preload none

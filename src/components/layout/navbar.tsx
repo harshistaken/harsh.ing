@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
     { href: "/work", label: "/WORK", enabled: true },
-    { href: "/blogs", label: "/BLOGS", enabled: true },
-    { href: "/about", label: "/ABOUT", enabled: true },
+    { href: "/blogs", label: "/BLOGS", enabled: false },
+    { href: "/about", label: "/ABOUT", enabled: false },
 ] as const;
 
 export function Navbar() {

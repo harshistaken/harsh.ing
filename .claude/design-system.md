@@ -327,38 +327,37 @@ MOBILE:
 ### 6.2 HERO SECTION
 
 ```
-LAYOUT: Two columns (60/40 split) on desktop, stacked on mobile
-PADDING: 120px top, 80px bottom
-MAX-WIDTH: 800px
+CONTAINER: max-w-2xl, centered, px-6, pt-12
+LAYOUT: Stacked — player row → banner → (future: text content)
 
-LEFT COLUMN (Text):
-  Name: "harsh." (trailing period in --accent-primary)
-    Font: JetBrains Mono 800, 48px
-    Color: var(--text-primary)
-    Letter-spacing: -0.03em
+PLAYER ROW (top):
+  Layout: flex, justify-between
+  Left — Audio Player:
+    PLAY/PAUSE: JetBrains Mono 14px, uppercase, text-secondary, hover text-primary
+    Track bar: █ (filled, text-secondary) + ░ (empty, text-tertiary)
+      Max-width: 240px, auto-adjusts block count via ResizeObserver
+      Clickable to seek, keyboard arrows ±5s
+    Timer: JetBrains Mono 14px, tabular-nums, text-secondary
+    Audio: /audio/song.m4a, preload none, volume 0.6, auto-stops at 1:40
+  Right — Clock:
+    Format: "IST HH:MM AM · UTC HH:MM PM"
+    Labels (IST/UTC/AM/PM): text-tertiary, 12px uppercase
+    Time values: text-secondary
+    Responsive: <560px hide clock, 560-629px IST only, ≥630px IST + UTC
 
-  Title line:
-    "full-stack developer · builder · freelancer"
-    Font: Fragment Mono 400, 15px
-    Color: var(--text-secondary)
-    Margin-top: 6px
-
-  Meta row:
-    Font: Fragment Mono 400, 12px
-    Color: var(--text-tertiary)
-    Gap: 20px
-    Items:
-      "📍 pune, india"
-      "● available for freelance" (● 6px, --accent-tertiary, pulse)
-      "IST HH:MM" (auto-updating, 60s interval)
-    Margin-top: 16px
-
-  Bio: Fragment Mono 400, 15px, var(--text-secondary), max-width 480px
-  Terminal prompt: "harsh@haarsh.ing:~$ █" Fragment Mono 400, 13px, var(--text-muted)
-
-RIGHT COLUMN (Avatar):
-  Pixel avatar: 128×160px, float animation, 2px border --accent-primary
-  Mobile: centered above text, 96×120px
+BANNER (below player, gap-2):
+  3 dithered GIF pairs (grayscale + colored versions)
+  Default: grayscale layer on top, opacity 1
+  Hover/tap: grayscale fades out (700ms ease), color reveals
+  Desktop: h-[134px], object-cover centered
+  Mobile: h-[118px], object-cover centered
+  Border: 1px solid #2e2e2b (intentional hardcode — always dark for dark GIF)
+  Variant buttons [1][2][3]: bottom-right, JetBrains 10px
+    Active: accent-tertiary (green)
+    Inactive default: accent-primary (orange)
+    Inactive revealed: white/80 (intentional — on dark GIF surface)
+  Mobile hint: "TAP TO SEE COLOR" bottom-left, 9px, hidden after first tap
+  Touch: pointerType check separates hover (mouse) from tap (touch)
 ```
 
 ### 6.3 EXPERIENCE TIMELINE

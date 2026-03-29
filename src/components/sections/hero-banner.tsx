@@ -46,19 +46,16 @@ export function HeroBanner() {
     return (
         <div
             ref={bannerRef}
-            className="relative cursor-pointer overflow-hidden border border-[#2e2e2b] md:h-[134px]"
-            onPointerEnter={(e) => { if (e.pointerType === "mouse") setRevealed(true); }}
-            onPointerLeave={(e) => { if (e.pointerType === "mouse") setRevealed(false); }}
+            className="relative cursor-pointer overflow-hidden border border-[#2e2e2b] h-[118px] md:h-[134px]"
+            onPointerEnter={(e) => {
+                if (e.pointerType === "mouse") setRevealed(true);
+            }}
+            onPointerLeave={(e) => {
+                if (e.pointerType === "mouse") setRevealed(false);
+            }}
             onClick={handleBannerTap}
         >
-            <Image
-                src={VARIANTS[active].color}
-                alt=""
-                width={540}
-                height={230}
-                unoptimized
-                className="block w-full md:h-full md:object-cover"
-            />
+            <Image src={VARIANTS[active].color} alt="" width={540} height={230} unoptimized className="block h-full w-full object-cover" />
 
             <Image
                 src={VARIANTS[active].gray}
@@ -67,15 +64,13 @@ export function HeroBanner() {
                 height={230}
                 unoptimized
                 className={cn(
-                    "absolute inset-0 block w-full motion-safe:transition-opacity motion-safe:duration-700 motion-safe:ease-in-out md:h-full md:object-cover",
-                    revealed ? "opacity-0" : "opacity-100"
+                    "absolute inset-0 block h-full w-full object-cover motion-safe:transition-opacity motion-safe:duration-700 motion-safe:ease-in-out",
+                    revealed ? "opacity-0" : "opacity-100",
                 )}
             />
 
             {!tapped && !revealed && (
-                <span className="pointer-events-none absolute right-2 top-2 font-fragment text-[9px] uppercase tracking-wider text-white md:hidden">
-                    tap to see color
-                </span>
+                <span className="pointer-events-none absolute bottom-2 left-2 font-fragment text-[9px] uppercase tracking-wider text-text-secondary md:hidden">tap to see color</span>
             )}
 
             <div className="absolute bottom-1 right-1 flex flex-col">
@@ -89,11 +84,7 @@ export function HeroBanner() {
                         aria-label={`Banner variant ${i + 1}`}
                         className={cn(
                             "flex h-5 w-6 items-center justify-center font-jetbrains text-[10px] font-semibold leading-none motion-safe:transition-colors motion-safe:duration-700 motion-safe:ease-in-out",
-                            active === i
-                                ? "text-accent-tertiary"
-                                : revealed
-                                  ? "text-white/80 hover:text-accent-tertiary"
-                                  : "text-accent-primary hover:text-accent-tertiary"
+                            active === i ? "text-accent-tertiary" : revealed ? "text-white/80 hover:text-accent-tertiary" : "text-accent-primary hover:text-accent-tertiary",
                         )}
                     >
                         [{i + 1}]
