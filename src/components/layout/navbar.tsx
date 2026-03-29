@@ -16,7 +16,7 @@ export function Navbar() {
 
     return (
         <nav className="sticky top-0 z-50 w-full backdrop-blur-lg backdrop-saturate-180">
-            <div className="mx-auto flex max-w-2xl items-center justify-between px-6 py-4">
+            <div className="mx-auto flex max-w-2xl items-center justify-between px-6 py-2">
                 <Link href="/" className="group">
                     <span className={cn("font-micro text-[40px] leading-none transition-colors duration-200", isHome ? "text-accent-primary" : "text-text-primary group-hover:text-accent-primary")}>
                         <span className="hidden min-[360px]:inline">HARSH</span>
