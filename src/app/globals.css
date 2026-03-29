@@ -1,26 +1,187 @@
 @import "tailwindcss";
 
+/* ============================================
+   DESIGN SYSTEM TOKENS — haarsh.ing
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    /* FONTS */
+    --font-fragment: "Fragment Mono", monospace;
+    --font-jetbrains: "JetBrains Mono", monospace;
+    --font-nf: "JetBrains Mono NF", "JetBrains Mono", monospace;
+    --font-micro: "Micro 5", monospace;
+
+    /* SPACING (4px grid) */
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 12px;
+    --spacing-4: 16px;
+    --spacing-5: 20px;
+    --spacing-6: 24px;
+    --spacing-8: 32px;
+    --spacing-10: 40px;
+    --spacing-12: 48px;
+    --spacing-16: 64px;
+    --spacing-20: 80px;
+    --spacing-24: 96px;
+    --spacing-32: 128px;
+
+    /* RADIUS */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-full: 9999px;
+
+    /* TIMING */
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --dur-fast: 100ms;
+    --dur-normal: 200ms;
+    --dur-slow: 500ms;
+
+    /* ACCENTS (theme-independent) */
+    --accent-primary: #d97757;
+    --accent-primary-hover: #c4684a;
+    --accent-primary-muted: rgba(217, 119, 87, 0.08);
+    --accent-secondary: #6a9bcc;
+    --accent-tertiary: #788c5d;
+    --pixel-orange: #e8715a;
+    --status-error: #cc5f5f;
+    --status-warning: #d4a847;
+
+    /* GITHUB GRAPH */
+    --github-green-1: #1a3a1a;
+    --github-green-2: #2d6a2d;
+    --github-green-3: #3d9a3d;
+    --github-green-4: #4ecc4e;
 }
 
+/* ============================================
+   DARK THEME (default)
+   ============================================ */
+[data-theme="dark"] {
+    --bg-primary: #0d0d0c;
+    --bg-secondary: #1a1a18;
+    --bg-tertiary: #252523;
+    --bg-surface: #2e2e2b;
+    --text-primary: #faf9f5;
+    --text-secondary: #b0aea5;
+    --text-tertiary: #7a7870;
+    --text-muted: #4a4a44;
+    --border-default: #2e2e2b;
+    --border-subtle: #1f1f1d;
+    --border-strong: #3d3d38;
+}
+
+/* ============================================
+   LIGHT THEME
+   ============================================ */
+[data-theme="light"] {
+    --bg-primary: #faf9f5;
+    --bg-secondary: #f0efe8;
+    --bg-tertiary: #e8e6dc;
+    --bg-surface: #ffffff;
+    --text-primary: #141413;
+    --text-secondary: #5c5b55;
+    --text-tertiary: #8a8880;
+    --text-muted: #b0aea5;
+    --border-default: #e8e6dc;
+    --border-subtle: #f0efe8;
+    --border-strong: #d0cec5;
+
+    --github-green-1: #c6e48b;
+    --github-green-2: #7bc96f;
+    --github-green-3: #449e48;
+    --github-green-4: #196127;
+}
+
+/* ============================================
+   TAILWIND v4 THEME MAPPING
+   ============================================ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    /* Fonts */
+    --font-fragment: var(--font-fragment);
+    --font-jetbrains: var(--font-jetbrains);
+    --font-nf: var(--font-nf);
+    --font-micro: var(--font-micro);
+
+    /* Background colors */
+    --color-bg-primary: var(--bg-primary);
+    --color-bg-secondary: var(--bg-secondary);
+    --color-bg-tertiary: var(--bg-tertiary);
+    --color-bg-surface: var(--bg-surface);
+
+    /* Text colors */
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-tertiary: var(--text-tertiary);
+    --color-text-muted: var(--text-muted);
+
+    /* Border colors */
+    --color-border-default: var(--border-default);
+    --color-border-subtle: var(--border-subtle);
+    --color-border-strong: var(--border-strong);
+
+    /* Accent colors */
+    --color-accent-primary: var(--accent-primary);
+    --color-accent-primary-hover: var(--accent-primary-hover);
+    --color-accent-primary-muted: var(--accent-primary-muted);
+    --color-accent-secondary: var(--accent-secondary);
+    --color-accent-tertiary: var(--accent-tertiary);
+    --color-pixel-orange: var(--pixel-orange);
+    --color-status-error: var(--status-error);
+    --color-status-warning: var(--status-warning);
+
+    /* GitHub graph */
+    --color-github-green-1: var(--github-green-1);
+    --color-github-green-2: var(--github-green-2);
+    --color-github-green-3: var(--github-green-3);
+    --color-github-green-4: var(--github-green-4);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ============================================
+   BASE STYLES
+   ============================================ */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-family: var(--font-fragment);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes cursor-blink {
+    0%,
+    50% {
+        opacity: 1;
+    }
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes status-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
