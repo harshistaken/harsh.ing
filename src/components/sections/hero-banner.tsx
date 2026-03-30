@@ -6,16 +6,16 @@ import { cn } from "@/lib/utils";
 
 const VARIANTS = [
     {
-        gray: "/banner-dither-halftone.gif",
-        color: "/banner-color-fine.gif",
+        gray: "/banners/banner-dither-halftone.gif",
+        color: "/banners/banner-color-fine.gif",
     },
     {
-        gray: "/banner-dither-darkdots.gif",
-        color: "/banner-color-chunky.gif",
+        gray: "/banners/banner-dither-darkdots.gif",
+        color: "/banners/banner-color-chunky.gif",
     },
     {
-        gray: "/banner-dither-cross.gif",
-        color: "/banner-color-cross.gif",
+        gray: "/banners/banner-dither-cross.gif",
+        color: "/banners/banner-color-cross.gif",
     },
 ] as const;
 
@@ -55,7 +55,7 @@ export function HeroBanner() {
             }}
             onClick={handleBannerTap}
         >
-            <Image src={VARIANTS[active].color} alt="" width={540} height={230} unoptimized className="block h-full w-full object-cover" />
+            <Image src={VARIANTS[active].color} alt="" width={540} height={230} unoptimized priority className="block h-full w-full object-cover" />
 
             <Image
                 src={VARIANTS[active].gray}
@@ -63,6 +63,7 @@ export function HeroBanner() {
                 width={540}
                 height={230}
                 unoptimized
+                priority
                 className={cn(
                     "absolute inset-0 block h-full w-full object-cover motion-safe:transition-opacity motion-safe:duration-700 motion-safe:ease-in-out",
                     revealed ? "opacity-0" : "opacity-100",

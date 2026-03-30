@@ -117,7 +117,7 @@ function AudioPlayer() {
 
     return (
         <div className="flex min-w-0 flex-1 items-center gap-3">
-            <audio ref={audioRef} src="/audio/song.m4a" preload="none" />
+            <audio ref={audioRef} src="/audios/song.m4a" preload="none" />
 
             <button
                 onClick={toggle}
