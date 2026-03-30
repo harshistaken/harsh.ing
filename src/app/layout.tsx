@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${fragmentMono.variable} ${jetbrainsMono.variable} ${micro5.variable} ${nerdFont.variable}`} suppressHydrationWarning>
-            <body className="flex min-h-screen flex-col">
+            <body className="flex min-h-screen flex-col" suppressHydrationWarning>
                 <ThemeProvider>
                     <a
                         href="#main"

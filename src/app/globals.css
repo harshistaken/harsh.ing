@@ -202,6 +202,15 @@ body {
     display: none;
 }
 
+.dot-grid-overlay {
+    background-image: radial-gradient(circle, var(--accent-primary) 1px, transparent 1px);
+    background-size: 10px 10px;
+    opacity: 0;
+}
+.group:hover .dot-grid-overlay {
+    opacity: 0.05;
+}
+
 /* ============================================
    REDUCED MOTION
    ============================================ */
