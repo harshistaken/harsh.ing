@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ============================================
    DESIGN SYSTEM TOKENS — haarsh.ing
    ============================================ */
@@ -51,33 +53,12 @@
     --status-warning: #d4a847;
 
     /* GITHUB GRAPH */
-    --github-green-1: #1a3a1a;
-    --github-green-2: #2d6a2d;
-    --github-green-3: #3d9a3d;
-    --github-green-4: #4ecc4e;
-}
+    --github-green-1: #c6e48b;
+    --github-green-2: #7bc96f;
+    --github-green-3: #449e48;
+    --github-green-4: #196127;
 
-/* ============================================
-   DARK THEME (default)
-   ============================================ */
-[data-theme="dark"] {
-    --bg-primary: #0d0d0c;
-    --bg-secondary: #1a1a18;
-    --bg-tertiary: #252523;
-    --bg-surface: #2e2e2b;
-    --text-primary: #faf9f5;
-    --text-secondary: #b0aea5;
-    --text-tertiary: #7a7870;
-    --text-muted: #4a4a44;
-    --border-default: #2e2e2b;
-    --border-subtle: #1f1f1d;
-    --border-strong: #3d3d38;
-}
-
-/* ============================================
-   LIGHT THEME
-   ============================================ */
-[data-theme="light"] {
+    /* LIGHT THEME (default) */
     --bg-primary: #faf9f5;
     --bg-secondary: #f0efe8;
     --bg-tertiary: #e8e6dc;
@@ -89,11 +70,27 @@
     --border-default: #e8e6dc;
     --border-subtle: #f0efe8;
     --border-strong: #d0cec5;
+}
 
-    --github-green-1: #c6e48b;
-    --github-green-2: #7bc96f;
-    --github-green-3: #449e48;
-    --github-green-4: #196127;
+/* ============================================
+   DARK THEME (overrides :root when .dark is on <html>)
+   ============================================ */
+.dark {
+    --bg-primary: #0d0d0c;
+    --bg-secondary: #1a1a18;
+    --bg-tertiary: #252523;
+    --bg-surface: #2e2e2b;
+    --text-primary: #faf9f5;
+    --text-secondary: #b0aea5;
+    --text-tertiary: #7a7870;
+    --text-muted: #4a4a44;
+    --border-default: #2e2e2b;
+    --border-subtle: #1f1f1d;
+    --border-strong: #3d3d38;
+    --github-green-1: #1a3a1a;
+    --github-green-2: #2d6a2d;
+    --github-green-3: #3d9a3d;
+    --github-green-4: #4ecc4e;
 }
 
 /* ============================================
@@ -160,6 +157,27 @@ body {
     51%,
     100% {
         opacity: 0;
+    }
+}
+
+@keyframes border-pulse {
+    0%,
+    100% {
+        border-color: var(--accent-primary);
+    }
+    50% {
+        border-color: var(--accent-primary-hover);
+        box-shadow: 0 0 8px rgba(217, 119, 87, 0.15);
+    }
+}
+
+@keyframes avatar-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
     }
 }
 

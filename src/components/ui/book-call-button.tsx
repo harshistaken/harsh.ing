@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
 const CAL_URL = "https://cal.com/harshistaken";
-const TARGET_TEXT = "BOOK A MEETING";
+const TARGET_TEXT = "BOOK A CALL / HIRE ME";
 const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*!?<>{}[]";
 
 export function BookCallButton() {
@@ -54,7 +54,7 @@ export function BookCallButton() {
             href={CAL_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-2 overflow-hidden border border-accent-primary px-5 py-3 font-jetbrains text-[13px] uppercase tracking-wide text-accent-primary outline-none focus-visible:text-bg-primary"
+            className="group relative flex w-full items-center justify-center overflow-hidden border border-accent-primary px-3 py-1.5 font-jetbrains text-[11px] uppercase tracking-wide outline-none focus-visible:text-accent-primary"
             onPointerEnter={(e) => {
                 if (e.pointerType === "mouse") {
                     setHovered(true);
@@ -73,17 +73,16 @@ export function BookCallButton() {
             }}
         >
             <span
-                className="absolute inset-0 origin-left bg-accent-primary motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out"
-                style={{ transform: hovered ? "scaleX(1)" : "scaleX(0)" }}
+                className="absolute inset-0 bg-accent-primary motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out"
+                style={{
+                    transformOrigin: hovered ? "right" : "left",
+                    transform: hovered ? "scaleX(0)" : "scaleX(1)",
+                }}
             />
             <span className={cn(
                 "relative motion-safe:transition-colors motion-safe:duration-500",
-                hovered ? "text-bg-primary" : "text-accent-primary"
+                hovered ? "text-accent-primary" : "text-white"
             )}>{displayText}</span>
-            <span className={cn(
-                "relative motion-safe:transition-all motion-safe:duration-300",
-                hovered ? "translate-x-1 text-bg-primary" : "translate-x-0 text-accent-primary"
-            )}>→</span>
         </a>
     );
 }

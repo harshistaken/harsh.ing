@@ -46,7 +46,7 @@ export function HeroBanner() {
     return (
         <div
             ref={bannerRef}
-            className="relative cursor-pointer overflow-hidden border border-[#2e2e2b] h-[118px] md:h-[134px]"
+            className="relative cursor-pointer overflow-hidden border border-border-strong h-[118px] md:h-[134px]"
             onPointerEnter={(e) => {
                 if (e.pointerType === "mouse") setRevealed(true);
             }}
