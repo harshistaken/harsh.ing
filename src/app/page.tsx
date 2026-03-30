@@ -3,6 +3,7 @@ import { HeroPlayer } from "@/components/sections/hero-player";
 import { HeroIntro } from "@/components/sections/hero-intro";
 import { HeroManifesto } from "@/components/sections/hero-manifesto";
 import { Experience } from "@/components/sections/experience";
+import { GitHubGraph } from "@/components/sections/github-graph";
 import { Projects } from "@/components/sections/projects";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
                 <HeroManifesto />
             </div>
             <Experience />
+            <GitHubGraph />
             <Projects />
         </main>
     );
