@@ -53,20 +53,21 @@ function useScrambleSlot(words: readonly string[], interval: number, offset: num
     }, []);
 
     useEffect(() => {
+        let tickInterval: ReturnType<typeof setInterval> | null = null;
+
         const timeout = setTimeout(() => {
-            const tick = setInterval(() => {
+            tickInterval = setInterval(() => {
                 setIndex((prev) => {
                     const next = (prev + 1) % words.length;
                     scrambleTo(words[next]);
                     return next;
                 });
             }, interval);
-
-            return () => clearInterval(tick);
         }, offset);
 
         return () => {
             clearTimeout(timeout);
+            if (tickInterval) clearInterval(tickInterval);
             if (scrambleRef.current) clearInterval(scrambleRef.current);
         };
     }, [words, interval, offset, scrambleTo]);

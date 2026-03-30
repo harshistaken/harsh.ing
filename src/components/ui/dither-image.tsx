@@ -225,6 +225,8 @@ export function DitherImage({ src, className }: DitherImageProps) {
             ref={canvasRef}
             className={className}
             style={{ touchAction: "none" }}
+            role="img"
+            aria-label="Interactive dithered avatar"
         />
     );
 }

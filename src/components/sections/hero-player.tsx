@@ -106,9 +106,14 @@ function AudioPlayer() {
             audio.currentTime = Math.min(audio.currentTime + step, effectiveDuration);
         } else if (e.key === "ArrowLeft") {
             audio.currentTime = Math.max(audio.currentTime - step, 0);
+        } else if (e.key === "Home") {
+            audio.currentTime = 0;
+        } else if (e.key === "End") {
+            audio.currentTime = effectiveDuration;
         } else {
             return;
         }
+        e.preventDefault();
         setCurrentTime(audio.currentTime);
     }
 
@@ -137,7 +142,7 @@ function AudioPlayer() {
                 aria-valuemax={effectiveDuration}
                 aria-valuenow={Math.round(currentTime)}
                 aria-valuetext={formatTime(currentTime)}
-                className="min-w-0 flex-1 cursor-pointer select-none overflow-hidden whitespace-nowrap font-jetbrains text-[14px] leading-none min-[560px]:max-w-[240px] outline-none focus-visible:text-accent-primary"
+                className="min-w-0 flex-1 cursor-pointer select-none overflow-hidden whitespace-nowrap font-jetbrains text-[14px] leading-none min-[560px]:max-w-[240px] outline-none focus-visible:ring-1 focus-visible:ring-accent-primary"
             >
                 <span className="text-text-secondary">{"█".repeat(filled)}</span>
                 <span className="text-text-tertiary">{"░".repeat(blockCount - filled)}</span>

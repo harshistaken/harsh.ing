@@ -17,7 +17,7 @@ export function Navbar() {
     return (
         <nav className="sticky top-0 z-50 w-full backdrop-blur-lg backdrop-saturate-180">
             <div className="mx-auto flex max-w-2xl items-center justify-between px-6 py-2">
-                <Link href="/" className="group">
+                <Link href="/" className="group outline-none focus-visible:text-accent-primary">
                     <span className={cn("font-micro text-[40px] leading-none transition-colors duration-200", isHome ? "text-accent-primary" : "text-text-primary group-hover:text-accent-primary")}>
                         <span className="hidden min-[360px]:inline">HARSH</span>
                         <span className="inline min-[360px]:hidden">H</span>
@@ -41,7 +41,7 @@ export function Navbar() {
                                 key={link.href}
                                 href={link.href}
                                 className={cn(
-                                    "font-jetbrains text-[14px] font-medium uppercase leading-none transition-colors duration-200",
+                                    "font-jetbrains text-[14px] font-medium uppercase leading-none outline-none transition-colors duration-200 focus-visible:text-accent-primary",
                                     isActive ? "text-accent-primary" : "text-text-secondary hover:text-text-primary",
                                 )}
                             >
