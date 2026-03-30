@@ -3,10 +3,11 @@ import { HeroPlayer } from "@/components/sections/hero-player";
 import { HeroIntro } from "@/components/sections/hero-intro";
 import { HeroManifesto } from "@/components/sections/hero-manifesto";
 import { Experience } from "@/components/sections/experience";
+import { Projects } from "@/components/sections/projects";
 
 export default function Home() {
     return (
-        <main className="mx-auto flex w-full max-w-2xl flex-col px-6 pt-12">
+        <main className="mx-auto flex w-full max-w-2xl flex-col px-6 pt-12 pb-24">
             <HeroIntro />
             <div className="mt-12 flex flex-col gap-4">
                 <HeroPlayer />
@@ -16,6 +17,7 @@ export default function Home() {
                 <HeroManifesto />
             </div>
             <Experience />
+            <Projects />
         </main>
     );
 }

@@ -30,7 +30,7 @@ export function Navbar() {
 
                         if (!link.enabled) {
                             return (
-                                <span key={link.href} className="cursor-default font-jetbrains text-[14px] font-medium uppercase leading-none text-text-muted">
+                                <span key={link.href} className="cursor-default font-jetbrains text-[12px] font-medium uppercase leading-none text-text-muted">
                                     {link.label}
                                 </span>
                             );
@@ -41,7 +41,7 @@ export function Navbar() {
                                 key={link.href}
                                 href={link.href}
                                 className={cn(
-                                    "font-jetbrains text-[14px] font-medium uppercase leading-none outline-none transition-colors duration-200 focus-visible:text-accent-primary",
+                                    "font-jetbrains text-[12px] font-medium uppercase leading-none outline-none transition-colors duration-200 focus-visible:text-accent-primary",
                                     isActive ? "text-accent-primary" : "text-text-secondary hover:text-text-primary",
                                 )}
                             >

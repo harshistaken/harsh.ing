@@ -7,55 +7,80 @@ import { experience, formatDate, type ExperienceEntry } from "@/content/experien
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const BAR_CONFIG: Record<string, { color: string; label: string }> = {
-    "Hammurabi AI": { color: "bg-accent-primary", label: "FULLTIME" },
-    "Kleenestar LTD": { color: "bg-text-muted/40", label: "CONTRACT" },
-    "Freelance (Upwork)": { color: "bg-text-muted/40", label: "FREELANCE" },
+const BAR_CONFIG: Record<string, { color: string; hoverColor: string; label: string }> = {
+    "Hammurabi AI": { color: "bg-accent-primary", hoverColor: "group-hover:bg-accent-primary-hover", label: "FULLTIME" },
+    "Kleenestar LTD": { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "CONTRACT" },
+    "Freelance (Upwork)": { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "FREELANCE" },
 };
 
 /* ─── Year label ─── */
-function YearTick({ text }: { text: string }) {
+function YearTick({ text, delay = 0 }: { text: string; delay?: number }) {
     return (
-        <div className="flex w-full items-center gap-1">
+        <motion.div
+            className="flex w-full items-center gap-1"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.4, delay, ease }}
+        >
             <span className="shrink-0 font-jetbrains text-[8px] leading-none text-text-muted">
                 {text}
             </span>
-            <div className="h-px flex-1 bg-border-subtle" />
-        </div>
+            <motion.div
+                className="h-px flex-1 bg-border-subtle"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.5, delay: delay + 0.1, ease }}
+                style={{ transformOrigin: "left" }}
+            />
+        </motion.div>
     );
 }
 
 /* ─── Sidebar Bar with year markers ─── */
 function SideBar({
     color,
+    hoverColor,
     label,
     active,
     startDate,
     endDate,
+    index,
 }: {
     color: string;
+    hoverColor: string;
     label: string;
     active?: boolean;
     startDate: { month: number; year: number };
     endDate?: { month: number; year: number };
+    index: number;
 }) {
     const endLabel = active ? "NOW" : `${endDate?.year ?? ""}`;
     const startLabel = `${startDate.year}`;
+    const barDelay = index * 0.1;
 
     return (
         <div className="hidden w-12 shrink-0 min-[560px]:flex min-[560px]:flex-col min-[560px]:items-end min-[560px]:gap-0">
-            {/* End date tick (top) — for active, this is "NOW" */}
-            <YearTick text={endLabel} />
+            {/* End date tick (top) */}
+            <YearTick text={endLabel} delay={barDelay} />
 
-            {/* The bar itself */}
-            <div className={`relative w-7 flex-1 self-end ${color}`}>
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[7px] font-semibold uppercase tracking-[0.15em] text-text-primary/50">
+            {/* The bar itself — grows from bottom */}
+            <motion.div
+                className={`relative w-7 flex-1 self-end ${color} ${hoverColor} motion-safe:transition-colors motion-safe:duration-300`}
+                initial={{ scaleY: 0 }}
+                whileInView={{ scaleY: 1 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.6, delay: barDelay + 0.15, ease }}
+                style={{ transformOrigin: "bottom" }}
+            >
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[7px] font-semibold uppercase tracking-[0.15em] text-text-primary/40 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-text-primary/70">
                     {label}
                 </span>
-            </div>
+            </motion.div>
 
             {/* Start date tick (bottom) */}
-            <YearTick text={startLabel} />
+            <YearTick text={startLabel} delay={barDelay + 0.3} />
         </div>
     );
 }
@@ -69,11 +94,10 @@ function WorkCard({ entry, index }: { entry: ExperienceEntry; index: number }) {
     return (
         <motion.div
             ref={ref}
-            className="min-w-0 flex-1 border border-border-default bg-bg-secondary p-5"
+            className="min-w-0 flex-1 border border-border-default bg-bg-secondary p-5 motion-safe:transition-[border-color] motion-safe:duration-200 group-hover:border-border-strong"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: index * 0.1, ease }}
-            whileHover={{ borderColor: "var(--accent-primary)", transition: { duration: 0.2 } }}
         >
             {/* Row 1: Logo + Company name | Date */}
             <div className="flex items-center justify-between">
@@ -156,6 +180,87 @@ function MilestoneMarker({ entry, index }: { entry: ExperienceEntry; index: numb
     );
 }
 
+/* ─── Education Row (own inView ref so animation triggers reliably) ─── */
+function EducationRow({
+    milestones,
+    eduStart,
+    eduEnd,
+    eduIndex,
+    workCount,
+}: {
+    milestones: ExperienceEntry[];
+    eduStart: { month: number; year: number };
+    eduEnd: { month: number; year: number };
+    eduIndex: number;
+    workCount: number;
+}) {
+    const ref = useRef<HTMLDivElement>(null);
+    const inView = useInView(ref, { once: true, margin: "-30px" });
+    const barDelay = eduIndex * 0.1;
+
+    return (
+        <div ref={ref} className="group flex gap-3">
+            <div className="hidden w-12 shrink-0 min-[560px]:flex min-[560px]:flex-col min-[560px]:items-end min-[560px]:gap-0">
+                <motion.div
+                    className="flex w-full items-center gap-1"
+                    initial={{ opacity: 0 }}
+                    animate={inView ? { opacity: 1 } : {}}
+                    transition={{ duration: 0.4, delay: barDelay, ease }}
+                >
+                    <span className="shrink-0 font-jetbrains text-[8px] leading-none text-text-muted">
+                        {eduEnd.year}
+                    </span>
+                    <motion.div
+                        className="h-px flex-1 bg-border-subtle"
+                        initial={{ scaleX: 0 }}
+                        animate={inView ? { scaleX: 1 } : {}}
+                        transition={{ duration: 0.5, delay: barDelay + 0.1, ease }}
+                        style={{ transformOrigin: "left" }}
+                    />
+                </motion.div>
+
+                <motion.div
+                    className="relative w-7 flex-1 self-end bg-accent-tertiary motion-safe:transition-[filter] motion-safe:duration-300 group-hover:brightness-110"
+                    style={{
+                        transformOrigin: "bottom",
+                        backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.10) 2px, rgba(0,0,0,0.10) 4px)",
+                    }}
+                    initial={{ scaleY: 0 }}
+                    animate={inView ? { scaleY: 1 } : {}}
+                    transition={{ duration: 0.6, delay: barDelay + 0.15, ease }}
+                >
+                    <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[7px] font-semibold uppercase tracking-[0.15em] text-text-primary/40 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-text-primary/70">
+                        EDUCATION
+                    </span>
+                </motion.div>
+
+                <motion.div
+                    className="flex w-full items-center gap-1"
+                    initial={{ opacity: 0 }}
+                    animate={inView ? { opacity: 1 } : {}}
+                    transition={{ duration: 0.4, delay: barDelay + 0.3, ease }}
+                >
+                    <span className="shrink-0 font-jetbrains text-[8px] leading-none text-text-muted">
+                        {eduStart.year}
+                    </span>
+                    <motion.div
+                        className="h-px flex-1 bg-border-subtle"
+                        initial={{ scaleX: 0 }}
+                        animate={inView ? { scaleX: 1 } : {}}
+                        transition={{ duration: 0.5, delay: barDelay + 0.4, ease }}
+                        style={{ transformOrigin: "left" }}
+                    />
+                </motion.div>
+            </div>
+            <div className="flex flex-1 flex-col gap-1 py-2">
+                {milestones.map((entry, i) => (
+                    <MilestoneMarker key={entry.company} entry={entry} index={workCount + i} />
+                ))}
+            </div>
+        </div>
+    );
+}
+
 /* ─── Experience Section ─── */
 export function Experience() {
     const workEntries = experience.filter((e) => e.type === "work");
@@ -170,22 +275,26 @@ export function Experience() {
         }, milestones[0].endDate ?? milestones[0].startDate)
         : { month: 1, year: 2024 };
 
+    const eduIndex = workEntries.length;
+
     return (
         <section className="mt-24">
             <h2 className="font-micro text-[40px] leading-none text-text-primary">EXPERIENCE</h2>
 
             <div className="mt-10 flex flex-col gap-3">
-                {/* Work entries — each with sidebar bar + year ticks */}
+                {/* Work entries — each row is a group for hover interaction */}
                 {workEntries.map((entry, i) => {
-                    const config = BAR_CONFIG[entry.company] ?? { color: "bg-text-muted/40", label: "" };
+                    const config = BAR_CONFIG[entry.company] ?? { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "" };
                     return (
-                        <div key={entry.company} className="flex gap-3">
+                        <div key={entry.company} className="group flex gap-3">
                             <SideBar
                                 color={config.color}
+                                hoverColor={config.hoverColor}
                                 label={config.label}
                                 active={entry.active}
                                 startDate={entry.startDate}
                                 endDate={entry.endDate}
+                                index={i}
                             />
                             <WorkCard entry={entry} index={i} />
                         </div>
@@ -193,27 +302,7 @@ export function Experience() {
                 })}
 
                 {/* Education milestones — with green sidebar + year ticks */}
-                <div className="flex gap-3">
-                    <div className="hidden w-12 shrink-0 min-[560px]:flex min-[560px]:flex-col min-[560px]:items-end min-[560px]:gap-0">
-                        <YearTick text={`${eduEnd.year}`} />
-                        <div
-                            className="relative w-7 flex-1 self-end bg-accent-tertiary"
-                            style={{
-                                backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.10) 2px, rgba(0,0,0,0.10) 4px)",
-                            }}
-                        >
-                            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[7px] font-semibold uppercase tracking-[0.15em] text-text-primary/50">
-                                EDUCATION
-                            </span>
-                        </div>
-                        <YearTick text={`${eduStart.year}`} />
-                    </div>
-                    <div className="flex flex-1 flex-col gap-1 py-2">
-                        {milestones.map((entry, i) => (
-                            <MilestoneMarker key={entry.company} entry={entry} index={workEntries.length + i} />
-                        ))}
-                    </div>
-                </div>
+                <EducationRow milestones={milestones} eduStart={eduStart} eduEnd={eduEnd} eduIndex={eduIndex} workCount={workEntries.length} />
             </div>
         </section>
     );
