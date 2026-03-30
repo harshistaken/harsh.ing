@@ -2,6 +2,7 @@ import { HeroBanner } from "@/components/sections/hero-banner";
 import { HeroPlayer } from "@/components/sections/hero-player";
 import { HeroIntro } from "@/components/sections/hero-intro";
 import { HeroManifesto } from "@/components/sections/hero-manifesto";
+import { Experience } from "@/components/sections/experience";
 
 export default function Home() {
     return (
@@ -14,6 +15,7 @@ export default function Home() {
             <div className="mt-8">
                 <HeroManifesto />
             </div>
+            <Experience />
         </main>
     );
 }

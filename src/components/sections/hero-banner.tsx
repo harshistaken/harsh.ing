@@ -85,7 +85,7 @@ export function HeroBanner() {
                         aria-label={`Banner variant ${i + 1}`}
                         className={cn(
                             "flex h-5 w-6 items-center justify-center font-jetbrains text-[10px] font-semibold leading-none motion-safe:transition-colors motion-safe:duration-700 motion-safe:ease-in-out",
-                            active === i ? "text-accent-tertiary" : revealed ? "text-white/80 hover:text-accent-tertiary" : "text-accent-primary hover:text-accent-tertiary",
+                            active === i ? "text-accent-tertiary" : revealed ? "text-text-primary/80 hover:text-accent-tertiary" : "text-accent-primary hover:text-accent-tertiary",
                         )}
                     >
                         [{i + 1}]

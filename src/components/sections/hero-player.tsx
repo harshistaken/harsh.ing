@@ -31,7 +31,7 @@ function AudioPlayer() {
             if (audio.currentTime >= effectiveDuration) {
                 audio.currentTime = 0;
             }
-            audio.volume = 0.6;
+            audio.volume = 0.3;
             audio.play().catch(() => {});
             setPlaying(true);
         }
@@ -117,7 +117,7 @@ function AudioPlayer() {
 
     return (
         <div className="flex min-w-0 flex-1 items-center gap-3">
-            <audio ref={audioRef} src="/audios/song.m4a" preload="none" />
+            <audio ref={audioRef} src="/audios/rain.mp3" preload="none" />
 
             <button
                 onClick={toggle}

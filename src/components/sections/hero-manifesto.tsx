@@ -81,8 +81,8 @@ export function HeroManifesto() {
 
     return (
         <p className="font-fragment text-[14px] leading-[1.7] tracking-normal text-text-secondary">
-            i care about the things most people skip. the <span className="text-accent-primary">{slot1}</span>, the <span className="text-accent-primary">{slot2}</span>, the parts of a codebase nobody
-            wants to touch. i&apos;m currently <span className="text-accent-primary">{slot3}</span> my way through building things that matter.
+            I care about the things most people skip. the <span className="text-accent-primary">{slot1}</span>, the <span className="text-accent-primary">{slot2}</span>, the parts of a codebase nobody
+            wants to touch. I&apos;m currently <span className="text-accent-primary">{slot3}</span> my way through building things that matter.
         </p>
     );
 }
