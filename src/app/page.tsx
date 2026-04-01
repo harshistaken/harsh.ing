@@ -7,6 +7,7 @@ import { GitHubGraph } from "@/components/sections/github-graph";
 import { Projects } from "@/components/sections/projects";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Services } from "@/components/sections/services";
+import { Connections } from "@/components/sections/connections";
 
 export default function Home() {
     return (
@@ -24,6 +25,7 @@ export default function Home() {
             <Projects />
             <Testimonials />
             <Services />
+            <Connections />
         </main>
     );
 }
