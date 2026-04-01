@@ -7,6 +7,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { GithubIcon, ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
 import { projects, type Project } from "@/content/projects";
+import { ProjectThumbnail } from "@/components/ui/project-thumbnail";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -39,14 +40,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             {/* Dot-grid overlay */}
             <div className="dot-grid-overlay pointer-events-none absolute inset-0 z-10 transition-opacity duration-300" aria-hidden="true" />
 
-            {/* Image area */}
+            {/* Thumbnail area */}
             <div className="relative aspect-16/10 w-full bg-bg-tertiary">
                 {project.image ? (
                     <Image src={project.image} alt={`${project.title} screenshot`} fill className="object-cover" />
                 ) : (
-                    <div className="flex h-full items-center justify-center">
-                        <span className="font-jetbrains text-[10px] uppercase tracking-widest text-text-muted">{project.title}</span>
-                    </div>
+                    <ProjectThumbnail slug={project.slug} />
                 )}
             </div>
 
