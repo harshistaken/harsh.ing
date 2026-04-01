@@ -45,9 +45,10 @@ export function DitherImage({ src, className }: DitherImageProps) {
     const { resolvedTheme } = useTheme();
 
     // Dark theme: light dots on dark bg. Light theme: dark dots on light bg.
-    const dotColor = resolvedTheme === "light"
-        ? { r: 20, g: 20, b: 19 }    // near --text-primary
-        : { r: 250, g: 249, b: 245 }; // near --text-primary (#FAF9F5)
+    const dotColorRef = useRef({ r: 250, g: 249, b: 245 });
+    dotColorRef.current = resolvedTheme === "light"
+        ? { r: 20, g: 20, b: 19 }
+        : { r: 250, g: 249, b: 245 };
 
     const startLoop = useCallback(() => {
         if (runningRef.current) return;
@@ -75,7 +76,7 @@ export function DitherImage({ src, className }: DitherImageProps) {
                 performance.now()
             );
 
-            renderDots(ctx, sys, CONFIG.invert, rect.width, rect.height, dpr, dotColor);
+            renderDots(ctx, sys, CONFIG.invert, rect.width, rect.height, dpr, dotColorRef.current);
 
             if (needsMore) {
                 animFrameRef.current = requestAnimationFrame(tick);
@@ -153,7 +154,7 @@ export function DitherImage({ src, className }: DitherImageProps) {
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
             const sys = systemRef.current;
-            if (sys) renderDots(ctx, sys, CONFIG.invert, rect.width, rect.height, dpr, dotColor);
+            if (sys) renderDots(ctx, sys, CONFIG.invert, rect.width, rect.height, dpr, dotColorRef.current);
 
             const w = Math.round(rect.width);
             const h = Math.round(rect.height);
@@ -219,6 +220,18 @@ export function DitherImage({ src, className }: DitherImageProps) {
             canvas.removeEventListener("pointerup", handlePointerUp);
         };
     }, [startLoop, rebuildParticles, src]);
+
+    /* Re-render dots when theme changes */
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const sys = systemRef.current;
+        if (!canvas || !sys) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+        const rect = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        renderDots(ctx, sys, CONFIG.invert, rect.width, rect.height, dpr, dotColorRef.current);
+    }, [resolvedTheme]);
 
     return (
         <canvas

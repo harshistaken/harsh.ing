@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { GithubIcon, Linkedin01Icon, NewTwitterIcon, Mail01Icon, Sun03Icon, Moon02Icon } from "@hugeicons/core-free-icons";
 import { FooterRunner } from "@/components/sections/footer-runner";
@@ -14,7 +14,9 @@ const socials = [
 
 function ThemeToggle() {
     const { resolvedTheme, setTheme } = useTheme();
-    const [mounted] = useState(() => typeof window !== "undefined");
+    const [mounted, setMounted] = useState(false);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    useEffect(() => setMounted(true), []);
 
     if (!mounted) return <div className="h-8 w-8" />;
 
