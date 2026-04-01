@@ -8,10 +8,11 @@ import { Projects } from "@/components/sections/projects";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Services } from "@/components/sections/services";
 import { Connections } from "@/components/sections/connections";
+import { Footer } from "@/components/layout/footer";
 
 export default function Home() {
     return (
-        <main className="mx-auto flex w-full max-w-2xl flex-col px-6 pt-12 pb-24">
+        <main className="mx-auto flex w-full max-w-2xl flex-col px-6 pt-12 pb-0">
             <HeroIntro />
             <div className="mt-12 flex flex-col gap-4">
                 <HeroPlayer />
@@ -26,6 +27,7 @@ export default function Home() {
             <Testimonials />
             <Services />
             <Connections />
+            <Footer />
         </main>
     );
 }
