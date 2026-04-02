@@ -1,6 +1,9 @@
 export default function Blogs() {
     return (
-        <main className="mx-auto  w-full max-w-5xl px-6">
+        <main className="flex min-h-[calc(100vh-56px)] items-center justify-center px-6">
+            <h1 className="font-jetbrains text-sm font-medium uppercase tracking-widest text-text-secondary">
+                COMING SOON
+            </h1>
         </main>
     );
 }

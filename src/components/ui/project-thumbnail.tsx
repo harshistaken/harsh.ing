@@ -11,7 +11,7 @@ function UdfViewerThumb() {
         <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-bg-tertiary">
             {/* Radial grid lines */}
             <svg
-                className="absolute inset-0 h-full w-full opacity-20 transition-opacity duration-300 group-hover:opacity-35"
+                className="absolute inset-0 h-full w-full opacity-35 transition-opacity duration-300 group-hover:opacity-50"
                 viewBox="0 0 400 250"
                 preserveAspectRatio="xMidYMid slice"
             >
@@ -69,29 +69,29 @@ function AuxyThumb() {
                 <pattern id="auxy-dots" width="16" height="16" patternUnits="userSpaceOnUse">
                     <circle cx="8" cy="8" r="0.5" fill="var(--text-muted)" />
                 </pattern>
-                <rect width="400" height="250" fill="url(#auxy-dots)" opacity="0.4" />
+                <rect width="400" height="250" fill="url(#auxy-dots)" opacity="0.6" />
 
                 {/* Stacked feed cards */}
                 {cards.map((card, i) => (
                     <g key={i} opacity={card.opacity}>
                         <rect x={card.x} y={card.y} width={card.w} height={card.h} rx="3" fill="var(--bg-secondary)" stroke="var(--border-strong)" strokeWidth="0.75" />
                         {/* Avatar circle */}
-                        <circle cx={card.x + 14} cy={card.y + 14} r="5" fill="var(--accent-primary)" fillOpacity="0.2" stroke="var(--accent-primary)" strokeWidth="0.5" />
+                        <circle cx={card.x + 14} cy={card.y + 14} r="5" fill="var(--accent-primary)" fillOpacity="0.35" stroke="var(--accent-primary)" strokeWidth="0.5" />
                         {/* Text lines */}
                         <rect x={card.x + 24} y={card.y + 10} width="40" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.5" />
-                        <rect x={card.x + 24} y={card.y + 16} width="28" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.3" />
+                        <rect x={card.x + 24} y={card.y + 16} width="28" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.5" />
                         {/* Content block */}
                         <rect x={card.x + 10} y={card.y + 28} width={card.w - 20} height="30" rx="2" fill="var(--bg-tertiary)" />
                     </g>
                 ))}
 
                 {/* Connection lines between cards */}
-                <line x1="180" y1="127" x2="200" y2="147" stroke="var(--accent-primary)" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.3" />
-                <line x1="260" y1="111" x2="220" y2="131" stroke="var(--accent-primary)" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.3" />
+                <line x1="180" y1="127" x2="200" y2="147" stroke="var(--accent-primary)" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.5" />
+                <line x1="260" y1="111" x2="220" y2="131" stroke="var(--accent-primary)" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.5" />
             </svg>
             {/* Center brand */}
             <div className="relative z-10 flex flex-col items-center gap-1">
-                <span className="font-jetbrains text-xs font-semibold tracking-[0.3em] text-text-primary opacity-60">AUXY</span>
+                <span className="font-jetbrains text-xs font-semibold tracking-[0.3em] text-text-primary opacity-80">AUXY</span>
             </div>
         </div>
     );
@@ -108,16 +108,16 @@ function OpalThumb() {
             >
                 {/* Wireframe: nav bar */}
                 <rect x="60" y="35" width="280" height="16" rx="2" fill="none" stroke="var(--border-strong)" strokeWidth="0.75" />
-                <rect x="65" y="40" width="30" height="6" rx="1" fill="var(--accent-primary)" fillOpacity="0.3" />
-                <rect x="280" y="40" width="16" height="6" rx="1" fill="var(--text-muted)" fillOpacity="0.3" />
-                <rect x="300" y="40" width="16" height="6" rx="1" fill="var(--text-muted)" fillOpacity="0.3" />
-                <rect x="320" y="40" width="16" height="6" rx="1" fill="var(--text-muted)" fillOpacity="0.3" />
+                <rect x="65" y="40" width="30" height="6" rx="1" fill="var(--accent-primary)" fillOpacity="0.5" />
+                <rect x="280" y="40" width="16" height="6" rx="1" fill="var(--text-muted)" fillOpacity="0.5" />
+                <rect x="300" y="40" width="16" height="6" rx="1" fill="var(--text-muted)" fillOpacity="0.5" />
+                <rect x="320" y="40" width="16" height="6" rx="1" fill="var(--text-muted)" fillOpacity="0.5" />
 
                 {/* Hero block */}
                 <rect x="60" y="58" width="280" height="70" rx="2" fill="none" stroke="var(--border-strong)" strokeWidth="0.75" />
-                <rect x="80" y="75" width="100" height="5" rx="1" fill="var(--text-muted)" fillOpacity="0.4" />
-                <rect x="80" y="84" width="70" height="3" rx="1" fill="var(--text-muted)" fillOpacity="0.2" />
-                <rect x="80" y="91" width="70" height="3" rx="1" fill="var(--text-muted)" fillOpacity="0.2" />
+                <rect x="80" y="75" width="100" height="5" rx="1" fill="var(--text-muted)" fillOpacity="0.6" />
+                <rect x="80" y="84" width="70" height="3" rx="1" fill="var(--text-muted)" fillOpacity="0.35" />
+                <rect x="80" y="91" width="70" height="3" rx="1" fill="var(--text-muted)" fillOpacity="0.35" />
                 <rect x="80" y="103" width="45" height="10" rx="2" fill="var(--accent-primary)" fillOpacity="0.15" stroke="var(--accent-primary)" strokeWidth="0.5" />
                 {/* Hero image placeholder */}
                 <rect x="260" y="68" width="65" height="50" rx="2" fill="var(--bg-secondary)" stroke="var(--border-default)" strokeWidth="0.5" />
@@ -128,10 +128,10 @@ function OpalThumb() {
                 {[0, 1, 2].map((i) => (
                     <g key={i}>
                         <rect x={60 + i * 97} y="138" width="86" height="55" rx="2" fill="none" stroke="var(--border-strong)" strokeWidth="0.75" />
-                        <rect x={68 + i * 97} y="147" width="24" height="3" rx="1" fill="var(--text-muted)" fillOpacity="0.4" />
-                        <rect x={68 + i * 97} y="154" width="60" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.2" />
-                        <rect x={68 + i * 97} y="159" width="55" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.2" />
-                        <rect x={68 + i * 97} y="164" width="45" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.2" />
+                        <rect x={68 + i * 97} y="147" width="24" height="3" rx="1" fill="var(--text-muted)" fillOpacity="0.6" />
+                        <rect x={68 + i * 97} y="154" width="60" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.35" />
+                        <rect x={68 + i * 97} y="159" width="55" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.35" />
+                        <rect x={68 + i * 97} y="164" width="45" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.35" />
                     </g>
                 ))}
 
@@ -141,7 +141,7 @@ function OpalThumb() {
 
             {/* Center brand overlay */}
             <div className="relative z-10 flex flex-col items-center gap-1">
-                <span className="font-jetbrains text-[10px] font-semibold tracking-[0.25em] text-accent-primary opacity-60">OPAL</span>
+                <span className="font-jetbrains text-[10px] font-semibold tracking-[0.25em] text-accent-primary opacity-80">OPAL</span>
             </div>
         </div>
     );
@@ -185,7 +185,7 @@ function KleenestarThumb() {
                         y2={nodes[b].y}
                         stroke="var(--accent-primary)"
                         strokeWidth="0.5"
-                        opacity="0.25"
+                        opacity="0.4"
                     />
                 ))}
 
@@ -206,13 +206,13 @@ function KleenestarThumb() {
                     const [a, b] = edges[edgeIdx];
                     const mx = (nodes[a].x + nodes[b].x) / 2;
                     const my = (nodes[a].y + nodes[b].y) / 2;
-                    return <circle key={`p-${edgeIdx}`} cx={mx} cy={my} r="1.5" fill="var(--accent-primary)" fillOpacity="0.4" />;
+                    return <circle key={`p-${edgeIdx}`} cx={mx} cy={my} r="1.5" fill="var(--accent-primary)" fillOpacity="0.6" />;
                 })}
             </svg>
 
             {/* Center brand */}
             <div className="relative z-10 flex flex-col items-center gap-1.5">
-                <span className="font-jetbrains text-[9px] font-semibold tracking-[0.2em] text-accent-primary opacity-70">KLEENE</span>
+                <span className="font-jetbrains text-[9px] font-semibold tracking-[0.2em] text-accent-primary opacity-90">KLEENE</span>
                 <div className="flex items-center gap-1">
                     <div className="h-px w-4 bg-accent-primary/30" />
                     <span className="font-fragment text-[7px] tracking-[0.3em] text-text-muted">STAR</span>

@@ -14,7 +14,7 @@ export default function Home() {
     return (
         <main className="mx-auto flex w-full max-w-2xl flex-col px-6 pt-12 pb-0">
             <HeroIntro />
-            <div className="mt-12 flex flex-col gap-4">
+            <div className="mt-16 flex flex-col gap-4 min-[560px]:mt-12">
                 <HeroPlayer />
                 <HeroBanner />
             </div>

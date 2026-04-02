@@ -273,15 +273,7 @@ export function FooterRunner() {
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        const codeSnippets = [
-            "const fn = () => {};",
-            "export default App;",
-            "npm run build",
-            "git push origin main",
-            "return <Component />;",
-            "await fetch(url);",
-            "import { useState }",
-        ];
+        const codeSnippets = ["const fn = () => {};", "export default App;", "npm run build", "git push origin main", "return <Component />;", "await fetch(url);", "import { useState }"];
         const codeStr = codeSnippets.join("    ·    ");
         let codeOff = 0;
 

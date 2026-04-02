@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { GithubIcon } from "@hugeicons/core-free-icons";
+import { useTheme } from "next-themes";
+import { GitHubDark, GitHubLight } from "@ridemountainpig/svgl-react";
 import { cn } from "@/lib/utils";
 
 /* ─── Types ─── */
@@ -92,8 +92,9 @@ function levelColor(level: number): string {
 /* ─── Component ─── */
 
 export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClientProps) {
-    const [activeYear, setActiveYear] = useState(availableYears[availableYears.length - 1]);
+    const [activeYear, setActiveYear] = useState(availableYears[0]);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const { resolvedTheme } = useTheme();
 
     const data = yearData[activeYear];
     const { cells, totalColumns, monthLabels } = useMemo(
@@ -108,9 +109,10 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
     }, [activeYear]);
 
     const gridWidth = totalColumns * COL_WIDTH - GAP;
+    const GitHubIcon = resolvedTheme === "light" ? GitHubDark : GitHubLight;
 
     return (
-        <section className="mt-24">
+        <section className="mt-28 mb-4" aria-label="GitHub contribution graph">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -119,10 +121,15 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
             >
                 {/* Header */}
                 <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 font-jetbrains text-xs uppercase tracking-wide text-text-tertiary">
-                        <HugeiconsIcon icon={GithubIcon} size={14} strokeWidth={1.5} />
-                        @HARSHISTAKEN
-                    </span>
+                    <a
+                        href="https://github.com/harshistaken"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 font-jetbrains text-xs uppercase tracking-wide text-text-tertiary transition-colors hover:text-text-secondary"
+                    >
+                        <GitHubIcon width={14} height={14} />
+                        GITHUB.COM/HARSHISTAKEN
+                    </a>
                     <div className="flex gap-2">
                         {availableYears.map((year) => (
                             <button
@@ -142,9 +149,11 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                 </div>
 
                 {/* Scrollable graph */}
+                <div className="relative mt-6">
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-bg-primary to-transparent min-[560px]:hidden" />
                 <div
                     ref={scrollRef}
-                    className="mt-6 overflow-x-auto scrollbar-hide"
+                    className="overflow-x-auto scrollbar-hide"
                 >
                     <div style={{ width: gridWidth }}>
                         {/* Month labels */}
@@ -186,6 +195,7 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                             ))}
                         </div>
                     </div>
+                </div>
                 </div>
 
                 {/* Footer */}

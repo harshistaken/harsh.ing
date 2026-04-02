@@ -91,7 +91,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             </span>
 
             {/* Quote text */}
-            <p ref={textRef} className="font-fragment text-[15px] leading-[1.65] tracking-[-0.01em] text-text-secondary">
+            <p ref={textRef} className="font-fragment text-[13px] leading-[1.65] tracking-[-0.01em] text-text-secondary">
                 {testimonial.quote}
             </p>
 

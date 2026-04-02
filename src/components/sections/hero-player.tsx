@@ -126,6 +126,7 @@ function AudioPlayer() {
 
             <button
                 onClick={toggle}
+                aria-label={playing ? "Pause rain ambience" : "Play rain ambience"}
                 className="shrink-0 font-jetbrains text-[14px] uppercase tracking-wide text-text-secondary outline-none transition-colors duration-200 hover:text-text-primary focus-visible:text-accent-primary"
             >
                 {playing ? "PAUSE" : "PLAY"}

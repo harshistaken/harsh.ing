@@ -55,7 +55,7 @@ export function HeroBanner() {
             }}
             onClick={handleBannerTap}
         >
-            <Image src={VARIANTS[active].color} alt="" width={540} height={230} unoptimized priority className="block h-full w-full object-cover" />
+            <Image src={VARIANTS[active].color} alt="" width={540} height={230} unoptimized loading="lazy" className="block h-full w-full object-cover" />
 
             <Image
                 src={VARIANTS[active].gray}

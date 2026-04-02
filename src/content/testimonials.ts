@@ -6,23 +6,28 @@ export interface Testimonial {
 
 export const testimonials: Testimonial[] = [
     {
-        name: "Alex Chen",
-        role: "CEO, TechStartup",
-        quote: "We needed someone who could take a vague product brief and turn it into a working application. Harsh did exactly that, ahead of schedule, and the code quality was solid enough to build on.",
+        name: "Seymen Ozcelik",
+        role: "Co-founder, Hammurabi AI",
+        quote: "Harsh doesn't need to be told what to do. He sees the problem, thinks it through, and ships it. We never had to micromanage him once.",
     },
     {
-        name: "Sarah Mitchell",
-        role: "Product Manager, SaaSCo",
-        quote: "Most developers need hand-holding through the design phase. Harsh came with wireframes ready before our second call. His frontend work is pixel-perfect and his communication is clear.",
+        name: "Murat Can Korkmaz",
+        role: "Co-founder, Hammurabi AI",
+        quote: "He picked up our entire frontend alone and ran with it. Deadlines were always met, communication was always clear. Exactly the kind of person you want on your team.",
     },
     {
-        name: "David Park",
-        role: "CTO, DataFlow",
-        quote: "Harsh handled our entire frontend rewrite while we focused on the backend migration. Zero handholding required. He flagged issues before they became problems and shipped clean code consistently.",
+        name: "Prabal",
+        role: "Owner, Qognition Agency",
+        quote: "Gave him the brief, got back a finished product. No back and forth, no missed deadlines. Just solid work delivered on time.",
     },
     {
-        name: "Priya Sharma",
-        role: "Founder, DesignLab",
-        quote: "Working with Harsh felt like having a technical co-founder for three months. He understood the product vision and made smart technical decisions without needing approval for every detail.",
+        name: "Carl Dimik",
+        role: "Founder, Kleenestar",
+        quote: "Harsh handled both the design and the code. He brought ideas to the table without being asked and the final product was better because of it.",
+    },
+    {
+        name: "Manish",
+        role: "Backend Engineer, Hammurabi AI",
+        quote: "Really easy to work with. He gets context fast, doesn't block you with questions, and always delivers what he says he will. Good teammate.",
     },
 ];

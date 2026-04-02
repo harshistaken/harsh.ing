@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
+import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { GithubIcon, ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
@@ -110,7 +111,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                         </a>
                     )}
                     {!project.liveUrl && !project.repoUrl && (
-                        <span className="font-jetbrains text-[10px] uppercase tracking-wider text-text-muted">{project.source === "closed" ? "NDA" : "COMING SOON"}</span>
+                        <span className="font-jetbrains text-[10px] uppercase tracking-wider text-text-muted">
+                            {project.status === "in-dev" ? "COMING SOON" : project.source === "closed" ? "NDA" : "COMING SOON"}
+                        </span>
                     )}
                 </div>
             </div>
@@ -122,7 +125,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function Projects() {
     return (
-        <section className="mt-24">
+        <section className="mt-24" aria-label="Projects">
             <motion.h2
                 className="font-micro text-[40px] leading-none text-text-primary"
                 initial={{ opacity: 0, y: 20 }}
@@ -137,6 +140,16 @@ export function Projects() {
                 {projects.map((project, i) => (
                     <ProjectCard key={project.slug} project={project} index={i} />
                 ))}
+            </div>
+
+            <div className="mt-4 flex justify-end">
+                <Link
+                    href="/work"
+                    className="flex items-center gap-1 font-jetbrains text-[11px] uppercase tracking-wider text-text-tertiary transition-colors hover:text-text-primary"
+                >
+                    SEE ALL WORK
+                    <HugeiconsIcon icon={ArrowUpRight01Icon} size={12} />
+                </Link>
             </div>
         </section>
     );
