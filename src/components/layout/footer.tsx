@@ -1,15 +1,18 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentType, type SVGProps } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { GithubIcon, Linkedin01Icon, NewTwitterIcon, Mail01Icon, Sun03Icon, Moon02Icon } from "@hugeicons/core-free-icons";
+import { Mail01Icon, Sun03Icon, Moon02Icon } from "@hugeicons/core-free-icons";
+import { GitHubDark, GitHubLight, LinkedIn, XDark, XLight } from "@ridemountainpig/svgl-react";
 import { FooterRunner } from "@/components/sections/footer-runner";
 
-const socials = [
-    { icon: GithubIcon, href: "https://github.com/harshistaken", label: "GitHub" },
-    { icon: Linkedin01Icon, href: "https://linkedin.com/in/harshistaken", label: "LinkedIn" },
-    { icon: NewTwitterIcon, href: "https://x.com/justharshbtw", label: "X" },
+type SvgC = ComponentType<SVGProps<SVGSVGElement>>;
+
+const socials: { light: SvgC; dark: SvgC; href: string; label: string }[] = [
+    { light: GitHubLight, dark: GitHubDark, href: "https://github.com/harshistaken", label: "GitHub" },
+    { light: LinkedIn, dark: LinkedIn, href: "https://linkedin.com/in/harshistaken", label: "LinkedIn" },
+    { light: XLight, dark: XDark, href: "https://x.com/justharshbtw", label: "X" },
 ];
 
 function ThemeToggle() {
@@ -44,7 +47,7 @@ export function Footer() {
                 {/* GET IN TOUCH */}
                 <p className="font-jetbrains text-xs font-semibold uppercase tracking-widest text-white/80">get in touch</p>
 
-                <p className="mt-3 max-w-md font-fragment text-sm leading-relaxed text-white/60">
+                <p className="mt-3 max-w-md font-fragment text-[14px] leading-[1.7] tracking-[-0.01em] text-white/60">
                     whether you need a developer, a design partner, or someone to ship your next project, I&apos;m open to the right collaboration.
                 </p>
 
@@ -57,18 +60,21 @@ export function Footer() {
                         <HugeiconsIcon icon={Mail01Icon} size={14} />
                         Email ↗
                     </a>
-                    {socials.map((s) => (
-                        <a
-                            key={s.label}
-                            href={s.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={s.label}
-                            className="flex h-9 w-9 items-center justify-center border border-white/20 text-white/60 transition-colors duration-200 hover:bg-white/10 hover:text-white"
-                        >
-                            <HugeiconsIcon icon={s.icon} size={14} />
-                        </a>
-                    ))}
+                    {socials.map((s) => {
+                        const Icon = s.dark;
+                        return (
+                            <a
+                                key={s.label}
+                                href={s.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={s.label}
+                                className="flex h-9 w-9 items-center justify-center border border-white/20 text-white/60 transition-colors duration-200 hover:bg-white/10 hover:text-white"
+                            >
+                                <Icon width={14} height={14} />
+                            </a>
+                        );
+                    })}
                 </div>
 
                 {/* Bottom bar */}

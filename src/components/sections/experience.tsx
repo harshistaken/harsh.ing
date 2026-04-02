@@ -147,7 +147,7 @@ function WorkCard({ entry, index }: { entry: ExperienceEntry; index: number }) {
             {entry.bullets && entry.bullets.length > 0 && (
                 <ul className="mt-6 flex flex-col gap-2">
                     {entry.bullets.map((bullet, i) => (
-                        <li key={i} className="flex gap-2 font-fragment text-[11px] leading-[1.6] text-text-secondary">
+                        <li key={i} className="flex gap-2 font-fragment text-[12px] leading-[1.6] text-text-secondary">
                             <span className={`mt-1 shrink-0 ${entry.active ? "text-accent-primary" : "text-text-muted"}`}>▪</span>
                             <span>{bullet}</span>
                         </li>

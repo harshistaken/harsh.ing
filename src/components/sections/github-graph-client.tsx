@@ -191,7 +191,7 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                 {/* Footer */}
                 <div className="mt-3 flex items-center justify-between">
                     <p className="font-jetbrains text-[10px] text-text-tertiary">
-                        {data.total.toLocaleString()} contributions in{" "}
+                        {data.total.toLocaleString()} CONTRIBUTIONS IN{" "}
                         <a
                             href="https://github.com/harshistaken"
                             target="_blank"

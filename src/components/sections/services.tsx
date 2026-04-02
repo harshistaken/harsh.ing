@@ -48,7 +48,7 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
 
                 {/* Title */}
                 <span
-                    className={`font-jetbrains text-xs font-semibold tracking-[0.05em] transition-colors duration-300 min-[480px]:text-[15px] ${isOpen ? "text-text-primary" : "text-text-secondary"}`}
+                    className={`font-jetbrains text-[12px] font-semibold tracking-[0.03em] transition-colors duration-300 min-[480px]:text-[14px] ${isOpen ? "text-text-primary" : "text-text-secondary"}`}
                 >
                     {service.title}
                 </span>
@@ -76,7 +76,7 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
                             <div className="min-[480px]:pl-[72px]">
                                 {/* Description */}
                                 <motion.p
-                                    className="font-fragment text-[13px] leading-[1.65] text-text-secondary"
+                                    className="font-fragment text-[12px] leading-[1.6] text-text-secondary"
                                     initial={{ opacity: 0, y: 8 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.3, delay: 0.05, ease }}
@@ -89,7 +89,7 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
                                     {service.includes.map((item, i) => (
                                         <motion.span
                                             key={item}
-                                            className="font-fragment text-xs text-text-tertiary"
+                                            className="font-fragment text-[12px] text-text-tertiary"
                                             initial={{ opacity: 0, x: -8 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ duration: 0.25, delay: 0.1 + i * 0.04, ease }}
@@ -104,7 +104,7 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
                                     href="https://cal.com/harshistaken"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="mt-5 inline-block font-fragment text-[13px] text-accent-primary transition-colors duration-200 hover:text-accent-primary-hover"
+                                    className="mt-5 inline-block font-fragment text-[12px] text-accent-primary transition-colors duration-200 hover:text-accent-primary-hover"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.3, delay: 0.3, ease }}
@@ -153,7 +153,7 @@ export function Services() {
                 transition={{ duration: 0.5, delay: 0.3, ease }}
             >
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent-tertiary animate-[status-pulse_2s_ease-in-out_infinite]" />
-                currently accepting new projects for Q2 2026
+                CURRENTLY ACCEPTING NEW PROJECTS FOR Q2 2026
             </motion.p>
         </section>
     );

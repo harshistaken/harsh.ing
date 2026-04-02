@@ -1,26 +1,55 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, type ComponentType, type SVGProps } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTheme } from "next-themes";
+import { GitHubDark, GitHubLight, LinkedIn, XDark, XLight, CalcomDark, CalcomLight } from "@ridemountainpig/svgl-react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { GithubIcon, Linkedin01Icon, NewTwitterIcon, Mail01Icon, Calendar01Icon } from "@hugeicons/core-free-icons";
+import { Mail01Icon } from "@hugeicons/core-free-icons";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
 /* ─── Node Data ─── */
 
-const NODES = [
-    { id: "github", label: "github", href: "https://github.com/harshistaken", icon: GithubIcon, x: 15, y: 30 },
-    { id: "linkedin", label: "linkedin", href: "https://linkedin.com/in/harshistaken", icon: Linkedin01Icon, x: 42, y: 72 },
-    { id: "x", label: "x / twitter", href: "https://x.com/justharshbtw", icon: NewTwitterIcon, x: 70, y: 25 },
-    { id: "mail", label: "mail", href: "mailto:harshyadav.build@gmail.com", icon: Mail01Icon, x: 30, y: 55 },
-    { id: "cal", label: "cal.com", href: "https://cal.com/harshistaken", icon: Calendar01Icon, x: 78, y: 65 },
-] as const;
+interface NodeDef {
+    id: string;
+    label: string;
+    href: string;
+    iconLight: SvgComponent | null;
+    iconDark: SvgComponent | null;
+    hugeIcon?: typeof Mail01Icon;
+    x: number;
+    y: number;
+}
 
-/* Edges between nodes (index pairs) */
+const NODES: NodeDef[] = [
+    { id: "github", label: "github", href: "https://github.com/harshistaken", iconLight: GitHubLight, iconDark: GitHubDark, x: 15, y: 30 },
+    { id: "linkedin", label: "linkedin", href: "https://linkedin.com/in/harshistaken", iconLight: LinkedIn, iconDark: LinkedIn, x: 42, y: 72 },
+    { id: "x", label: "x / twitter", href: "https://x.com/justharshbtw", iconLight: XLight, iconDark: XDark, x: 70, y: 25 },
+    { id: "mail", label: "mail", href: "mailto:harshyadav.build@gmail.com", iconLight: null, iconDark: null, hugeIcon: Mail01Icon, x: 30, y: 55 },
+    { id: "cal", label: "cal.com", href: "https://cal.com/harshistaken", iconLight: CalcomLight, iconDark: CalcomDark, x: 78, y: 65 },
+];
+
 const EDGES: [number, number][] = [
     [0, 3], [0, 2], [1, 3], [1, 4], [2, 4], [3, 4], [0, 1],
 ];
+
+/* ─── Node Icon Renderer ─── */
+
+function NodeIcon({ node, size, className }: { node: NodeDef; size: number; className?: string }) {
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
+
+    if (node.hugeIcon) {
+        return <HugeiconsIcon icon={node.hugeIcon} size={size} className={className} />;
+    }
+
+    const Icon = isDark ? node.iconDark : node.iconLight;
+    if (!Icon) return null;
+    return <Icon width={size} height={size} className={className} />;
+}
 
 /* ─── Constellation Canvas ─── */
 
@@ -30,7 +59,6 @@ function SignalBoard() {
     const [hoveredNode, setHoveredNode] = useState<string | null>(null);
     const [hasMounted, setHasMounted] = useState(false);
     const rafRef = useRef<number>(0);
-    const mouseRef = useRef({ x: 50, y: 50 });
 
     useEffect(() => {
         setHasMounted(true);
@@ -42,7 +70,6 @@ function SignalBoard() {
         if (!rect) return;
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
-        mouseRef.current = { x, y };
 
         cancelAnimationFrame(rafRef.current);
         rafRef.current = requestAnimationFrame(() => {
@@ -50,7 +77,6 @@ function SignalBoard() {
         });
     }, []);
 
-    /* Distance from mouse to a point (in % coords) */
     const distTo = (px: number, py: number) => {
         const dx = mouse.x - px;
         const dy = mouse.y - py;
@@ -137,14 +163,14 @@ function SignalBoard() {
                             onMouseEnter={() => setHoveredNode(node.id)}
                             onMouseLeave={() => setHoveredNode(null)}
                         >
-                            <HugeiconsIcon
-                                icon={node.icon}
+                            <NodeIcon
+                                node={node}
                                 size={20}
                                 className={`transition-colors duration-300 ${isHovered ? "text-accent-primary" : "text-text-secondary"}`}
                             />
                         </a>
 
-                        {/* Label — visible on hover */}
+                        {/* Label */}
                         <div
                             className="pointer-events-none absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap font-fragment text-[10px] text-text-tertiary transition-all duration-200"
                             style={{
@@ -158,7 +184,7 @@ function SignalBoard() {
                 );
             })}
 
-            {/* Ambient particles — small dots that drift */}
+            {/* Ambient particles */}
             {hasMounted &&
                 [
                     { x: 55, y: 48 },
@@ -188,7 +214,7 @@ function SignalBoard() {
     );
 }
 
-/* ─── Mobile Layout — clean fallback ─── */
+/* ─── Mobile Layout ─── */
 
 function MobileConnections() {
     return (
@@ -204,7 +230,7 @@ function MobileConnections() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: i * 0.06, ease }}
                 >
-                    <HugeiconsIcon icon={node.icon} size={20} className="text-text-secondary" />
+                    <NodeIcon node={node} size={20} className="text-text-secondary" />
                     <span className="font-fragment text-[10px] text-text-tertiary">{node.label}</span>
                 </motion.a>
             ))}
@@ -219,33 +245,20 @@ export function Connections() {
     const inView = useInView(sectionRef, { once: true, margin: "-40px" });
 
     return (
-        <section ref={sectionRef} className="mt-24">
-            <motion.h2
-                className="font-micro text-[40px] leading-none text-text-primary"
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, ease }}
-            >
-                CONNECTIONS
-            </motion.h2>
-
-            <p className="mt-3 font-fragment text-[13px] text-text-tertiary">
-                hover the constellation. find a signal.
-            </p>
-
+        <section ref={sectionRef} className="mt-32">
             {/* Desktop: signal board */}
-            <div className="mt-6 hidden min-[480px]:block">
+            <div className="hidden min-[480px]:block">
                 <SignalBoard />
             </div>
 
             {/* Mobile: grid fallback */}
-            <div className="mt-6 block min-[480px]:hidden">
+            <div className="block min-[480px]:hidden">
                 <MobileConnections />
             </div>
 
             {/* CTA line */}
             <motion.p
-                className="mt-4 font-fragment text-sm text-text-secondary"
+                className="mt-4 font-fragment text-[12px] text-text-tertiary"
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.5, delay: 0.6, ease }}
