@@ -37,6 +37,7 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
             {/* Header row — always visible */}
             <button
                 onClick={onToggle}
+                aria-expanded={isOpen}
                 className={`flex w-full cursor-pointer items-center gap-4 py-6 pl-5 pr-2 text-left transition-opacity duration-300 min-[480px]:gap-6 min-[480px]:py-8 min-[480px]:pl-6 ${
                     hasActive && !isOpen ? "opacity-40" : "opacity-100"
                 }`}
@@ -99,18 +100,6 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
                                     ))}
                                 </div>
 
-                                {/* CTA */}
-                                <motion.a
-                                    href="https://cal.com/harshistaken"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="mt-5 inline-block font-fragment text-[12px] text-accent-primary transition-colors duration-200 hover:text-accent-primary-hover"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.3, delay: 0.3, ease }}
-                                >
-                                    get started →
-                                </motion.a>
                             </div>
                         </div>
                     </motion.div>
@@ -126,7 +115,7 @@ export function Services() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
-        <section className="mt-24">
+        <section className="mt-24" aria-label="Services">
             <motion.h2
                 className="font-micro text-[40px] leading-none text-text-primary"
                 initial={{ opacity: 0, y: 20 }}
@@ -142,6 +131,18 @@ export function Services() {
                 {services.map((s, i) => (
                     <ServiceRow key={s.number} service={s} index={i} isOpen={openIndex === i} onToggle={() => setOpenIndex(openIndex === i ? null : i)} hasActive={openIndex !== null} />
                 ))}
+            </div>
+
+            {/* CTA */}
+            <div className="mt-6 flex justify-end">
+                <a
+                    href="https://cal.com/harshistaken"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-accent-primary px-4 py-2 font-jetbrains text-[11px] uppercase tracking-wider text-accent-primary transition-colors hover:bg-accent-primary hover:text-bg-primary"
+                >
+                    BOOK A CALL
+                </a>
             </div>
 
             {/* Availability note */}

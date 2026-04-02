@@ -109,7 +109,9 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
     }, [activeYear]);
 
     const gridWidth = totalColumns * COL_WIDTH - GAP;
-    const GitHubIcon = resolvedTheme === "light" ? GitHubDark : GitHubLight;
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    const GitHubIcon = resolvedTheme === "light" ? GitHubLight : GitHubDark;
 
     return (
         <section className="mt-28 mb-4" aria-label="GitHub contribution graph">
@@ -127,7 +129,7 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 font-jetbrains text-xs uppercase tracking-wide text-text-tertiary transition-colors hover:text-text-secondary"
                     >
-                        <GitHubIcon width={14} height={14} />
+                        {mounted ? <GitHubIcon width={14} height={14} /> : <div style={{ width: 14, height: 14 }} />}
                         GITHUB.COM/HARSHISTAKEN
                     </a>
                     <div className="flex gap-2">

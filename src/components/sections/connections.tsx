@@ -1,11 +1,9 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback, type ComponentType, type SVGProps } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { GitHubDark, GitHubLight, LinkedIn, XDark, XLight, CalcomDark, CalcomLight } from "@ridemountainpig/svgl-react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Mail01Icon } from "@hugeicons/core-free-icons";
+import { GitHubDark, GitHubLight, LinkedIn, XDark, XLight, CalcomDark, CalcomLight, Gmail } from "@ridemountainpig/svgl-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -17,9 +15,8 @@ interface NodeDef {
     id: string;
     label: string;
     href: string;
-    iconLight: SvgComponent | null;
-    iconDark: SvgComponent | null;
-    hugeIcon?: typeof Mail01Icon;
+    iconLight: SvgComponent;
+    iconDark: SvgComponent;
     x: number;
     y: number;
 }
@@ -28,7 +25,7 @@ const NODES: NodeDef[] = [
     { id: "github", label: "github", href: "https://github.com/harshistaken", iconLight: GitHubLight, iconDark: GitHubDark, x: 15, y: 30 },
     { id: "linkedin", label: "linkedin", href: "https://linkedin.com/in/harshistaken", iconLight: LinkedIn, iconDark: LinkedIn, x: 42, y: 72 },
     { id: "x", label: "x / twitter", href: "https://x.com/justharshbtw", iconLight: XLight, iconDark: XDark, x: 70, y: 25 },
-    { id: "mail", label: "mail", href: "mailto:harshyadav.build@gmail.com", iconLight: null, iconDark: null, hugeIcon: Mail01Icon, x: 30, y: 55 },
+    { id: "mail", label: "gmail", href: "mailto:harshyadav.build@gmail.com", iconLight: Gmail, iconDark: Gmail, x: 30, y: 55 },
     { id: "cal", label: "cal.com", href: "https://cal.com/harshistaken", iconLight: CalcomLight, iconDark: CalcomDark, x: 78, y: 65 },
 ];
 
@@ -38,17 +35,16 @@ const EDGES: [number, number][] = [
 
 /* ─── Node Icon Renderer ─── */
 
-function NodeIcon({ node, size, className }: { node: NodeDef; size: number; className?: string }) {
+function NodeIcon({ node, size }: { node: NodeDef; size: number }) {
     const { resolvedTheme } = useTheme();
-    const isDark = resolvedTheme === "dark";
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
 
-    if (node.hugeIcon) {
-        return <HugeiconsIcon icon={node.hugeIcon} size={size} className={className} />;
-    }
+    if (!mounted) return <div style={{ width: size, height: size }} />;
 
-    const Icon = isDark ? node.iconDark : node.iconLight;
-    if (!Icon) return null;
-    return <Icon width={size} height={size} className={className} />;
+    const Icon = resolvedTheme === "dark" ? node.iconDark : node.iconLight;
+    const w = node.id === "cal" ? size * 2 : size;
+    return <Icon width={w} height={size} />;
 }
 
 /* ─── Constellation Canvas ─── */
@@ -86,7 +82,7 @@ function SignalBoard() {
     return (
         <div
             ref={containerRef}
-            className="relative h-[340px] w-full min-[480px]:h-[380px]"
+            className="relative h-[260px] w-full min-[480px]:h-[280px]"
             onMouseMove={handleMouseMove}
             onMouseLeave={() => {
                 setMouse({ x: 50, y: 50 });
@@ -110,11 +106,11 @@ function SignalBoard() {
                             y1={`${na.y}%`}
                             x2={`${nb.x}%`}
                             y2={`${nb.y}%`}
-                            stroke="var(--accent-primary)"
+                            stroke="var(--text-muted)"
                             strokeWidth="1"
                             strokeDasharray="4 6"
                             style={{
-                                opacity: 0.08 + glow * 0.25,
+                                opacity: 0.4 + glow * 0.4,
                                 transition: "opacity 0.3s ease-out",
                             }}
                         />
@@ -155,7 +151,8 @@ function SignalBoard() {
                             href={node.href}
                             target={node.id === "mail" ? undefined : "_blank"}
                             rel={node.id === "mail" ? undefined : "noopener noreferrer"}
-                            className="relative flex h-12 w-12 items-center justify-center border border-border-default bg-bg-secondary transition-all duration-300 hover:border-accent-primary min-[480px]:h-14 min-[480px]:w-14"
+                            aria-label={node.label}
+                            className={`relative flex items-center justify-center border border-border-default bg-bg-secondary transition-all duration-300 hover:border-accent-primary ${node.id === "cal" ? "h-12 w-16 min-[480px]:h-14 min-[480px]:w-20" : "h-12 w-12 min-[480px]:h-14 min-[480px]:w-14"}`}
                             style={{
                                 transform: `scale(${scale})`,
                                 transition: "transform 0.3s ease-out, border-color 0.3s ease-out",
@@ -163,11 +160,7 @@ function SignalBoard() {
                             onMouseEnter={() => setHoveredNode(node.id)}
                             onMouseLeave={() => setHoveredNode(null)}
                         >
-                            <NodeIcon
-                                node={node}
-                                size={20}
-                                className={`transition-colors duration-300 ${isHovered ? "text-accent-primary" : "text-text-secondary"}`}
-                            />
+                            <NodeIcon node={node} size={20} />
                         </a>
 
                         {/* Label */}
@@ -230,7 +223,7 @@ function MobileConnections() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: i * 0.06, ease }}
                 >
-                    <NodeIcon node={node} size={20} className="text-text-secondary" />
+                    <NodeIcon node={node} size={20} />
                     <span className="font-fragment text-[10px] text-text-tertiary">{node.label}</span>
                 </motion.a>
             ))}
@@ -241,38 +234,37 @@ function MobileConnections() {
 /* ─── Connections Section ─── */
 
 export function Connections() {
-    const sectionRef = useRef<HTMLElement>(null);
-    const inView = useInView(sectionRef, { once: true, margin: "-40px" });
-
     return (
-        <section ref={sectionRef} className="mt-32">
+        <section className="mt-24" aria-label="Get in touch">
+            <motion.h2
+                className="font-micro text-[40px] leading-none text-text-primary"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease }}
+            >
+                GET IN TOUCH
+            </motion.h2>
+
+            <motion.p
+                className="mt-4 max-w-md font-fragment text-[13px] leading-[1.7] tracking-[-0.01em] text-text-secondary"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1, ease }}
+            >
+                whether you need a developer, a design partner, or someone to ship your next project, I&apos;m open to the right collaboration.
+            </motion.p>
+
             {/* Desktop: signal board */}
-            <div className="hidden min-[480px]:block">
+            <div className="mt-8 hidden min-[480px]:block">
                 <SignalBoard />
             </div>
 
             {/* Mobile: grid fallback */}
-            <div className="block min-[480px]:hidden">
+            <div className="mt-8 block min-[480px]:hidden">
                 <MobileConnections />
             </div>
-
-            {/* CTA line */}
-            <motion.p
-                className="mt-4 font-fragment text-[12px] text-text-tertiary"
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.6, ease }}
-            >
-                say hi or book a call on{" "}
-                <a
-                    href="https://cal.com/harshistaken"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent-primary underline-offset-2 transition-colors hover:text-accent-primary-hover hover:underline"
-                >
-                    cal.com ↗
-                </a>
-            </motion.p>
         </section>
     );
 }

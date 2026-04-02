@@ -1,19 +1,9 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState, type ComponentType, type SVGProps } from "react";
+import { useEffect, useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Mail01Icon, Sun03Icon, Moon02Icon } from "@hugeicons/core-free-icons";
-import { GitHubDark, GitHubLight, LinkedIn, XDark, XLight } from "@ridemountainpig/svgl-react";
-import { FooterRunner } from "@/components/sections/footer-runner";
-
-type SvgC = ComponentType<SVGProps<SVGSVGElement>>;
-
-const socials: { light: SvgC; dark: SvgC; href: string; label: string }[] = [
-    { light: GitHubLight, dark: GitHubDark, href: "https://github.com/harshistaken", label: "GitHub" },
-    { light: LinkedIn, dark: LinkedIn, href: "https://linkedin.com/in/harshistaken", label: "LinkedIn" },
-    { light: XLight, dark: XDark, href: "https://x.com/justharshbtw", label: "X" },
-];
+import { Sun03Icon, Moon02Icon } from "@hugeicons/core-free-icons";
 
 function ThemeToggle() {
     const { resolvedTheme, setTheme } = useTheme();
@@ -28,7 +18,7 @@ function ThemeToggle() {
     return (
         <button
             onClick={() => setTheme(isDark ? "light" : "dark")}
-            className="flex h-8 w-8 cursor-pointer items-center justify-center border border-white/20 text-white/50 transition-colors duration-200 hover:text-white"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center border border-border-default bg-bg-primary text-text-secondary transition-colors duration-200 hover:text-text-primary"
             aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
         >
             <HugeiconsIcon icon={isDark ? Sun03Icon : Moon02Icon} size={14} />
@@ -38,57 +28,33 @@ function ThemeToggle() {
 
 export function Footer() {
     return (
-        <footer className="mt-24">
-            {/* Runner game */}
-            <FooterRunner />
-
-            {/* Accent block — negative margin to cancel parent px-6 */}
-            <div className="-mx-6 mt-6 bg-accent-primary px-6 pt-8 pb-6 min-[480px]:px-8 min-[480px]:pt-10">
-                {/* GET IN TOUCH */}
-                <p className="font-jetbrains text-xs font-semibold uppercase tracking-widest text-white/80">get in touch</p>
-
-                <p className="mt-3 max-w-md font-fragment text-[14px] leading-[1.7] tracking-[-0.01em] text-white/60">
-                    whether you need a developer, a design partner, or someone to ship your next project, I&apos;m open to the right collaboration.
-                </p>
-
-                {/* Contact links */}
-                <div className="mt-5 flex flex-wrap items-center gap-2">
-                    <a
-                        href="mailto:harshyadav.build@gmail.com"
-                        className="flex items-center gap-2 border border-white/30 bg-white/10 px-4 py-2 font-fragment text-xs text-white transition-colors duration-200 hover:bg-white/20"
-                    >
-                        <HugeiconsIcon icon={Mail01Icon} size={14} />
-                        Email ↗
-                    </a>
-                    {socials.map((s) => {
-                        const Icon = s.dark;
-                        return (
-                            <a
-                                key={s.label}
-                                href={s.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={s.label}
-                                className="flex h-9 w-9 items-center justify-center border border-white/20 text-white/60 transition-colors duration-200 hover:bg-white/10 hover:text-white"
-                            >
-                                <Icon width={14} height={14} />
-                            </a>
-                        );
-                    })}
-                </div>
-
-                {/* Bottom bar */}
-                <div className="mt-10 flex items-center justify-between">
-                    <span className="font-fragment text-[11px] text-white/40">© 2026 harsh. all rights reserved.</span>
+        <footer className="relative mt-24 -mx-6 bg-bg-secondary pb-0">
+            {/* Info bar */}
+            <div className="mx-auto max-w-2xl px-6">
+                <div className="flex items-center justify-between py-4">
+                    <span className="font-jetbrains text-[10px] uppercase tracking-wider text-text-muted">
+                        &copy; 2026 HARSH YADAV. ALL RIGHTS RESERVED. BUILT WITH &hearts;
+                    </span>
                     <ThemeToggle />
                 </div>
+            </div>
 
-                {/* Big HARSH text — fills container width */}
-                <div className="mt-4 overflow-hidden">
-                    <p className="w-full select-none font-micro leading-none text-bg-primary" style={{ fontSize: "min(22vw, 160px)" }}>
-                        HARSH
-                    </p>
+            {/* Giant brand text */}
+            <div className="relative overflow-hidden" style={{ height: "min(15vw, 120px)" }}>
+                <div
+                    className="select-none whitespace-nowrap text-center font-micro leading-[0.85] text-accent-primary"
+                    style={{ fontSize: "min(22vw, 180px)" }}
+                >
+                    HAARSH.ING
                 </div>
+
+                {/* Bottom fade mask */}
+                <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                        background: "linear-gradient(to bottom, transparent 20%, var(--bg-secondary) 95%)",
+                    }}
+                />
             </div>
         </footer>
     );

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { GithubIcon, ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
+import { GithubIcon, ArrowUpRight01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
 import { projects, type Project } from "@/content/projects";
 import { ProjectThumbnail } from "@/components/ui/project-thumbnail";
@@ -145,10 +145,10 @@ export function Projects() {
             <div className="mt-4 flex justify-end">
                 <Link
                     href="/work"
-                    className="flex items-center gap-1 font-jetbrains text-[11px] uppercase tracking-wider text-text-tertiary transition-colors hover:text-text-primary"
+                    className="flex items-center gap-1 border border-border-default px-3 py-1.5 font-jetbrains text-[11px] uppercase tracking-wider text-text-tertiary transition-colors hover:border-border-strong hover:text-text-primary"
                 >
                     SEE ALL WORK
-                    <HugeiconsIcon icon={ArrowUpRight01Icon} size={12} />
+                    <HugeiconsIcon icon={ArrowRight01Icon} size={12} />
                 </Link>
             </div>
         </section>
