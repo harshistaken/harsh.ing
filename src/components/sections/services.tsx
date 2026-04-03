@@ -134,8 +134,18 @@ export function Services() {
                 ))}
             </div>
 
-            {/* CTA */}
-            <div className="mt-6 flex justify-end">
+            {/* CTA + Availability */}
+            <div className="mt-6 flex flex-col-reverse items-start gap-3 min-[480px]:flex-row min-[480px]:items-center min-[480px]:justify-between">
+                <motion.p
+                    className="flex items-center gap-2 font-fragment text-[11px] text-accent-tertiary"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3, ease }}
+                >
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent-tertiary animate-[status-pulse_2s_ease-in-out_infinite]" />
+                    CURRENTLY ACCEPTING NEW PROJECTS
+                </motion.p>
                 <a
                     href={SOCIAL.cal}
                     target="_blank"
@@ -145,18 +155,6 @@ export function Services() {
                     BOOK A CALL
                 </a>
             </div>
-
-            {/* Availability note */}
-            <motion.p
-                className="mt-4 flex items-center gap-2 font-fragment text-[11px] text-accent-tertiary"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3, ease }}
-            >
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent-tertiary animate-[status-pulse_2s_ease-in-out_infinite]" />
-                CURRENTLY ACCEPTING NEW PROJECTS
-            </motion.p>
         </section>
     );
 }

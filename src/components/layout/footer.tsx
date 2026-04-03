@@ -32,23 +32,17 @@ export function Footer() {
             {/* Info bar */}
             <div className="mx-auto max-w-2xl px-6">
                 <div className="flex items-center justify-between py-4">
-                    <span className="font-jetbrains text-[10px] uppercase tracking-wider text-text-muted">
-                        &copy; 2026 HARSH YADAV. ALL RIGHTS RESERVED. BUILT WITH &hearts;
-                    </span>
+                    <span className="font-jetbrains text-[10px] uppercase tracking-wider text-text-muted">&copy; 2026 HARSH YADAV. ALL RIGHTS RESERVED. BUILT WITH &hearts;</span>
                     <ThemeToggle />
                 </div>
             </div>
 
-            {/* Giant brand text */}
-            <div className="relative overflow-hidden" style={{ height: "min(15vw, 120px)" }}>
-                <div
-                    className="select-none whitespace-nowrap text-center font-micro leading-[0.85] text-accent-primary"
-                    style={{ fontSize: "min(22vw, 180px)" }}
-                >
+            {/* Giant brand text — fills content width, centered, bottom-aligned */}
+            <div className="relative mx-auto max-w-2xl overflow-hidden px-6" style={{ containerType: "inline-size" }}>
+                <span className="block select-none leading-[0.65] text-center font-micro  text-accent-primary" style={{ fontSize: "32cqw" }} aria-hidden="true">
                     HARSH.ING
-                </div>
+                </span>
 
-                {/* Bottom fade mask */}
                 <div
                     className="pointer-events-none absolute inset-0"
                     style={{

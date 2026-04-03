@@ -43,3 +43,9 @@ next-env.d.ts
 # editor config
 CLAUDE.md
 .claude/
+.vscode/
+.idea/
+
+# claude code artifacts
+skills-lock.json
+.mcp.json

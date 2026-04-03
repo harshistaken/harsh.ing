@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { fragmentMono, jetbrainsMono, micro5, nerdFont } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
@@ -66,6 +67,7 @@ export default function RootLayout({
                     <div id="main" className="flex-1">{children}</div>
                 </ThemeProvider>
                 <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     );

@@ -1,22 +1,13 @@
-# harsh.ing
+<div align="center">
+  <a href="https://harsh.ing">
+    <img src="public/og-image.png" alt="harsh.ing" width="720" />
+  </a>
+</div>
 
-Personal portfolio and developer site.
+## Overview
 
-## Stack
-
-- Next.js 16 (App Router)
-- TypeScript
-- Tailwind CSS v4
-- Framer Motion
-- Vercel
-
-## Development
-
-```bash
-npm install
-npm run dev
-```
+This is my corner of the internet. It's where I put my work, the things I care about, what I'm currently building, and how to reach me. There are some interactive bits hidden around the site. Hope you find them :)
 
 ## License
 
-MIT
+[MIT](LICENSE)
