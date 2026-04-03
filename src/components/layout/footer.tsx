@@ -45,7 +45,7 @@ export function Footer() {
                     className="select-none whitespace-nowrap text-center font-micro leading-[0.85] text-accent-primary"
                     style={{ fontSize: "min(22vw, 180px)" }}
                 >
-                    HAARSH.ING
+                    HARSH.ING
                 </div>
 
                 {/* Bottom fade mask */}
