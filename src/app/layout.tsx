@@ -9,7 +9,7 @@ import "./globals.css";
 export const metadata: Metadata = {
     title: "Harsh Yadav",
     description: "Full-stack developer building web apps, real-time systems, and AI-powered products. Next.js, React, TypeScript, and Node.js. Available for freelance and contract work.",
-    metadataBase: new URL("https://haarsh.ing"),
+    metadataBase: new URL("https://harsh.ing"),
     icons: {
         icon: "/favicon.ico",
         apple: "/apple-icon.png",
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Harsh Yadav",
         description: "Full-stack developer building web apps, real-time systems, and AI-powered products. Available for freelance and contract work.",
-        url: "https://haarsh.ing",
-        siteName: "haarsh.ing",
+        url: "https://harsh.ing",
+        siteName: "harsh.ing",
         locale: "en_US",
         type: "website",
         images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Harsh Yadav - Full Stack Developer" }],
@@ -30,14 +30,14 @@ export const metadata: Metadata = {
         images: ["/og-image.png"],
     },
     robots: { index: true, follow: true },
-    alternates: { canonical: "https://haarsh.ing" },
+    alternates: { canonical: "https://harsh.ing" },
 };
 
 const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Harsh Yadav",
-    url: "https://haarsh.ing",
+    url: "https://harsh.ing",
     jobTitle: "Full-Stack Developer",
     worksFor: { "@type": "Organization", name: "Hammurabi AI" },
     address: { "@type": "PostalAddress", addressLocality: "Pune", addressCountry: "IN" },

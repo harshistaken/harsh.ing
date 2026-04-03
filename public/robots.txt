@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://haarsh.ing/sitemap.xml
+Sitemap: https://harsh.ing/sitemap.xml
