@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { services, type Service } from "@/content/services";
+import { SOCIAL } from "@/config/links";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -136,7 +137,7 @@ export function Services() {
             {/* CTA */}
             <div className="mt-6 flex justify-end">
                 <a
-                    href="https://cal.com/harshistaken"
+                    href={SOCIAL.cal}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="border border-accent-primary px-4 py-2 font-jetbrains text-[11px] uppercase tracking-wider text-accent-primary transition-colors hover:bg-accent-primary hover:text-bg-primary"
@@ -154,7 +155,7 @@ export function Services() {
                 transition={{ duration: 0.5, delay: 0.3, ease }}
             >
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent-tertiary animate-[status-pulse_2s_ease-in-out_infinite]" />
-                CURRENTLY ACCEPTING NEW PROJECTS FOR Q2 2026
+                CURRENTLY ACCEPTING NEW PROJECTS
             </motion.p>
         </section>
     );

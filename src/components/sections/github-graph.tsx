@@ -1,4 +1,5 @@
 import { GitHubGraphClient } from "./github-graph-client";
+import { GITHUB_USERNAME } from "@/config/links";
 
 interface ContributionDay {
     date: string;
@@ -29,7 +30,7 @@ async function fetchContributions(username: string, year: number): Promise<YearD
 }
 
 export async function GitHubGraph() {
-    const username = "harshistaken";
+    const username = GITHUB_USERNAME;
     const years = [2026, 2025, 2024];
 
     const results = await Promise.all(

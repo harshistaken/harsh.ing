@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback, type ComponentType, type SVGP
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { GitHubDark, GitHubLight, LinkedIn, XDark, XLight, CalcomDark, CalcomLight, Gmail } from "@ridemountainpig/svgl-react";
+import { SOCIAL } from "@/config/links";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -22,11 +23,11 @@ interface NodeDef {
 }
 
 const NODES: NodeDef[] = [
-    { id: "github", label: "github", href: "https://github.com/harshistaken", iconLight: GitHubLight, iconDark: GitHubDark, x: 15, y: 30 },
-    { id: "linkedin", label: "linkedin", href: "https://linkedin.com/in/harshistaken", iconLight: LinkedIn, iconDark: LinkedIn, x: 42, y: 72 },
-    { id: "x", label: "x / twitter", href: "https://x.com/justharshbtw", iconLight: XLight, iconDark: XDark, x: 70, y: 25 },
-    { id: "mail", label: "gmail", href: "mailto:harshyadav.build@gmail.com", iconLight: Gmail, iconDark: Gmail, x: 30, y: 55 },
-    { id: "cal", label: "cal.com", href: "https://cal.com/harshistaken", iconLight: CalcomLight, iconDark: CalcomDark, x: 78, y: 65 },
+    { id: "github", label: "github", href: SOCIAL.github, iconLight: GitHubLight, iconDark: GitHubDark, x: 15, y: 30 },
+    { id: "linkedin", label: "linkedin", href: SOCIAL.linkedin, iconLight: LinkedIn, iconDark: LinkedIn, x: 42, y: 72 },
+    { id: "x", label: "x / twitter", href: SOCIAL.x, iconLight: XLight, iconDark: XDark, x: 70, y: 25 },
+    { id: "mail", label: "gmail", href: `mailto:${SOCIAL.email}`, iconLight: Gmail, iconDark: Gmail, x: 30, y: 55 },
+    { id: "cal", label: "cal.com", href: SOCIAL.cal, iconLight: CalcomLight, iconDark: CalcomDark, x: 78, y: 65 },
 ];
 
 const EDGES: [number, number][] = [

@@ -2,8 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
-
-const CAL_URL = "https://cal.com/harshistaken";
+import { SOCIAL } from "@/config/links";
 const TARGET_TEXT = "BOOK A CALL / HIRE ME";
 const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*!?<>{}[]";
 
@@ -51,7 +50,7 @@ export function BookCallButton() {
 
     return (
         <a
-            href={CAL_URL}
+            href={SOCIAL.cal}
             target="_blank"
             rel="noopener noreferrer"
             className="group relative flex w-full items-center justify-center overflow-hidden border border-accent-primary px-3 py-1.5 font-jetbrains text-[11px] uppercase tracking-wide outline-none focus-visible:text-accent-primary"

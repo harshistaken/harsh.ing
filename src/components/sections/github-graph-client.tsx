@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { GitHubDark, GitHubLight } from "@ridemountainpig/svgl-react";
 import { cn } from "@/lib/utils";
+import { SOCIAL, GITHUB_USERNAME } from "@/config/links";
 
 /* ─── Types ─── */
 
@@ -124,13 +125,13 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <a
-                        href="https://github.com/harshistaken"
+                        href={SOCIAL.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 font-jetbrains text-xs uppercase tracking-wide text-text-tertiary transition-colors hover:text-text-secondary"
                     >
                         {mounted ? <GitHubIcon width={14} height={14} /> : <div style={{ width: 14, height: 14 }} />}
-                        GITHUB.COM/HARSHISTAKEN
+                        GITHUB.COM/{GITHUB_USERNAME.toUpperCase()}
                     </a>
                     <div className="flex gap-2">
                         {availableYears.map((year) => (
@@ -205,7 +206,7 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                     <p className="font-jetbrains text-[10px] text-text-tertiary">
                         {data.total.toLocaleString()} CONTRIBUTIONS IN{" "}
                         <a
-                            href="https://github.com/harshistaken"
+                            href={SOCIAL.github}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-text-secondary underline decoration-border-strong underline-offset-2 transition-colors hover:text-text-primary"

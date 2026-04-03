@@ -4,48 +4,45 @@ import { fragmentMono, jetbrainsMono, micro5, nerdFont } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { ThemeKeys } from "@/components/layout/theme-keys";
+import { SITE } from "@/config/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: "Harsh Yadav",
-    description: "Full-stack developer building web apps, real-time systems, and AI-powered products. Next.js, React, TypeScript, and Node.js. Available for freelance and contract work.",
-    metadataBase: new URL("https://harsh.ing"),
+    title: SITE.title,
+    description: SITE.description,
+    metadataBase: new URL(SITE.url),
     icons: {
         icon: "/favicon.ico",
         apple: "/apple-icon.png",
     },
     openGraph: {
-        title: "Harsh Yadav",
-        description: "Full-stack developer building web apps, real-time systems, and AI-powered products. Available for freelance and contract work.",
-        url: "https://harsh.ing",
-        siteName: "harsh.ing",
-        locale: "en_US",
+        title: SITE.title,
+        description: SITE.descriptionShort,
+        url: SITE.url,
+        siteName: SITE.domain,
+        locale: SITE.locale,
         type: "website",
-        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Harsh Yadav - Full Stack Developer" }],
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: `${SITE.name} - Full Stack Developer` }],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Harsh Yadav",
-        description: "Full-stack developer building web apps, real-time systems, and AI-powered products. Available for freelance and contract work.",
+        title: SITE.title,
+        description: SITE.descriptionShort,
         images: ["/og-image.png"],
     },
     robots: { index: true, follow: true },
-    alternates: { canonical: "https://harsh.ing" },
+    alternates: { canonical: SITE.url },
 };
 
 const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Harsh Yadav",
-    url: "https://harsh.ing",
-    jobTitle: "Full-Stack Developer",
-    worksFor: { "@type": "Organization", name: "Hammurabi AI" },
-    address: { "@type": "PostalAddress", addressLocality: "Pune", addressCountry: "IN" },
-    sameAs: [
-        "https://github.com/harshistaken",
-        "https://linkedin.com/in/harshistaken",
-        "https://x.com/justharshbtw",
-    ],
+    name: SITE.name,
+    url: SITE.url,
+    jobTitle: SITE.jobTitle,
+    worksFor: { "@type": "Organization", name: SITE.employer },
+    address: { "@type": "PostalAddress", addressLocality: SITE.location.city, addressCountry: SITE.location.country },
+    sameAs: SITE.sameAs,
 };
 
 export default function RootLayout({
