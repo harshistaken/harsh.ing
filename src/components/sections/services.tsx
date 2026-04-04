@@ -16,7 +16,7 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
     return (
         <motion.div
             ref={ref}
-            className="group relative border-b border-border-default"
+            className="group relative overflow-hidden border-b border-border-default"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: index * 0.08, ease }}

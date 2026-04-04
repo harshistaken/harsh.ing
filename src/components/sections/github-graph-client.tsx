@@ -131,7 +131,8 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                         className="flex items-center gap-1.5 font-jetbrains text-xs uppercase tracking-wide text-text-tertiary transition-colors hover:text-text-secondary"
                     >
                         {mounted ? <GitHubIcon width={14} height={14} /> : <div style={{ width: 14, height: 14 }} />}
-                        GITHUB.COM/{GITHUB_USERNAME.toUpperCase()}
+                        <span className="hidden min-[480px]:inline">GITHUB.COM/{GITHUB_USERNAME.toUpperCase()}</span>
+                        <span className="min-[480px]:hidden">@{GITHUB_USERNAME.toUpperCase()}</span>
                     </a>
                     <div className="flex gap-2">
                         {availableYears.map((year) => (
