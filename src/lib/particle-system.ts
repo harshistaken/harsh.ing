@@ -10,8 +10,6 @@ export interface DotSystem {
   baseY: Float32Array;
   dx: Float32Array;
   dy: Float32Array;
-  brightness: Float32Array;
-  tint: Float32Array;
   size: number;
 }
 
@@ -37,17 +35,13 @@ export function createDotSystem(
   const baseY = new Float32Array(count);
   const dx = new Float32Array(count);
   const dy = new Float32Array(count);
-  const brightness = new Float32Array(count);
-  const tint = new Float32Array(count);
 
   for (let i = 0; i < count; i++) {
     baseX[i] = offsetX + points[i * 2] * scaleFactor;
     baseY[i] = offsetY + points[i * 2 + 1] * scaleFactor;
-    brightness[i] = 1;
-    tint[i] = 1;
   }
 
-  return { count, baseX, baseY, dx, dy, brightness, tint, size: scaleFactor * dotScale };
+  return { count, baseX, baseY, dx, dy, size: scaleFactor * dotScale };
 }
 
 export function updateDots(
@@ -125,6 +119,11 @@ export function updateDots(
   return hasMotion || shockwaves.length > 0 || mouseActive;
 }
 
+/* ─── Cached ImageData for zero-alloc rendering ─── */
+let _imgData: ImageData | null = null;
+let _imgW = 0;
+let _imgH = 0;
+
 export function renderDots(
   ctx: CanvasRenderingContext2D,
   sys: DotSystem,
@@ -134,37 +133,45 @@ export function renderDots(
   dpr: number,
   dotColor?: { r: number; g: number; b: number }
 ): void {
-  ctx.clearRect(0, 0, canvasW * dpr, canvasH * dpr);
+  const w = Math.round(canvasW * dpr);
+  const h = Math.round(canvasH * dpr);
+  if (w <= 0 || h <= 0) return;
+
+  // Reuse ImageData buffer when dimensions match
+  if (!_imgData || _imgW !== w || _imgH !== h) {
+    _imgData = ctx.createImageData(w, h);
+    _imgW = w;
+    _imgH = h;
+  }
+
+  const buf32 = new Uint32Array(_imgData.data.buffer);
+  buf32.fill(0);
 
   const r = dotColor ? dotColor.r : invert ? 0 : 138;
   const g = dotColor ? dotColor.g : invert ? 0 : 143;
   const b = dotColor ? dotColor.b : invert ? 0 : 152;
 
-  const buckets: number[][] = new Array(126);
-  for (let z = 0; z < 126; z++) buckets[z] = [];
-
-  for (let i = 0; i < sys.count; i++) {
-    const bucket = 6 * Math.round(20 * sys.brightness[i]) + Math.round(5 * sys.tint[i]);
-    const clamped = Math.max(0, Math.min(125, bucket));
-    buckets[clamped].push(i);
-  }
+  // Pre-compose ABGR pixel (little-endian)
+  const pixel = (255 << 24) | (b << 16) | (g << 8) | r;
 
   const size = sys.size * dpr;
   const pad = 0.25 * dpr;
-  const padSize = 0.5 * dpr;
+  const totalSize = size + 0.5 * dpr;
 
-  for (let z = 0; z < 126; z++) {
-    const ids = buckets[z];
-    if (ids.length === 0) continue;
+  for (let i = 0; i < sys.count; i++) {
+    const rx = (sys.baseX[i] + sys.dx[i]) * dpr - pad;
+    const ry = (sys.baseY[i] + sys.dy[i]) * dpr - pad;
 
-    const alpha = Math.floor(z / 6) / 20;
-    ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+    const x0 = Math.max(0, rx | 0);
+    const y0 = Math.max(0, ry | 0);
+    const x1 = Math.min(w - 1, (rx + totalSize) | 0);
+    const y1 = Math.min(h - 1, (ry + totalSize) | 0);
 
-    for (let j = 0; j < ids.length; j++) {
-      const i = ids[j];
-      const rx = (sys.baseX[i] + sys.dx[i]) * dpr;
-      const ry = (sys.baseY[i] + sys.dy[i]) * dpr;
-      ctx.fillRect(rx - pad, ry - pad, size + padSize, size + padSize);
+    for (let py = y0; py <= y1; py++) {
+      const rowOff = py * w;
+      buf32.fill(pixel, rowOff + x0, rowOff + x1 + 1);
     }
   }
+
+  ctx.putImageData(_imgData, 0, 0);
 }

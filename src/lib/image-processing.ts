@@ -41,40 +41,34 @@ export function processImage(
   const srcW = img.naturalWidth;
   const srcH = img.naturalHeight;
 
-  // Get alpha mask from the unblurred image so edges stay crisp
-  const alphaCanvas = document.createElement("canvas");
-  alphaCanvas.width = outW;
-  alphaCanvas.height = outH;
-  const alphaCtx = alphaCanvas.getContext("2d")!;
-  alphaCtx.imageSmoothingEnabled = true;
-  alphaCtx.imageSmoothingQuality = "high";
-  alphaCtx.drawImage(img, 0, 0, outW, outH);
-  const alphaData = alphaCtx.getImageData(0, 0, outW, outH).data;
-
-  // Apply blur at source resolution with padding to avoid edge darkening
-  const pad = Math.ceil(blur * 3);
-  const srcCanvas = document.createElement("canvas");
-  srcCanvas.width = srcW + pad * 2;
-  srcCanvas.height = srcH + pad * 2;
-  const srcCtx = srcCanvas.getContext("2d")!;
-
-  if (blur > 0) {
-    srcCtx.filter = `blur(${blur}px)`;
-  }
-  srcCtx.drawImage(img, pad, pad, srcW, srcH);
-  srcCtx.filter = "none";
-
-  // Downsample the blurred image to output grid
+  // Reuse one canvas for both alpha and pixel sampling
   const canvas = document.createElement("canvas");
   canvas.width = outW;
   canvas.height = outH;
   const ctx = canvas.getContext("2d")!;
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = "high";
-  ctx.drawImage(srcCanvas, pad, pad, srcW, srcH, 0, 0, outW, outH);
 
-  const imageData = ctx.getImageData(0, 0, outW, outH);
-  const pixels = imageData.data;
+  // Get alpha mask from the unblurred image so edges stay crisp
+  ctx.drawImage(img, 0, 0, outW, outH);
+  const alphaData = ctx.getImageData(0, 0, outW, outH).data;
+
+  // Apply blur at source resolution with padding to avoid edge darkening,
+  // then downsample onto the same output canvas
+  if (blur > 0) {
+    const pad = Math.ceil(blur * 3);
+    const blurCanvas = document.createElement("canvas");
+    blurCanvas.width = srcW + pad * 2;
+    blurCanvas.height = srcH + pad * 2;
+    const blurCtx = blurCanvas.getContext("2d")!;
+    blurCtx.filter = `blur(${blur}px)`;
+    blurCtx.drawImage(img, pad, pad, srcW, srcH);
+
+    ctx.clearRect(0, 0, outW, outH);
+    ctx.drawImage(blurCanvas, pad, pad, srcW, srcH, 0, 0, outW, outH);
+  }
+
+  const pixels = ctx.getImageData(0, 0, outW, outH).data;
 
   const sampledW = Math.ceil(outW / scale);
   const sampledH = Math.ceil(outH / scale);

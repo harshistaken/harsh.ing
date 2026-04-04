@@ -44,11 +44,10 @@ export function DitherImage({ src, className }: DitherImageProps) {
     const isMobile = useIsMobile();
     const { resolvedTheme } = useTheme();
 
-    // Dark theme: light dots on dark bg. Light theme: dark dots on light bg.
-    const dotColorRef = useRef({ r: 250, g: 249, b: 245 });
+    const dotColorRef = useRef({ r: 235, g: 235, b: 235 });
     dotColorRef.current = resolvedTheme === "light"
-        ? { r: 20, g: 20, b: 19 }
-        : { r: 250, g: 249, b: 245 };
+        ? { r: 45, g: 44, b: 42 }    // #2d2c2a
+        : { r: 235, g: 235, b: 235 }; // #ebebeb
 
     const startLoop = useCallback(() => {
         if (runningRef.current) return;
