@@ -54,17 +54,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <div className="flex flex-1 flex-col gap-4 p-4">
                 {/* Name + status */}
                 <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-jetbrains text-[14px] font-semibold uppercase tracking-[0.03em] text-text-primary">{project.title}</h3>
-                    <span className={cn("shrink-0 px-1.5 py-0.5 font-jetbrains text-[10px] uppercase tracking-[0.06em]", STATUS_STYLES[project.status])}>{STATUS_LABELS[project.status]}</span>
+                    <h3 className="font-jetbrains text-[14px] font-semibold uppercase tracking-wide text-text-primary">{project.title}</h3>
+                    <span className={cn("shrink-0 px-1.5 py-0.5 font-jetbrains text-[10px] uppercase tracking-wider", STATUS_STYLES[project.status])}>{STATUS_LABELS[project.status]}</span>
                 </div>
 
                 {/* Description */}
-                <p className="line-clamp-3 font-fragment text-[12px] leading-[1.6] text-text-secondary">{project.description}</p>
+                <p className="line-clamp-3 font-space text-[14px] leading-normal text-text-secondary">{project.description}</p>
 
                 {/* Tech stack badges */}
                 <div className="flex flex-wrap gap-1.5">
                     {project.stack.map((tech) => (
-                        <span key={tech} className="bg-bg-tertiary px-1.5 py-0.5 font-jetbrains text-[10px] uppercase tracking-[0.06em] text-text-tertiary">
+                        <span key={tech} className="bg-bg-tertiary px-1.5 py-0.5 font-jetbrains text-[10px] uppercase tracking-wider text-text-tertiary">
                             {tech}
                         </span>
                     ))}
@@ -79,7 +79,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 {/* Left: source badge */}
                 <span
                     className={cn(
-                        "shrink-0 px-1.5 py-0.5 font-jetbrains text-[10px] uppercase tracking-[0.06em]",
+                        "shrink-0 px-1.5 py-0.5 font-jetbrains text-[10px] uppercase tracking-wider",
                         project.source === "open" ? "bg-accent-tertiary/10 text-accent-tertiary" : "bg-status-error/10 text-status-error",
                     )}
                 >
@@ -145,7 +145,7 @@ export function Projects() {
             <div className="mt-4 flex justify-end">
                 <Link
                     href="/work"
-                    className="flex items-center gap-1 border border-border-default px-3 py-1.5 font-jetbrains text-[11px] uppercase tracking-wider text-text-tertiary transition-colors hover:border-border-strong hover:text-text-primary"
+                    className="flex items-center gap-1 border border-border-default px-3 py-1.5 font-jetbrains text-[12px] uppercase tracking-wider text-text-tertiary transition-colors hover:border-border-strong hover:text-text-primary"
                 >
                     SEE ALL WORK
                     <HugeiconsIcon icon={ArrowRight01Icon} size={12} />

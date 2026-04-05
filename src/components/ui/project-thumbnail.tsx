@@ -40,9 +40,9 @@ function UdfViewerThumb() {
             </svg>
             {/* Center label */}
             <div className="relative z-10 flex flex-col items-center gap-1.5">
-                <span className="font-jetbrains text-[10px] font-semibold tracking-[0.25em] text-accent-primary opacity-80">UDF</span>
+                <span className="font-jetbrains text-[10px] font-semibold tracking-widest text-accent-primary opacity-80">UDF</span>
                 <div className="h-px w-8 bg-accent-primary/30" />
-                <span className="font-fragment text-[8px] tracking-widest text-text-muted">VIEWER</span>
+                <span className="font-space text-[10px] tracking-widest text-text-muted">VIEWER</span>
             </div>
             {/* Scan line on hover */}
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(transparent_0%,transparent_48%,var(--accent-primary)_49%,var(--accent-primary)_51%,transparent_52%,transparent_100%)] opacity-0 transition-opacity duration-500 group-hover:opacity-[0.04]" />
@@ -91,7 +91,7 @@ function AuxyThumb() {
             </svg>
             {/* Center brand */}
             <div className="relative z-10 flex flex-col items-center gap-1">
-                <span className="font-jetbrains text-xs font-semibold tracking-[0.3em] text-text-primary opacity-80">AUXY</span>
+                <span className="font-jetbrains text-[12px] font-semibold tracking-widest text-text-primary opacity-80">AUXY</span>
             </div>
         </div>
     );
@@ -141,7 +141,7 @@ function OpalThumb() {
 
             {/* Center brand overlay */}
             <div className="relative z-10 flex flex-col items-center gap-1">
-                <span className="font-jetbrains text-[10px] font-semibold tracking-[0.25em] text-accent-primary opacity-80">OPAL</span>
+                <span className="font-jetbrains text-[10px] font-semibold tracking-widest text-accent-primary opacity-80">OPAL</span>
             </div>
         </div>
     );
@@ -212,10 +212,10 @@ function KleenestarThumb() {
 
             {/* Center brand */}
             <div className="relative z-10 flex flex-col items-center gap-1.5">
-                <span className="font-jetbrains text-[9px] font-semibold tracking-[0.2em] text-accent-primary opacity-90">KLEENE</span>
+                <span className="font-jetbrains text-[10px] font-semibold tracking-widest text-accent-primary opacity-90">KLEENE</span>
                 <div className="flex items-center gap-1">
                     <div className="h-px w-4 bg-accent-primary/30" />
-                    <span className="font-fragment text-[7px] tracking-[0.3em] text-text-muted">STAR</span>
+                    <span className="font-space text-[10px] tracking-widest text-text-muted">STAR</span>
                     <div className="h-px w-4 bg-accent-primary/30" />
                 </div>
             </div>

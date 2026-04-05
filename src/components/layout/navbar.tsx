@@ -34,7 +34,7 @@ export function Navbar() {
                                 href={link.href}
                                 aria-current={isActive ? "page" : undefined}
                                 className={cn(
-                                    "font-jetbrains text-[12px] font-medium uppercase leading-none outline-none transition-colors duration-200 focus-visible:text-accent-primary",
+                                    "font-jetbrains text-[13px] font-normal uppercase leading-none outline-none transition-colors duration-200 focus-visible:text-accent-primary",
                                     isActive ? "text-accent-primary" : "text-text-secondary hover:text-text-primary",
                                 )}
                             >

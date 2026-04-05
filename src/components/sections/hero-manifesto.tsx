@@ -101,7 +101,7 @@ export function HeroManifesto() {
     const slot3 = useScrambleSlot(SLOTS.rotating_3.words, SLOTS.rotating_3.interval, SLOTS.rotating_3.offset, visible);
 
     return (
-        <p ref={ref} className="font-fragment text-[14px] leading-[1.7] tracking-[-0.01em] text-text-secondary">
+        <p ref={ref} className="font-space text-[16px] leading-normal text-text-secondary">
             I care about the things most people skip. The <span className="text-accent-primary">{slot1}</span>, the <span className="text-accent-primary">{slot2}</span>, the parts of a codebase nobody
             wants to touch. I&apos;m currently <span className="text-accent-primary">{slot3}</span> my way through building things that matter.
         </p>

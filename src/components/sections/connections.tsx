@@ -166,7 +166,7 @@ function SignalBoard() {
 
                         {/* Label */}
                         <div
-                            className="pointer-events-none absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap font-fragment text-[10px] text-text-tertiary transition-all duration-200"
+                            className="pointer-events-none absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap font-space text-[12px] text-text-tertiary transition-all duration-200"
                             style={{
                                 opacity: isHovered ? 1 : 0,
                                 transform: `translate(-50%, ${isHovered ? 0 : -4}px)`,
@@ -225,7 +225,7 @@ function MobileConnections() {
                     transition={{ duration: 0.3, delay: i * 0.06, ease }}
                 >
                     <NodeIcon node={node} size={20} />
-                    <span className="font-fragment text-[10px] text-text-tertiary">{node.label}</span>
+                    <span className="font-space text-[12px] text-text-tertiary">{node.label}</span>
                 </motion.a>
             ))}
         </div>
@@ -248,7 +248,7 @@ export function Connections() {
             </motion.h2>
 
             <motion.p
-                className="mt-4 max-w-md font-fragment text-[13px] leading-[1.7] tracking-[-0.01em] text-text-secondary"
+                className="mt-4 max-w-md font-space text-[16px] leading-normal text-text-secondary"
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

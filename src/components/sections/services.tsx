@@ -44,20 +44,20 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
                 }`}
             >
                 {/* Number */}
-                <span className={`font-jetbrains text-2xl font-medium transition-colors duration-300 min-[480px]:text-3xl ${isOpen ? "text-accent-primary" : "text-text-muted"}`}>
+                <span className={`font-jetbrains text-2xl font-medium transition-colors duration-300 ${isOpen ? "text-accent-primary" : "text-text-muted"}`}>
                     {service.number}
                 </span>
 
                 {/* Title */}
                 <span
-                    className={`font-jetbrains text-[12px] font-semibold tracking-[0.03em] transition-colors duration-300 min-[480px]:text-[14px] ${isOpen ? "text-text-primary" : "text-text-secondary"}`}
+                    className={`font-jetbrains text-[14px] font-semibold tracking-wide transition-colors duration-300 ${isOpen ? "text-text-primary" : "text-text-secondary"}`}
                 >
                     {service.title}
                 </span>
 
                 {/* Toggle icon */}
                 <span className="ml-auto shrink-0 pr-2">
-                    <motion.span className="block font-jetbrains text-lg text-text-muted" initial={false} animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.2, ease }}>
+                    <motion.span className="block font-jetbrains text-2xl leading-none text-text-muted" initial={false} animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.2, ease }}>
                         +
                     </motion.span>
                 </span>
@@ -78,7 +78,7 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
                             <div className="min-[480px]:pl-[72px]">
                                 {/* Description */}
                                 <motion.p
-                                    className="font-fragment text-[12px] leading-[1.6] text-text-secondary"
+                                    className="font-space text-[14px] leading-normal text-text-secondary"
                                     initial={{ opacity: 0, y: 8 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.3, delay: 0.05, ease }}
@@ -91,7 +91,7 @@ function ServiceRow({ service, index, isOpen, onToggle, hasActive }: { service: 
                                     {service.includes.map((item, i) => (
                                         <motion.span
                                             key={item}
-                                            className="font-fragment text-[12px] text-text-tertiary"
+                                            className="font-space text-[14px] leading-normal text-text-tertiary"
                                             initial={{ opacity: 0, x: -8 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ duration: 0.25, delay: 0.1 + i * 0.04, ease }}
@@ -137,7 +137,7 @@ export function Services() {
             {/* CTA + Availability */}
             <div className="mt-6 flex flex-col-reverse items-start gap-3 min-[480px]:flex-row min-[480px]:items-center min-[480px]:justify-between">
                 <motion.p
-                    className="flex items-center gap-2 font-fragment text-[11px] text-accent-tertiary"
+                    className="flex items-center gap-2 font-space text-[12px] text-accent-tertiary"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -150,7 +150,7 @@ export function Services() {
                     href={SOCIAL.cal}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border border-accent-primary px-4 py-2 font-jetbrains text-[11px] uppercase tracking-wider text-accent-primary transition-colors hover:bg-accent-primary hover:text-bg-primary"
+                    className="border border-accent-primary px-4 py-2 font-jetbrains text-[12px] uppercase tracking-wider text-accent-primary transition-colors hover:bg-accent-primary hover:text-bg-primary"
                 >
                     BOOK A CALL
                 </a>

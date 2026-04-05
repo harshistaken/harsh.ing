@@ -71,7 +71,7 @@ export function HeroBanner() {
             />
 
             {!tapped && !revealed && (
-                <span className="pointer-events-none absolute bottom-2 left-2 font-fragment text-[9px] uppercase tracking-wider text-text-secondary md:hidden">tap to see color</span>
+                <span className="pointer-events-none absolute bottom-2 left-2 font-space text-[10px] uppercase tracking-wider text-text-secondary md:hidden">tap to see color</span>
             )}
 
             <div className="absolute bottom-1 right-1 flex flex-col">

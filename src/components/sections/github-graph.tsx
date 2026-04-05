@@ -51,7 +51,7 @@ export async function GitHubGraph() {
         return (
             <section className="mt-24">
                 <h2 className="font-micro text-[40px] leading-none text-text-primary">GITHUB</h2>
-                <p className="mt-4 font-fragment text-sm text-text-tertiary">
+                <p className="mt-4 font-space text-[14px] text-text-tertiary">
                     Could not load contributions.
                 </p>
             </section>

@@ -12,7 +12,7 @@ export function HeroIntro() {
 
             {/* Text + CTA */}
             <div className="flex min-w-0 flex-1 flex-col justify-center gap-4">
-                <p className="font-fragment text-[14px] leading-[1.7] tracking-[-0.01em] text-text-secondary">
+                <p className="font-space text-[16px] leading-normal text-text-secondary">
                     I&apos;m <span className="text-text-primary underline decoration-border-strong underline-offset-2">Harsh Yadav</span>. I design and build things for the web, full-stack, from start to
                     ship. Currently building legal AI tools at{" "}
                     <span className="inline-flex items-center gap-1">
@@ -27,7 +27,7 @@ export function HeroIntro() {
                     .
                 </p>
 
-                <p className="font-fragment text-[14px] leading-[1.7] tracking-[-0.01em] text-text-secondary">
+                <p className="font-space text-[16px] leading-normal text-text-secondary">
                     Based in <span className="text-text-primary underline decoration-border-strong underline-offset-2">Pune, India</span>. Open for{" "}
                     <span className="text-text-primary underline decoration-border-strong underline-offset-2">freelance/contract work</span>.
                 </p>

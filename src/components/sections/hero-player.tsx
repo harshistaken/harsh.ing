@@ -188,7 +188,7 @@ function Clock() {
     const utcParts = time.utc.split(" ");
 
     return (
-        <span className="shrink-0 font-jetbrains text-[12px] tabular-nums uppercase">
+        <span className="shrink-0 font-jetbrains text-[14px] tabular-nums uppercase">
             <span className="hidden min-[560px]:inline">
                 <span className="text-text-tertiary">IST </span>
                 <span className="text-text-secondary">{istParts[0]}</span>

@@ -128,7 +128,7 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                         href={SOCIAL.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 font-jetbrains text-xs uppercase tracking-wide text-text-tertiary transition-colors hover:text-text-secondary"
+                        className="flex items-center gap-1.5 font-jetbrains text-[12px] uppercase tracking-wide text-text-tertiary transition-colors hover:text-text-secondary"
                     >
                         {mounted ? <GitHubIcon width={14} height={14} /> : <div style={{ width: 14, height: 14 }} />}
                         <span className="hidden min-[480px]:inline">GITHUB.COM/{GITHUB_USERNAME.toUpperCase()}</span>
@@ -140,7 +140,7 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                                 key={year}
                                 onClick={() => setActiveYear(year)}
                                 className={cn(
-                                    "font-jetbrains text-xs tracking-wider transition-colors duration-200",
+                                    "font-jetbrains text-[12px] tracking-wider transition-colors duration-200",
                                     activeYear === year
                                         ? "text-text-primary"
                                         : "text-text-muted hover:text-text-secondary",
@@ -165,7 +165,7 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
                             {monthLabels.map(({ label, colIndex }, i) => (
                                 <span
                                     key={i}
-                                    className="absolute font-fragment text-[10px] text-text-tertiary"
+                                    className="absolute font-space text-[12px] text-text-tertiary"
                                     style={{ left: colIndex * COL_WIDTH }}
                                 >
                                     {label}

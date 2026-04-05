@@ -1,11 +1,9 @@
-import { Fragment_Mono, JetBrains_Mono, Micro_5 } from "next/font/google";
-import localFont from "next/font/local";
+import { Space_Grotesk, JetBrains_Mono, Micro_5 } from "next/font/google";
 
-export const fragmentMono = Fragment_Mono({
-  weight: "400",
+export const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-fragment",
+  variable: "--font-space",
 });
 
 export const jetbrainsMono = JetBrains_Mono({
@@ -19,10 +17,4 @@ export const micro5 = Micro_5({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-micro",
-});
-
-export const nerdFont = localFont({
-  src: "../fonts/jb-nerd.woff2",
-  display: "swap",
-  variable: "--font-nf",
 });

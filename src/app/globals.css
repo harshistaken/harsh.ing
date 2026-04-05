@@ -7,12 +7,7 @@
    ============================================ */
 
 :root {
-    /* FONTS */
-    --font-fragment: "Fragment Mono", monospace;
-    --font-jetbrains: "JetBrains Mono", monospace;
-    --font-nf: "JetBrains Mono NF", "JetBrains Mono", monospace;
-    --font-micro: "Micro 5", monospace;
-
+    /* FONTS — values set by next/font classes on <html>, fallbacks only */
     /* SPACING (4px grid) */
     --spacing-1: 4px;
     --spacing-2: 8px;
@@ -98,9 +93,8 @@
    ============================================ */
 @theme inline {
     /* Fonts */
-    --font-fragment: var(--font-fragment);
+    --font-space: var(--font-space);
     --font-jetbrains: var(--font-jetbrains);
-    --font-nf: var(--font-nf);
     --font-micro: var(--font-micro);
 
     /* Background colors */
@@ -143,7 +137,7 @@
 body {
     background: var(--bg-primary);
     color: var(--text-secondary);
-    font-family: var(--font-fragment);
+    font-family: var(--font-space);
     overflow-x: hidden;
 }
 

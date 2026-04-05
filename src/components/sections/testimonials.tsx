@@ -86,19 +86,19 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             }}
         >
             {/* Oversized opening quote */}
-            <span className="select-none font-jetbrains text-[28px] font-extrabold leading-none text-accent-primary" aria-hidden="true">
+            <span className="select-none font-jetbrains text-2xl font-bold leading-none text-accent-primary" aria-hidden="true">
                 &ldquo;
             </span>
 
             {/* Quote text */}
-            <p ref={textRef} className="font-fragment text-[13px] leading-[1.65] tracking-[-0.01em] text-text-secondary">
+            <p ref={textRef} className="font-space text-[14px] leading-normal text-text-secondary">
                 {testimonial.quote}
             </p>
 
             {/* Author */}
             <div className="mt-auto border-t border-border-subtle pt-4">
-                <span className="font-jetbrains text-xs font-semibold text-text-primary">{testimonial.name}</span>
-                <span className="block font-fragment text-[11px] text-text-tertiary">{testimonial.role}</span>
+                <span className="font-jetbrains text-[12px] font-semibold text-text-primary">{testimonial.name}</span>
+                <span className="block font-space text-[12px] text-text-tertiary">{testimonial.role}</span>
             </div>
         </div>
     );

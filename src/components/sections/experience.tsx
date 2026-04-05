@@ -74,7 +74,7 @@ function SideBar({
                 transition={{ duration: 0.6, delay: barDelay + 0.15, ease }}
                 style={{ transformOrigin: "bottom" }}
             >
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[7px] font-semibold uppercase tracking-[0.15em] text-text-primary/40 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-text-primary/70">
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[8px] font-semibold uppercase tracking-[0.15em] text-text-primary/40 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-text-primary/70">
                     {label}
                 </span>
             </motion.div>
@@ -111,7 +111,7 @@ function WorkCard({ entry, index }: { entry: ExperienceEntry; index: number }) {
                             className={isHammurabi ? "h-[14px] w-auto" : "h-[20px] w-auto"}
                         />
                     )}
-                    <span className="font-micro text-[24px] leading-none text-text-primary">
+                    <span className="font-micro text-2xl leading-none text-text-primary">
                         {entry.company.toUpperCase()}
                     </span>
                 </div>
@@ -134,7 +134,7 @@ function WorkCard({ entry, index }: { entry: ExperienceEntry; index: number }) {
                         return (
                             <span
                                 key={badge}
-                                className={`px-2 py-0.5 font-jetbrains text-[10px] uppercase tracking-wide ${badgeClass}`}
+                                className={`px-2 py-0.5 font-jetbrains text-[10px] uppercase tracking-wider ${badgeClass}`}
                             >
                                 {badge}
                             </span>
@@ -147,7 +147,7 @@ function WorkCard({ entry, index }: { entry: ExperienceEntry; index: number }) {
             {entry.bullets && entry.bullets.length > 0 && (
                 <ul className="mt-6 flex flex-col gap-2">
                     {entry.bullets.map((bullet, i) => (
-                        <li key={i} className="flex gap-2 font-fragment text-[12px] leading-[1.6] text-text-secondary">
+                        <li key={i} className="flex gap-2 font-space text-[14px] leading-normal text-text-secondary">
                             <span className={`mt-1 shrink-0 ${entry.active ? "text-accent-primary" : "text-text-muted"}`}>▪</span>
                             <span>{bullet}</span>
                         </li>
@@ -172,7 +172,7 @@ function MilestoneMarker({ entry, index }: { entry: ExperienceEntry; index: numb
             transition={{ duration: 0.4, delay: index * 0.1, ease }}
         >
             <span className="h-2 w-2 shrink-0 bg-accent-tertiary" />
-            <span className="font-fragment text-[11px] uppercase tracking-wide text-text-muted">{entry.company}</span>
+            <span className="font-space text-[12px] uppercase tracking-wide text-text-muted">{entry.company}</span>
             <span className="font-jetbrains text-[10px] text-text-muted">
                 {entry.startDate.year}{entry.endDate && entry.endDate.year !== entry.startDate.year ? `–${entry.endDate.year}` : ""}
             </span>
@@ -229,7 +229,7 @@ function EducationRow({
                     animate={inView ? { scaleY: 1 } : {}}
                     transition={{ duration: 0.6, delay: barDelay + 0.15, ease }}
                 >
-                    <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[7px] font-semibold uppercase tracking-[0.15em] text-text-primary/40 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-text-primary/70">
+                    <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[8px] font-semibold uppercase tracking-[0.15em] text-text-primary/40 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-text-primary/70">
                         EDUCATION
                     </span>
                 </motion.div>
