@@ -7,18 +7,18 @@ const SCRAMBLE_CHARS = "abcdefghijklmnopqrstuvwxyz@#$%&*!?";
 const SLOTS = {
     rotating_1: {
         words: ["edge cases", "weird bugs", "missing docs", "broken APIs", "late-night deploys", "undocumented formats"],
-        interval: 2500,
+        interval: 5000,
         offset: 0,
     },
     rotating_2: {
         words: ["impossible deadlines", "legacy codebases", "real-time sync issues", "shifting requirements", "production fires", "pixel-perfect details"],
-        interval: 3000,
-        offset: 800,
+        interval: 5000,
+        offset: 0,
     },
     rotating_3: {
         words: ["shipping", "debugging", "reverse-engineering", "architecting", "obsessing", "caffeinating"],
-        interval: 3500,
-        offset: 1500,
+        interval: 5000,
+        offset: 0,
     },
 } as const;
 
@@ -45,13 +45,13 @@ function useScrambleSlot(words: readonly string[], interval: number, offset: num
                     .join(""),
             );
 
-            iteration += 0.5;
+            iteration += 0.4;
 
             if (iteration > target.length) {
                 if (scrambleRef.current) clearInterval(scrambleRef.current);
                 setDisplay(target);
             }
-        }, 25);
+        }, 35);
     }, []);
 
     useEffect(() => {

@@ -6,6 +6,10 @@
    DESIGN SYSTEM TOKENS — harsh.ing
    ============================================ */
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     /* FONTS — values set by next/font classes on <html>, fallbacks only */
     /* SPACING (4px grid) */

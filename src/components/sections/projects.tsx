@@ -125,7 +125,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function Projects() {
     return (
-        <section className="mt-24" aria-label="Projects">
+        <section id="projects" className="mt-24 scroll-mt-16" aria-label="Projects">
             <motion.h2
                 className="font-micro text-[40px] leading-none text-text-primary"
                 initial={{ opacity: 0, y: 20 }}

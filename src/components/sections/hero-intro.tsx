@@ -7,7 +7,7 @@ export function HeroIntro() {
         <div className="flex flex-col items-center gap-6 min-[560px]:flex-row min-[560px]:gap-6">
             {/* Avatar — interactive dithered particle canvas */}
             <div className="aspect-square w-full shrink-0 min-[560px]:h-[300px] min-[560px]:w-[300px]">
-                <DitherImage src="/avatars/avatar.jpeg" className="block h-full w-full" />
+                <DitherImage src="/avatar-big.png" className="block h-full w-full" />
             </div>
 
             {/* Text + CTA */}

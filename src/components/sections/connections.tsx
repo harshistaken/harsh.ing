@@ -236,7 +236,7 @@ function MobileConnections() {
 
 export function Connections() {
     return (
-        <section className="mt-16 min-[480px]:mt-24" aria-label="Get in touch">
+        <section id="contact" className="mt-16 scroll-mt-16 min-[480px]:mt-24" aria-label="Get in touch">
             <motion.h2
                 className="font-micro text-[40px] leading-none text-text-primary"
                 initial={{ opacity: 0, y: 20 }}
