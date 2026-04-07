@@ -41,55 +41,65 @@ html {
     --dur-normal: 200ms;
     --dur-slow: 500ms;
 
-    /* ACCENTS (theme-independent) */
-    --accent-primary: #d97757;
-    --accent-primary-hover: #c4684a;
-    --accent-primary-muted: rgba(217, 119, 87, 0.08);
-    --accent-secondary: #6a9bcc;
-    --accent-tertiary: #788c5d;
-    --pixel-orange: #e8715a;
-    --status-error: #cc5f5f;
-    --status-warning: #d4a847;
+    /* LIGHT THEME ACCENTS */
+    --accent-primary: oklch(0.55 0.15 40);
+    --accent-primary-hover: oklch(0.49 0.14 40);
+    --accent-primary-muted: oklch(0.55 0.15 40 / 0.08);
+    --accent-secondary: oklch(0.55 0.098 240);
+    --accent-tertiary: oklch(0.52 0.098 150);
+    --pixel-orange: oklch(0.58 0.17 40);
+    --status-error: oklch(0.52 0.15 25);
+    --status-warning: oklch(0.68 0.13 85);
 
     /* GITHUB GRAPH */
-    --github-green-1: #c6e48b;
-    --github-green-2: #7bc96f;
-    --github-green-3: #449e48;
-    --github-green-4: #196127;
+    --github-green-1: oklch(0.82 0.1 140);
+    --github-green-2: oklch(0.68 0.14 145);
+    --github-green-3: oklch(0.55 0.13 148);
+    --github-green-4: oklch(0.42 0.1 150);
 
-    /* LIGHT THEME (default) */
-    --bg-primary: #faf9f5;
-    --bg-secondary: #f0efe8;
-    --bg-tertiary: #e8e6dc;
-    --bg-surface: #ffffff;
-    --text-primary: #141413;
-    --text-secondary: #5c5b55;
-    --text-tertiary: #8a8880;
-    --text-muted: #b0aea5;
-    --border-default: #e8e6dc;
-    --border-subtle: #f0efe8;
-    --border-strong: #d0cec5;
+    /* LIGHT THEME (default — "Warm") */
+    --bg-primary: oklch(0.975 0.006 85);
+    --bg-secondary: oklch(0.945 0.008 85);
+    --bg-tertiary: oklch(0.915 0.011 85);
+    --bg-surface: oklch(0.99 0.004 85);
+    --text-primary: oklch(0.15 0.006 85);
+    --text-secondary: oklch(0.38 0.01 85);
+    --text-tertiary: oklch(0.55 0.007 85);
+    --text-muted: oklch(0.72 0.006 85);
+    --border-default: oklch(0.915 0.011 85);
+    --border-subtle: oklch(0.945 0.008 85);
+    --border-strong: oklch(0.84 0.013 85);
 }
 
 /* ============================================
    DARK THEME (overrides :root when .dark is on <html>)
    ============================================ */
 .dark {
-    --bg-primary: #0d0d0c;
-    --bg-secondary: #1a1a18;
-    --bg-tertiary: #252523;
-    --bg-surface: #2e2e2b;
-    --text-primary: #faf9f5;
-    --text-secondary: #b0aea5;
-    --text-tertiary: #7a7870;
-    --text-muted: #4a4a44;
-    --border-default: #2e2e2b;
-    --border-subtle: #1f1f1d;
-    --border-strong: #3d3d38;
-    --github-green-1: #1a3a1a;
-    --github-green-2: #2d6a2d;
-    --github-green-3: #3d9a3d;
-    --github-green-4: #4ecc4e;
+    --bg-primary: oklch(0.1 0.005 85);
+    --bg-secondary: oklch(0.15 0.006 85);
+    --bg-tertiary: oklch(0.2 0.007 85);
+    --bg-surface: oklch(0.25 0.007 85);
+    --text-primary: oklch(0.96 0.005 85);
+    --text-secondary: oklch(0.72 0.007 85);
+    --text-tertiary: oklch(0.54 0.006 85);
+    --text-muted: oklch(0.36 0.005 85);
+    --border-default: oklch(0.25 0.007 85);
+    --border-subtle: oklch(0.18 0.006 85);
+    --border-strong: oklch(0.32 0.008 85);
+
+    /* Accents — brighter in dark mode for contrast */
+    --accent-primary: oklch(0.64 0.16 40);
+    --accent-primary-hover: oklch(0.58 0.15 40);
+    --accent-primary-muted: oklch(0.64 0.16 40 / 0.08);
+    --accent-secondary: oklch(0.64 0.098 240);
+    --accent-tertiary: oklch(0.62 0.098 150);
+    --pixel-orange: oklch(0.66 0.17 40);
+    --status-error: oklch(0.6 0.15 25);
+    --status-warning: oklch(0.72 0.14 85);
+    --github-green-1: oklch(0.25 0.04 150);
+    --github-green-2: oklch(0.4 0.08 150);
+    --github-green-3: oklch(0.55 0.12 150);
+    --github-green-4: oklch(0.7 0.15 150);
 }
 
 /* ============================================
@@ -166,7 +176,7 @@ body {
     }
     50% {
         border-color: var(--accent-primary-hover);
-        box-shadow: 0 0 8px rgba(217, 119, 87, 0.15);
+        box-shadow: 0 0 8px color-mix(in oklch, var(--accent-primary) 15%, transparent);
     }
 }
 

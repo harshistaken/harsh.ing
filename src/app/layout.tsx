@@ -5,6 +5,7 @@ import { spaceGrotesk, jetbrainsMono, micro5 } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { ThemeKeys } from "@/components/layout/theme-keys";
+import { ThemePicker } from "@/components/ui/theme-picker";
 import { SITE } from "@/config/site";
 import "./globals.css";
 
@@ -65,6 +66,7 @@ export default function RootLayout({
                     <Navbar />
                     <ThemeKeys />
                     <div id="main" className="flex-1">{children}</div>
+                    <ThemePicker />
                 </ThemeProvider>
                 <Analytics />
                 <SpeedInsights />
