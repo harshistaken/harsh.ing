@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://harsh.ing">
-    <img src="public/og-image.png" alt="harsh.ing" width="720" />
+    <img src="public/og-twitter.png" alt="harsh.ing" width="720" />
   </a>
 </div>
 
