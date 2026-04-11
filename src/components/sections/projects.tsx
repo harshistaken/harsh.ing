@@ -142,6 +142,7 @@ export function Projects() {
                 ))}
             </div>
 
+            {/* TODO: re-enable when /work page is ready
             <div className="mt-4 flex justify-end">
                 <Link
                     href="/work"
@@ -151,6 +152,7 @@ export function Projects() {
                     <HugeiconsIcon icon={ArrowRight01Icon} size={12} />
                 </Link>
             </div>
+            */}
         </section>
     );
 }
