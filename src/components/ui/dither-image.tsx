@@ -44,10 +44,10 @@ export function DitherImage({ src, className }: DitherImageProps) {
     const isMobile = useIsMobile();
     const { resolvedTheme } = useTheme();
 
-    const dotColorRef = useRef({ r: 235, g: 235, b: 235 });
+    const dotColorRef = useRef({ r: 232, g: 225, b: 215 });
     dotColorRef.current = resolvedTheme === "light"
-        ? { r: 45, g: 44, b: 42 }    // #2d2c2a
-        : { r: 235, g: 235, b: 235 }; // #ebebeb
+        ? { r: 50, g: 42, b: 32 }     // #322a20 — warm dark brown
+        : { r: 232, g: 225, b: 215 };  // #e8e1d7 — warm off-white
 
     const startLoop = useCallback(() => {
         if (runningRef.current) return;

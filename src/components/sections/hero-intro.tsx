@@ -28,8 +28,8 @@ export function HeroIntro() {
                 </p>
 
                 <p className="font-space text-[16px] leading-normal text-text-secondary">
-                    Based in <span className="text-text-primary underline decoration-border-strong underline-offset-2">Pune, India</span>. Open for{" "}
-                    <span className="text-text-primary underline decoration-border-strong underline-offset-2">freelance/contract work</span>.
+                    Based in <span className="text-text-primary underline decoration-border-strong underline-offset-2">Pune, India</span>. Open to{" "}
+                    <span className="text-text-primary underline decoration-border-strong underline-offset-2">new opportunities</span>.
                 </p>
 
                 <div className="pt-1">

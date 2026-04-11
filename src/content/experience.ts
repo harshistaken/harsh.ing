@@ -62,7 +62,7 @@ export const experience: ExperienceEntry[] = [
         badges: ["FREELANCE", "REMOTE"],
         barColor: "gray",
         bullets: [
-            "shipped production websites for international agencies. CMS integrations, WordPress builds, frontend revamps",
+            "shipped production websites for international clients. Full design, Next.js frontend, WordPress CMS integration, technical SEO",
             "handled everything from client scoping and Figma design to development and deployment",
             "debugged and refactored legacy codebases, resolved cross-browser issues, improved Core Web Vitals",
         ],

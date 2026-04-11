@@ -80,7 +80,7 @@ export function BookCallButton() {
             />
             <span className={cn(
                 "relative motion-safe:transition-colors motion-safe:duration-500",
-                hovered ? "text-accent-primary" : "text-text-primary"
+                hovered ? "text-accent-primary" : "text-bg-primary"
             )}>{displayText}</span>
         </a>
     );

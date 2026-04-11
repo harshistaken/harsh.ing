@@ -7,10 +7,10 @@ import { experience, formatDate, type ExperienceEntry } from "@/content/experien
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const BAR_CONFIG: Record<string, { color: string; hoverColor: string; label: string }> = {
-    "Hammurabi AI": { color: "bg-accent-primary", hoverColor: "group-hover:bg-accent-primary-hover", label: "FULLTIME" },
-    "Kleenestar LTD": { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "CONTRACT" },
-    "Freelance (Upwork)": { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "FREELANCE" },
+const BAR_CONFIG: Record<string, { color: string; hoverColor: string; label: string; textClass: string }> = {
+    "Hammurabi AI": { color: "bg-accent-primary", hoverColor: "group-hover:bg-accent-primary-hover", label: "FULLTIME", textClass: "text-bg-primary/50 group-hover:text-bg-primary/80" },
+    "Kleenestar LTD": { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "CONTRACT", textClass: "text-text-primary/40 group-hover:text-text-primary/70" },
+    "Freelance (Upwork)": { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "FREELANCE", textClass: "text-text-primary/40 group-hover:text-text-primary/70" },
 };
 
 /* ─── Year label ─── */
@@ -47,6 +47,7 @@ function SideBar({
     startDate,
     endDate,
     index,
+    textClass,
 }: {
     color: string;
     hoverColor: string;
@@ -55,6 +56,7 @@ function SideBar({
     startDate: { month: number; year: number };
     endDate?: { month: number; year: number };
     index: number;
+    textClass: string;
 }) {
     const endLabel = active ? "NOW" : `${endDate?.year ?? ""}`;
     const startLabel = `${startDate.year}`;
@@ -74,7 +76,7 @@ function SideBar({
                 transition={{ duration: 0.6, delay: barDelay + 0.15, ease }}
                 style={{ transformOrigin: "bottom" }}
             >
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[8px] font-semibold uppercase tracking-[0.15em] text-text-primary/40 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-text-primary/70">
+                <span className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[8px] font-semibold uppercase tracking-[0.15em] motion-safe:transition-opacity motion-safe:duration-300 ${textClass}`}>
                     {label}
                 </span>
             </motion.div>
@@ -229,7 +231,7 @@ function EducationRow({
                     animate={inView ? { scaleY: 1 } : {}}
                     transition={{ duration: 0.6, delay: barDelay + 0.15, ease }}
                 >
-                    <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[8px] font-semibold uppercase tracking-[0.15em] text-text-primary/40 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-text-primary/70">
+                    <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[8px] font-semibold uppercase tracking-[0.15em] text-bg-primary/50 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-bg-primary/80">
                         EDUCATION
                     </span>
                 </motion.div>
@@ -284,7 +286,7 @@ export function Experience() {
             <div className="mt-10 flex flex-col gap-3">
                 {/* Work entries — each row is a group for hover interaction */}
                 {workEntries.map((entry, i) => {
-                    const config = BAR_CONFIG[entry.company] ?? { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "" };
+                    const config = BAR_CONFIG[entry.company] ?? { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "", textClass: "text-text-primary/40 group-hover:text-text-primary/70" };
                     return (
                         <div key={entry.company} className="group flex gap-3">
                             <SideBar
@@ -295,6 +297,7 @@ export function Experience() {
                                 startDate={entry.startDate}
                                 endDate={entry.endDate}
                                 index={i}
+                                textClass={config.textClass}
                             />
                             <WorkCard entry={entry} index={i} />
                         </div>
