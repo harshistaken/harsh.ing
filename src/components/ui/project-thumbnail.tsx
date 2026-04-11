@@ -50,53 +50,6 @@ function UdfViewerThumb() {
     );
 }
 
-/* ─── Auxy: Stacked feed cards ─── */
-function AuxyThumb() {
-    const cards = [
-        { x: 60, y: 55, w: 120, h: 72, opacity: 0.4 },
-        { x: 140, y: 75, w: 120, h: 72, opacity: 0.6 },
-        { x: 100, y: 95, w: 120, h: 72, opacity: 1 },
-    ];
-
-    return (
-        <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-bg-tertiary">
-            <svg
-                className="absolute inset-0 h-full w-full transition-transform duration-500 group-hover:scale-[1.02]"
-                viewBox="0 0 400 250"
-                preserveAspectRatio="xMidYMid slice"
-            >
-                {/* Grid dots background */}
-                <pattern id="auxy-dots" width="16" height="16" patternUnits="userSpaceOnUse">
-                    <circle cx="8" cy="8" r="0.5" fill="var(--text-muted)" />
-                </pattern>
-                <rect width="400" height="250" fill="url(#auxy-dots)" opacity="0.6" />
-
-                {/* Stacked feed cards */}
-                {cards.map((card, i) => (
-                    <g key={i} opacity={card.opacity}>
-                        <rect x={card.x} y={card.y} width={card.w} height={card.h} rx="3" fill="var(--bg-secondary)" stroke="var(--border-strong)" strokeWidth="0.75" />
-                        {/* Avatar circle */}
-                        <circle cx={card.x + 14} cy={card.y + 14} r="5" fill="var(--accent-primary)" fillOpacity="0.35" stroke="var(--accent-primary)" strokeWidth="0.5" />
-                        {/* Text lines */}
-                        <rect x={card.x + 24} y={card.y + 10} width="40" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.5" />
-                        <rect x={card.x + 24} y={card.y + 16} width="28" height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.5" />
-                        {/* Content block */}
-                        <rect x={card.x + 10} y={card.y + 28} width={card.w - 20} height="30" rx="2" fill="var(--bg-tertiary)" />
-                    </g>
-                ))}
-
-                {/* Connection lines between cards */}
-                <line x1="180" y1="127" x2="200" y2="147" stroke="var(--accent-primary)" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.5" />
-                <line x1="260" y1="111" x2="220" y2="131" stroke="var(--accent-primary)" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.5" />
-            </svg>
-            {/* Center brand */}
-            <div className="relative z-10 flex flex-col items-center gap-1">
-                <span className="font-jetbrains text-[12px] font-semibold tracking-widest text-text-primary opacity-80">AUXY</span>
-            </div>
-        </div>
-    );
-}
-
 /* ─── Opal Consulting: Corporate wireframe ─── */
 function OpalThumb() {
     return (
@@ -223,13 +176,174 @@ function KleenestarThumb() {
     );
 }
 
+/* ─── Codesnippify: Code editor with syntax lines ─── */
+function CodesnippifyThumb() {
+    const lines = [
+        { indent: 0, widths: [28, 50], colors: ["var(--accent-primary)", "var(--text-muted)"] },
+        { indent: 1, widths: [22, 65, 30], colors: ["var(--accent-primary)", "var(--text-muted)", "var(--accent-primary)"] },
+        { indent: 2, widths: [40, 35], colors: ["var(--text-muted)", "var(--accent-primary)"] },
+        { indent: 2, widths: [55], colors: ["var(--text-muted)"] },
+        { indent: 1, widths: [12], colors: ["var(--accent-primary)"] },
+        { indent: 0, widths: [0], colors: [] },
+        { indent: 0, widths: [35, 45], colors: ["var(--accent-primary)", "var(--text-muted)"] },
+        { indent: 1, widths: [48, 30], colors: ["var(--text-muted)", "var(--accent-primary)"] },
+        { indent: 1, widths: [60], colors: ["var(--text-muted)"] },
+        { indent: 0, widths: [12], colors: ["var(--accent-primary)"] },
+    ];
+
+    return (
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-bg-tertiary">
+            <svg
+                className="absolute inset-0 h-full w-full transition-transform duration-500 group-hover:scale-[1.02]"
+                viewBox="0 0 400 250"
+                preserveAspectRatio="xMidYMid slice"
+            >
+                {/* Editor chrome — tab bar */}
+                <rect x="70" y="30" width="260" height="14" rx="2" fill="var(--bg-secondary)" stroke="var(--border-strong)" strokeWidth="0.5" />
+                <rect x="75" y="33" width="40" height="8" rx="1" fill="var(--accent-primary)" fillOpacity="0.12" stroke="var(--accent-primary)" strokeWidth="0.4" />
+                <circle cx="82" cy="37" r="1.5" fill="var(--accent-primary)" fillOpacity="0.5" />
+                <rect x="120" y="33" width="35" height="8" rx="1" fill="var(--bg-tertiary)" />
+
+                {/* Editor body */}
+                <rect x="70" y="44" width="260" height="170" rx="0" fill="var(--bg-secondary)" stroke="var(--border-strong)" strokeWidth="0.5" />
+
+                {/* Line numbers gutter */}
+                <rect x="70" y="44" width="22" height="170" fill="var(--bg-tertiary)" />
+                {lines.map((_, i) => (
+                    <text key={`ln-${i}`} x="80" y={62 + i * 16} fontSize="6" fill="var(--text-muted)" fillOpacity="0.4" textAnchor="middle" fontFamily="monospace">
+                        {i + 1}
+                    </text>
+                ))}
+
+                {/* Code lines */}
+                {lines.map((line, i) => {
+                    let xOffset = 100 + line.indent * 12;
+                    return (
+                        <g key={`cl-${i}`}>
+                            {line.widths.map((w, j) => {
+                                if (w === 0) return null;
+                                const el = (
+                                    <rect
+                                        key={`cl-${i}-${j}`}
+                                        x={xOffset}
+                                        y={59 + i * 16}
+                                        width={w}
+                                        height="3"
+                                        rx="1"
+                                        fill={line.colors[j]}
+                                        fillOpacity="0.45"
+                                    />
+                                );
+                                xOffset += w + 6;
+                                return el;
+                            })}
+                        </g>
+                    );
+                })}
+
+                {/* Highlight active line */}
+                <rect x="92" y="53" width="238" height="16" fill="var(--accent-primary)" fillOpacity="0.04" />
+            </svg>
+
+            {/* Center brand */}
+            <div className="relative z-10 flex flex-col items-center gap-1">
+                <span className="font-jetbrains text-[10px] font-semibold tracking-widest text-accent-primary opacity-80">CODESNIPPIFY</span>
+            </div>
+        </div>
+    );
+}
+
+/* ─── QRestro: QR code + menu layout ─── */
+function QRestroThumb() {
+    /* 7x7 simplified QR pattern — corners have finder patterns, rest is pseudo-random */
+    const qrSize = 7;
+    const cellSize = 8;
+    const qrOrigin = { x: 155, y: 75 };
+    const finderCells = [
+        /* top-left 3x3 */
+        [0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2],
+        /* top-right 3x3 */
+        [4, 0], [5, 0], [6, 0], [4, 1], [6, 1], [4, 2], [5, 2], [6, 2],
+        /* bottom-left 3x3 */
+        [0, 4], [1, 4], [2, 4], [0, 5], [2, 5], [0, 6], [1, 6], [2, 6],
+    ];
+    const dataCells = [
+        [3, 1], [3, 3], [4, 3], [5, 3], [3, 5], [4, 5], [6, 4], [5, 5], [6, 6], [3, 6], [1, 3], [5, 4],
+    ];
+
+    return (
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-bg-tertiary">
+            <svg
+                className="absolute inset-0 h-full w-full transition-transform duration-500 group-hover:scale-[1.02]"
+                viewBox="0 0 400 250"
+                preserveAspectRatio="xMidYMid slice"
+            >
+                {/* QR code */}
+                <rect
+                    x={qrOrigin.x - 4}
+                    y={qrOrigin.y - 4}
+                    width={qrSize * cellSize + 8}
+                    height={qrSize * cellSize + 8}
+                    rx="2"
+                    fill="var(--bg-secondary)"
+                    stroke="var(--border-strong)"
+                    strokeWidth="0.5"
+                />
+                {/* Finder pattern cells */}
+                {finderCells.map(([cx, cy]) => (
+                    <rect
+                        key={`f-${cx}-${cy}`}
+                        x={qrOrigin.x + cx * cellSize}
+                        y={qrOrigin.y + cy * cellSize}
+                        width={cellSize - 1}
+                        height={cellSize - 1}
+                        fill="var(--accent-primary)"
+                        fillOpacity="0.7"
+                    />
+                ))}
+                {/* Data cells */}
+                {dataCells.map(([cx, cy]) => (
+                    <rect
+                        key={`d-${cx}-${cy}`}
+                        x={qrOrigin.x + cx * cellSize}
+                        y={qrOrigin.y + cy * cellSize}
+                        width={cellSize - 1}
+                        height={cellSize - 1}
+                        fill="var(--accent-primary)"
+                        fillOpacity="0.4"
+                    />
+                ))}
+
+                {/* Menu items to the right */}
+                {[0, 1, 2].map((i) => (
+                    <g key={`menu-${i}`}>
+                        <rect x="240" y={78 + i * 28} width="90" height="22" rx="2" fill="var(--bg-secondary)" stroke="var(--border-strong)" strokeWidth="0.5" />
+                        <rect x="248" y={84 + i * 28} width={35 - i * 5} height="3" rx="1" fill="var(--text-muted)" fillOpacity="0.6" />
+                        <rect x="248" y={90 + i * 28} width={50 - i * 8} height="2" rx="1" fill="var(--text-muted)" fillOpacity="0.3" />
+                        <rect x="310" y={84 + i * 28} width="14" height="8" rx="1.5" fill="var(--accent-primary)" fillOpacity="0.15" stroke="var(--accent-primary)" strokeWidth="0.4" />
+                    </g>
+                ))}
+
+                {/* Connecting dashed line from QR to menu */}
+                <line x1="215" y1="105" x2="235" y2="105" stroke="var(--accent-primary)" strokeWidth="0.5" strokeDasharray="3 2" opacity="0.5" />
+            </svg>
+
+            {/* Center brand */}
+            <div className="relative z-10 flex flex-col items-center gap-1">
+                <span className="font-jetbrains text-[10px] font-semibold tracking-widest text-accent-primary opacity-80">QRESTRO</span>
+            </div>
+        </div>
+    );
+}
+
 /* ─── Thumbnail Router ─── */
 
 const THUMBNAILS: Record<string, () => React.JSX.Element> = {
     "udf-viewer": UdfViewerThumb,
-    auxy: AuxyThumb,
     "opal-consulting": OpalThumb,
     kleenestar: KleenestarThumb,
+    codesnippify: CodesnippifyThumb,
+    qrestro: QRestroThumb,
 };
 
 export function ProjectThumbnail({ slug }: { slug: string }) {

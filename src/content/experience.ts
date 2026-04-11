@@ -27,12 +27,12 @@ export const experience: ExperienceEntry[] = [
         active: true,
         barColor: "accent",
         bullets: [
-            "sole frontend engineer on a 15-person team. owned the entire UI layer for a legal AI SaaS serving 22K+ users",
-            "reverse-engineered UDF binary format with zero documentation and built a web-based viewer from scratch",
-            "built ProseMirror-based legal document editor with smart templates, custom commands, and collaborative editing. significantly reduced drafting time",
+            "sole frontend engineer; owned the complete UI for a TUBITAK-backed AI legal research and drafting platform serving 1,000+ users",
+            "reverse-engineered UDF binary format with zero documentation and built a web-based viewer — replacing the government's desktop-only app with a browser-based alternative",
+            "built TipTap-based legal document editor with custom extensions for section-by-section generation with version diffs, reducing lawyer drafting time by 50%",
             "integrated UYAP Turkish judiciary system. eliminated credential sharing across law firms and resolved a critical security vulnerability",
-            "built step-by-step AI execution UI so non-technical lawyers could follow what the system was doing",
-            "improved load performance ~30% through SSR migration and caching layers",
+            "architected a real-time AI research interface with custom SSE streaming protocol handling 15+ concurrent event types, reducing research time by 40%",
+            "built and maintained the full frontend platform: 94 custom hooks, 378 components, 8 Zustand stores, 12 Zod schemas, full TR/EN i18n, and performance optimizations (~30% load improvement)",
         ],
     },
     {
@@ -47,7 +47,7 @@ export const experience: ExperienceEntry[] = [
         bullets: [
             "designed the full product in Figma and built it out in Next.js + Tailwind CSS",
             "led full JavaScript → TypeScript migration across the entire codebase",
-            "set up React Query deduplication and smart invalidation. cut redundant API calls significantly",
+            "configured React Query with smart cache invalidation, reducing redundant API calls by 30-40%",
             "built social media integrations, onboarding flows, and modular Recharts dashboards",
             "improved Lighthouse performance score from 70 → 95",
         ],
