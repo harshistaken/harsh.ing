@@ -11,5 +11,5 @@ export const SITE = {
     jobTitle: "Software Engineer",
     employer: "Hammurabi AI",
     location: { city: "Pune", country: "IN" },
-    sameAs: [SOCIAL.github, SOCIAL.linkedin, SOCIAL.x],
+    sameAs: [SOCIAL.github, SOCIAL.linkedin],
 } as const;

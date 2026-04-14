@@ -15,7 +15,8 @@ type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>;
 interface NodeDef {
     id: string;
     label: string;
-    href: string;
+    href?: string;
+    tooltip?: string;
     iconLight: SvgComponent;
     iconDark: SvgComponent;
     x: number;
@@ -25,7 +26,7 @@ interface NodeDef {
 const NODES: NodeDef[] = [
     { id: "github", label: "github", href: SOCIAL.github, iconLight: GitHubLight, iconDark: GitHubDark, x: 15, y: 30 },
     { id: "linkedin", label: "linkedin", href: SOCIAL.linkedin, iconLight: LinkedIn, iconDark: LinkedIn, x: 42, y: 72 },
-    { id: "x", label: "x / twitter", href: SOCIAL.x, iconLight: XLight, iconDark: XDark, x: 70, y: 25 },
+    { id: "x", label: "x / twitter", tooltip: "hehe private!", iconLight: XLight, iconDark: XDark, x: 70, y: 25 },
     { id: "mail", label: "gmail", href: `mailto:${SOCIAL.email}`, iconLight: Gmail, iconDark: Gmail, x: 30, y: 55 },
     { id: "cal", label: "cal.com", href: SOCIAL.cal, iconLight: CalcomLight, iconDark: CalcomDark, x: 78, y: 65 },
 ];
@@ -148,23 +149,39 @@ function SignalBoard() {
                         />
 
                         {/* Node button */}
-                        <a
-                            href={node.href}
-                            target={node.id === "mail" ? undefined : "_blank"}
-                            rel={node.id === "mail" ? undefined : "noopener noreferrer"}
-                            aria-label={node.label}
-                            className={`relative flex items-center justify-center border border-border-default bg-bg-secondary transition-all duration-300 hover:border-accent-primary ${node.id === "cal" ? "h-12 w-16 min-[480px]:h-14 min-[480px]:w-20" : "h-12 w-12 min-[480px]:h-14 min-[480px]:w-14"}`}
-                            style={{
-                                transform: `scale(${scale})`,
-                                transition: "transform 0.3s ease-out, border-color 0.3s ease-out",
-                            }}
-                            onMouseEnter={() => setHoveredNode(node.id)}
-                            onMouseLeave={() => setHoveredNode(null)}
-                        >
-                            <NodeIcon node={node} size={20} />
-                        </a>
+                        {node.href ? (
+                            <a
+                                href={node.href}
+                                target={node.id === "mail" ? undefined : "_blank"}
+                                rel={node.id === "mail" ? undefined : "noopener noreferrer"}
+                                aria-label={node.label}
+                                className={`relative flex items-center justify-center border border-border-default bg-bg-secondary transition-all duration-300 hover:border-accent-primary ${node.id === "cal" ? "h-12 w-16 min-[480px]:h-14 min-[480px]:w-20" : "h-12 w-12 min-[480px]:h-14 min-[480px]:w-14"}`}
+                                style={{
+                                    transform: `scale(${scale})`,
+                                    transition: "transform 0.3s ease-out, border-color 0.3s ease-out",
+                                }}
+                                onMouseEnter={() => setHoveredNode(node.id)}
+                                onMouseLeave={() => setHoveredNode(null)}
+                            >
+                                <NodeIcon node={node} size={20} />
+                            </a>
+                        ) : (
+                            <button
+                                type="button"
+                                aria-label={node.label}
+                                className="relative flex h-12 w-12 cursor-default items-center justify-center border border-border-default bg-bg-secondary opacity-50 transition-all duration-300 hover:border-accent-primary hover:opacity-100 min-[480px]:h-14 min-[480px]:w-14"
+                                style={{
+                                    transform: `scale(${scale})`,
+                                    transition: "transform 0.3s ease-out, border-color 0.3s ease-out, opacity 0.3s ease-out",
+                                }}
+                                onMouseEnter={() => setHoveredNode(node.id)}
+                                onMouseLeave={() => setHoveredNode(null)}
+                            >
+                                <NodeIcon node={node} size={20} />
+                            </button>
+                        )}
 
-                        {/* Label */}
+                        {/* Label / Tooltip */}
                         <div
                             className="pointer-events-none absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap font-space text-[12px] text-text-tertiary transition-all duration-200"
                             style={{
@@ -172,7 +189,7 @@ function SignalBoard() {
                                 transform: `translate(-50%, ${isHovered ? 0 : -4}px)`,
                             }}
                         >
-                            {node.label}
+                            {node.tooltip ?? node.label}
                         </div>
                     </motion.div>
                 );
@@ -213,21 +230,36 @@ function SignalBoard() {
 function MobileConnections() {
     return (
         <div className="flex flex-wrap justify-center gap-3">
-            {NODES.map((node, i) => (
-                <motion.a
-                    key={node.id}
-                    href={node.href}
-                    target={node.id === "mail" ? undefined : "_blank"}
-                    rel={node.id === "mail" ? undefined : "noopener noreferrer"}
-                    className="flex flex-col items-center gap-2 border border-border-default bg-bg-secondary p-4 transition-colors duration-200 hover:border-accent-primary"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: i * 0.06, ease }}
-                >
-                    <NodeIcon node={node} size={20} />
-                    <span className="font-space text-[12px] text-text-tertiary">{node.label}</span>
-                </motion.a>
-            ))}
+            {NODES.map((node, i) =>
+                node.href ? (
+                    <motion.a
+                        key={node.id}
+                        href={node.href}
+                        target={node.id === "mail" ? undefined : "_blank"}
+                        rel={node.id === "mail" ? undefined : "noopener noreferrer"}
+                        className="flex flex-col items-center gap-2 border border-border-default bg-bg-secondary p-4 transition-colors duration-200 hover:border-accent-primary"
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: i * 0.06, ease }}
+                    >
+                        <NodeIcon node={node} size={20} />
+                        <span className="font-space text-[12px] text-text-tertiary">{node.label}</span>
+                    </motion.a>
+                ) : (
+                    <motion.button
+                        key={node.id}
+                        type="button"
+                        className="flex cursor-default flex-col items-center gap-2 border border-border-default bg-bg-secondary p-4 opacity-50 transition-colors duration-200 hover:border-accent-primary hover:opacity-100"
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: i * 0.06, ease }}
+                        title={node.tooltip}
+                    >
+                        <NodeIcon node={node} size={20} />
+                        <span className="font-space text-[12px] text-text-tertiary">{node.tooltip ?? node.label}</span>
+                    </motion.button>
+                )
+            )}
         </div>
     );
 }
