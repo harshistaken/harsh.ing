@@ -17,7 +17,10 @@ export function GET(request: Request) {
     const allowed = allowedFor(from);
 
     const links: Partial<Record<string, string>> = {};
-    for (const id of allowed) links[id] = PRIVATE_PROFILES[id];
+    for (const id of allowed) {
+        const url = PRIVATE_PROFILES[id];
+        if (url) links[id] = url;
+    }
 
     return NextResponse.json(
         { links },

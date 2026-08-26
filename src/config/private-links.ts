@@ -8,12 +8,24 @@ import "server-only";
  * the UI achieves nothing: anyone can read the bundle. Keeping them here means
  * the string never reaches the browser unless the gate below allows it.
  */
-export const PRIVATE_PROFILES = {
-    linkedin: "[redacted]",
-    x: "[redacted]",
-} as const;
+export const PRIVATE_PROFILE_IDS = ["linkedin", "x"] as const;
+export type PrivateProfileId = (typeof PRIVATE_PROFILE_IDS)[number];
 
-export type PrivateProfileId = keyof typeof PRIVATE_PROFILES;
+/**
+ * Read from the environment, never committed.
+ *
+ * This repository is public. Hardcoding the URLs here would publish them on
+ * GitHub, which defeats the whole point: `server-only` keeps a string out of
+ * the browser bundle, it does nothing about a public repo. Set these in the
+ * Vercel project settings and in .env.local for development.
+ *
+ * A missing value means the profile is simply never offered, which fails
+ * closed rather than open.
+ */
+export const PRIVATE_PROFILES: Record<PrivateProfileId, string | undefined> = {
+    linkedin: process.env.PROFILE_LINKEDIN,
+    x: process.env.PROFILE_X,
+};
 
 /**
  * Which profiles a visitor is allowed to see, based on where they came from.
