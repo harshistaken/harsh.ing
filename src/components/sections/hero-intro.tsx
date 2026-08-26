@@ -31,7 +31,12 @@ export function HeroIntro() {
                 <h1 className="sr-only">Harsh Yadav, design engineer</h1>
                 <p className="font-space text-[16px] leading-normal text-text-secondary">
                     I&apos;m <span className="text-text-primary underline decoration-border-strong underline-offset-2">Harsh Yadav</span>. I design software, then write the code that ships it. Most
-                    recently design and frontend at <span className="text-text-primary underline decoration-border-strong underline-offset-2">CureMeAbroad</span>. Before that, sole frontend engineer on
+                    recently design and frontend at{" "}
+                    <span className="inline-flex items-center gap-1">
+                        <Image src="/icons/CureMeAbroad.png" alt="" width={20} height={20} className="inline-block h-3 w-auto" />
+                        <span className="text-text-primary underline decoration-border-strong underline-offset-2">CureMeAbroad</span>
+                    </span>
+                    . Before that, sole frontend engineer on
                     legal AI at{" "}
                     <span className="inline-flex items-center gap-1">
                         <Image src="/icons/Hammurabi.svg" alt="" width={28} height={14} className="inline-block h-2.5 w-auto" />

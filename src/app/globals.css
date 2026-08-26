@@ -64,8 +64,8 @@ html {
     --bg-surface: oklch(0.99 0.004 85);
     --text-primary: oklch(0.15 0.006 85);
     --text-secondary: oklch(0.38 0.01 85);
-    --text-tertiary: oklch(0.55 0.007 85);
-    --text-muted: oklch(0.72 0.006 85);
+    --text-tertiary: oklch(0.46 0.007 85);
+    --text-muted: oklch(0.505 0.006 85);
     --border-default: oklch(0.915 0.011 85);
     --border-subtle: oklch(0.945 0.008 85);
     --border-strong: oklch(0.84 0.013 85);
@@ -81,8 +81,8 @@ html {
     --bg-surface: oklch(0.25 0.007 85);
     --text-primary: oklch(0.96 0.005 85);
     --text-secondary: oklch(0.72 0.007 85);
-    --text-tertiary: oklch(0.54 0.006 85);
-    --text-muted: oklch(0.36 0.005 85);
+    --text-tertiary: oklch(0.66 0.006 85);
+    --text-muted: oklch(0.6 0.005 85);
     --border-default: oklch(0.25 0.007 85);
     --border-subtle: oklch(0.18 0.006 85);
     --border-strong: oklch(0.32 0.008 85);
