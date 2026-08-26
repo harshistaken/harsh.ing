@@ -107,9 +107,9 @@ export const experience: ExperienceEntry[] = [
         barColor: "gray",
         barLabel: "FREELANCE",
         bullets: [
-            "shipped production websites for international clients. Full design, Next.js frontend, WordPress CMS integration, technical SEO",
-            "handled everything from client scoping and Figma design to development and deployment",
-            "debugged and refactored legacy codebases, resolved cross-browser issues, improved Core Web Vitals",
+            "took on small freelance work while finishing the last semester of my b.tech. a small client list, plus one project i built on my own to learn from",
+            "worked solo, so the design and the build were the same job. scoping what the client actually needed, drawing the screens in figma, then building and shipping the front end",
+            "learned the parts of the work that are not code. writing the scope before starting, and getting a site reviewed, deployed and live",
         ],
     },
     {
