@@ -6,17 +6,17 @@ const SCRAMBLE_CHARS = "abcdefghijklmnopqrstuvwxyz@#$%&*!?";
 
 const SLOTS = {
     rotating_1: {
-        words: ["edge cases", "weird bugs", "missing docs", "broken APIs", "late-night deploys", "undocumented formats"],
+        words: ["edge cases", "empty states", "loading states", "focus rings", "error messages", "hover states"],
         interval: 5000,
         offset: 0,
     },
     rotating_2: {
-        words: ["impossible deadlines", "legacy codebases", "real-time sync issues", "shifting requirements", "production fires", "pixel-perfect details"],
+        words: ["layout shift", "undocumented tokens", "keyboard paths", "mobile breakpoints", "legacy codebases", "half-second delays"],
         interval: 5000,
         offset: 0,
     },
     rotating_3: {
-        words: ["shipping", "debugging", "reverse-engineering", "architecting", "obsessing", "caffeinating"],
+        words: ["shipping", "debugging", "reverse-engineering", "redlining", "prototyping", "obsessing"],
         interval: 5000,
         offset: 0,
     },
@@ -102,8 +102,8 @@ export function HeroManifesto() {
 
     return (
         <p ref={ref} className="font-space text-[16px] leading-normal text-text-secondary">
-            I care about the things most people skip. The <span className="text-accent-primary">{slot1}</span>, the <span className="text-accent-primary">{slot2}</span>, the parts of a codebase nobody
-            wants to touch. I&apos;m currently <span className="text-accent-primary">{slot3}</span> my way through building things that matter.
+            I care about the things most people skip. The <span className="text-accent-primary">{slot1}</span>, the <span className="text-accent-primary">{slot2}</span>, the place where a design gets
+            handed off and quietly loses something. Most days I&apos;m <span className="text-accent-primary">{slot3}</span> somewhere in that gap.
         </p>
     );
 }

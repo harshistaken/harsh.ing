@@ -3,6 +3,9 @@ export interface ExperienceEntry {
     company: string;
     role?: string;
     logo?: string;
+    /** intrinsic dimensions of the logo asset, used for the aspect ratio */
+    logoW?: number;
+    logoH?: number;
     startDate: { month: number; year: number };
     endDate?: { month: number; year: number };
     badges?: string[];
@@ -20,19 +23,59 @@ export const experience: ExperienceEntry[] = [
     {
         type: "work",
         company: "Hammurabi AI",
-        role: "Frontend Engineer",
+        role: "Design Engineer",
         logo: "/icons/Hammurabi.svg",
-        startDate: { month: 9, year: 2024 },
-        badges: ["FRONTEND ENGINEER", "REMOTE", "CLOSED SOURCE"],
+        startDate: { month: 8, year: 2026 },
+        badges: ["DESIGN ENGINEER", "DESIGN SYSTEMS", "REMOTE"],
         active: true,
         barColor: "accent",
+        barLabel: "CONTRACT",
         bullets: [
-            "sole frontend engineer; owned the complete UI for a TUBITAK-backed AI legal research and drafting platform serving 1,000+ users",
-            "reverse-engineered UDF binary format with zero documentation and built a web-based viewer — replacing the government's desktop-only app with a browser-based alternative",
-            "built TipTap-based legal document editor with custom extensions for section-by-section generation with version diffs, reducing lawyer drafting time by 50%",
-            "integrated UYAP Turkish judiciary system. eliminated credential sharing across law firms and resolved a critical security vulnerability",
-            "architected a real-time AI research interface with custom SSE streaming protocol handling 15+ concurrent event types, reducing research time by 40%",
-            "built and maintained the full frontend platform: 94 custom hooks, 378 components, 8 Zustand stores, 12 Zod schemas, full TR/EN i18n, and performance optimizations (~30% load improvement)",
+            "own the design system for a legal AI product live in the Turkish market, covering the existing Next.js web app and a new mobile app now being designed. the work runs from token architecture in Figma through the pipeline that generates the stylesheets",
+            "rebuilt the token layer as five Figma collections so every semantic token aliases a primitive in one hop, removing the vendor kit's middle theme layer. 64 variable pairs deleted and 134 bindings repointed",
+            "wrote a deterministic OKLCH palette generator in Python that derives the color ramps from six measured brand anchors and emits the contrast report alongside them, so the locked palette document is generated rather than hand written",
+            "built a three-part Figma to CSS token pipeline because the kit's own plugin could not be used: a dump script, an exporter, and a verifier that round-trips all 220 values back against the source. the exporter fails loudly on count drift and the generated stylesheets carry a do-not-edit header",
+            "held all text to AA 4.5:1 with no large-text relaxation, since the product's dominant text size is 12px. the palette carries 182 automated contrast checks with zero failures, and the focus indicator is an opaque 1px ring verified across all 15 focus variants",
+            "added a Desktop/Touch density collection and built the first mobile components against it. uppercase text-transform is banned system wide because Turkish distinguishes i/\u0130 and \u0131/I, so labels are authored in their intended case",
+        ],
+    },
+    {
+        type: "work",
+        company: "CureMeAbroad",
+        role: "Design Engineer",
+        logo: "/icons/CureMeAbroad.png",
+        logoW: 180,
+        logoH: 180,
+        startDate: { month: 4, year: 2026 },
+        endDate: { month: 8, year: 2026 },
+        badges: ["DESIGN ENGINEER", "ON-SITE", "CLOSED SOURCE"],
+        barColor: "gray",
+        barLabel: "FULLTIME",
+        bullets: [
+            "designed and built across two surfaces: the public site on Next.js 16, React 19 and TypeScript, and an in-house CRM, owning work from the database schema through the API layer to the interface. componentized the React codebase, centralized the design system and cleared out dead code",
+            "drove the page-side Core Web Vitals work on the public site with ISR, React Server Components and first-window code splitting. CLS on the doctors route went from 0.85 to near zero, and the destinations route moved from 3.6s to 2.0s LCP with Lighthouse performance from 81 to 93",
+            "cut first-window JavaScript by evicting axios from the critical path (57KB) and lazy loading the auth menu (26KB)",
+            "built the in-house CRM from schema to UI: PostgreSQL tables, Express and Prisma REST endpoints, React screens, a hospital and doctor directory with full CRUD, presigned S3 uploads, Zod request validation and pagination, plus real-time dashboard components over Socket.IO and React Query",
+            "designed the hospital document layouts in Figma and built the renderer behind them, generating PDFs on demand from live data with Puppeteer",
+            "moved site assets to S3 behind a CDN and reworked the image pipeline around it. tightened the public API with response payload projection, Cache-Control headers and PostgreSQL indexes on hot query paths",
+        ],
+    },
+    {
+        type: "work",
+        company: "Hammurabi AI",
+        role: "Frontend Engineer",
+        logo: "/icons/Hammurabi.svg",
+        startDate: { month: 7, year: 2024 },
+        endDate: { month: 3, year: 2026 },
+        badges: ["FRONTEND ENGINEER", "REMOTE", "CLOSED SOURCE"],
+        barColor: "gray",
+        barLabel: "FULLTIME",
+        bullets: [
+            "sole frontend engineer on a TUBITAK-backed AI legal research and drafting platform. owned the whole UI, the design system, TR/EN localisation and the state architecture underneath it",
+            "reverse-engineered UYAP's undocumented UDF format by decompressing the container and working out its XML formatting model, then built a web viewer that renders those documents in the browser with their formatting intact",
+            "designed and built the real-time research interface. a custom client-side protocol handles 15+ SSE event types into the React Query cache, so a lawyer follows each reasoning and retrieval step with its citations instead of waiting on a spinner",
+            "built the AI drafting flow on TipTap with custom extensions for section-by-section generation, version diffs and contextual mentions. in an internal survey, lawyers reported it cut their drafting time roughly in half",
+            "shipped the frontend of the UYAP judiciary integration to production, where lawyers use it on the platform",
         ],
     },
     {
@@ -44,6 +87,7 @@ export const experience: ExperienceEntry[] = [
         endDate: { month: 7, year: 2024 },
         badges: ["FRONTEND ENGINEER", "REMOTE", "CLOSED SOURCE"],
         barColor: "gray",
+        barLabel: "CONTRACT",
         bullets: [
             "designed the full product in Figma and built it out in Next.js + Tailwind CSS",
             "led full JavaScript → TypeScript migration across the entire codebase",
@@ -61,6 +105,7 @@ export const experience: ExperienceEntry[] = [
         endDate: { month: 4, year: 2024 },
         badges: ["FREELANCE", "REMOTE"],
         barColor: "gray",
+        barLabel: "FREELANCE",
         bullets: [
             "shipped production websites for international clients. Full design, Next.js frontend, WordPress CMS integration, technical SEO",
             "handled everything from client scoping and Figma design to development and deployment",

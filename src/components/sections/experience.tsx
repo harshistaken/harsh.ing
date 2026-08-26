@@ -7,11 +7,15 @@ import { experience, formatDate, type ExperienceEntry } from "@/content/experien
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const BAR_CONFIG: Record<string, { color: string; hoverColor: string; label: string; textClass: string }> = {
-    "Hammurabi AI": { color: "bg-accent-primary", hoverColor: "group-hover:bg-accent-primary-hover", label: "FULLTIME", textClass: "text-bg-primary/50 group-hover:text-bg-primary/80" },
-    "Kleenestar LTD": { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "CONTRACT", textClass: "text-text-primary/40 group-hover:text-text-primary/70" },
-    "Freelance (Upwork)": { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "FREELANCE", textClass: "text-text-primary/40 group-hover:text-text-primary/70" },
-};
+const BAR_PALETTE = {
+    accent: { color: "bg-accent-primary", hoverColor: "group-hover:bg-accent-primary-hover", textClass: "text-bg-primary/50 group-hover:text-bg-primary/80" },
+    gray: { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", textClass: "text-text-primary/40 group-hover:text-text-primary/70" },
+    green: { color: "bg-accent-secondary/40", hoverColor: "group-hover:bg-accent-secondary/60", textClass: "text-text-primary/40 group-hover:text-text-primary/70" },
+} as const;
+
+function barConfig(entry: ExperienceEntry) {
+    return { ...BAR_PALETTE[entry.barColor], label: entry.barLabel ?? "" };
+}
 
 /* ─── Year label ─── */
 function YearTick({ text, delay = 0 }: { text: string; delay?: number }) {
@@ -108,8 +112,8 @@ function WorkCard({ entry, index }: { entry: ExperienceEntry; index: number }) {
                         <Image
                             src={entry.logo}
                             alt=""
-                            width={44}
-                            height={22}
+                            width={entry.logoW ?? 44}
+                            height={entry.logoH ?? 22}
                             className={isHammurabi ? "h-[14px] w-auto" : "h-[20px] w-auto"}
                         />
                     )}
@@ -286,9 +290,9 @@ export function Experience() {
             <div className="mt-10 flex flex-col gap-3">
                 {/* Work entries — each row is a group for hover interaction */}
                 {workEntries.map((entry, i) => {
-                    const config = BAR_CONFIG[entry.company] ?? { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", label: "", textClass: "text-text-primary/40 group-hover:text-text-primary/70" };
+                    const config = barConfig(entry);
                     return (
-                        <div key={entry.company} className="group flex gap-3">
+                        <div key={`${entry.company}-${entry.startDate.year}-${entry.startDate.month}`} className="group flex gap-3">
                             <SideBar
                                 color={config.color}
                                 hoverColor={config.hoverColor}

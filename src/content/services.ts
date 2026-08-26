@@ -8,28 +8,28 @@ export interface Service {
 export const services: Service[] = [
     {
         number: "01",
-        title: "CUSTOM DEVELOPMENT",
+        title: "DESIGN + BUILD",
         description:
-            "From landing pages to full-stack applications. You bring the idea, I write the code that ships it.",
+            "Blank page to production. Flows, wireframes, the interface, then the code that ships it. One person across both halves, so nothing gets lost in the handoff.",
         includes: [
-            "Next.js / React applications",
-            "API design and integration",
-            "Database architecture",
-            "Performance optimization",
+            "Product and UI design in Figma",
+            "Next.js and React front ends",
+            "APIs and data models when the product needs them",
+            "Performance, Core Web Vitals and technical SEO",
             "Deployment and CI/CD setup",
         ],
     },
     {
         number: "02",
-        title: "SEO + WEB PRESENCE",
+        title: "DESIGN SYSTEMS",
         description:
-            "Technical SEO that actually moves the needle. No fluff, no keyword stuffing, just structured data and fast pages.",
+            "Tokens, components and themes that survive contact with production. Authored in Figma, wired into the codebase, and generated rather than hand maintained.",
         includes: [
-            "Technical SEO audits",
-            "Core Web Vitals optimization",
-            "Structured data / schema markup",
-            "Analytics and tracking setup",
-            "Content strategy guidance",
+            "Token architecture, theming and density",
+            "Component libraries with real variant coverage",
+            "Figma to code pipelines with verification",
+            "Contrast budgets and accessibility to AA",
+            "Documented usage rules teams actually follow",
         ],
     },
     {
