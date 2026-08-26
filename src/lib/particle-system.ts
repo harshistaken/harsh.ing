@@ -11,6 +11,22 @@ export interface DotSystem {
   dx: Float32Array;
   dy: Float32Array;
   size: number;
+  /** Pre-composed ABGR pixel per dot, sampled from the source image.
+   *  Present only in source colour mode. Undefined means every dot uses
+   *  the single theme colour, which is the original behaviour. */
+  colors?: Uint32Array;
+}
+
+/** Source colour sampling for createDotSystem. */
+export interface DotColorSource {
+  /** 3 bytes per grid sample, from ProcessedImage.rgb */
+  rgb: Uint8Array;
+  /** grid width, i.e. ProcessedImage.width */
+  gridW: number;
+  /** 0 keeps the source colour, 1 pushes fully to its own hue at full saturation */
+  saturate?: number;
+  /** multiplies lightness, useful for lifting a dark photo off a dark ground */
+  lift?: number;
 }
 
 const SHOCKWAVE_SPEED = 225;
@@ -28,7 +44,8 @@ export function createDotSystem(
   scaleFactor: number,
   dotScale: number,
   offsetX: number,
-  offsetY: number
+  offsetY: number,
+  colorSource?: DotColorSource
 ): DotSystem {
   const count = points.length / 2;
   const baseX = new Float32Array(count);
@@ -41,7 +58,49 @@ export function createDotSystem(
     baseY[i] = offsetY + points[i * 2 + 1] * scaleFactor;
   }
 
-  return { count, baseX, baseY, dx, dy, size: scaleFactor * dotScale };
+  const sys: DotSystem = { count, baseX, baseY, dx, dy, size: scaleFactor * dotScale };
+
+  if (colorSource) {
+    const { rgb, gridW, saturate = 0, lift = 1 } = colorSource;
+    const colors = new Uint32Array(count);
+    const maxSample = rgb.length / 3 - 1;
+
+    for (let i = 0; i < count; i++) {
+      // points are grid coordinates, so they index the sample grid directly
+      const gx = points[i * 2] | 0;
+      const gy = points[i * 2 + 1] | 0;
+      const si = Math.min(maxSample, Math.max(0, gy * gridW + gx));
+
+      let r = rgb[si * 3];
+      let g = rgb[si * 3 + 1];
+      let b = rgb[si * 3 + 2];
+
+      if (saturate > 0) {
+        // push each channel away from the pixel's own mean
+        const mean = (r + g + b) / 3;
+        r = mean + (r - mean) * (1 + saturate);
+        g = mean + (g - mean) * (1 + saturate);
+        b = mean + (b - mean) * (1 + saturate);
+      }
+
+      if (lift !== 1) {
+        r *= lift;
+        g *= lift;
+        b *= lift;
+      }
+
+      r = r < 0 ? 0 : r > 255 ? 255 : r | 0;
+      g = g < 0 ? 0 : g > 255 ? 255 : g | 0;
+      b = b < 0 ? 0 : b > 255 ? 255 : b | 0;
+
+      // ABGR, little-endian, matching renderDots
+      colors[i] = (255 << 24) | (b << 16) | (g << 8) | r;
+    }
+
+    sys.colors = colors;
+  }
+
+  return sys;
 }
 
 export function updateDots(
@@ -151,14 +210,17 @@ export function renderDots(
   const g = dotColor ? dotColor.g : invert ? 0 : 143;
   const b = dotColor ? dotColor.b : invert ? 0 : 152;
 
-  // Pre-compose ABGR pixel (little-endian)
-  const pixel = (255 << 24) | (b << 16) | (g << 8) | r;
+  // Pre-compose ABGR pixel (little-endian). In source colour mode each dot
+  // carries its own, so this is only the fallback.
+  const flat = (255 << 24) | (b << 16) | (g << 8) | r;
+  const colors = sys.colors;
 
   const size = sys.size * dpr;
   const pad = 0.25 * dpr;
   const totalSize = size + 0.5 * dpr;
 
   for (let i = 0; i < sys.count; i++) {
+    const pixel = colors ? colors[i] : flat;
     const rx = (sys.baseX[i] + sys.dx[i]) * dpr - pad;
     const ry = (sys.baseY[i] + sys.dy[i]) * dpr - pad;
 

@@ -1,6 +1,9 @@
 export interface ProcessedImage {
   grayscale: Uint8Array;
   alpha: Uint8Array;
+  /** Un-premultiplied source colour per sample, 3 bytes each. Used by the
+   *  source colour mode; the luma path ignores it. */
+  rgb: Uint8Array;
   width: number;
   height: number;
 }
@@ -74,6 +77,7 @@ export function processImage(
   const sampledH = Math.ceil(outH / scale);
   const grayscale = new Uint8Array(sampledW * sampledH);
   const alpha = new Uint8Array(sampledW * sampledH);
+  const rgb = new Uint8Array(sampledW * sampledH * 3);
 
   const contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast));
 
@@ -88,7 +92,15 @@ export function processImage(
       const b = pixels[idx + 2];
       const blurredAlpha = pixels[idx + 3] / 255;
 
-      alpha[sy * sampledW + sx] = alphaData[idx + 3];
+      const si = sy * sampledW + sx;
+      alpha[si] = alphaData[idx + 3];
+
+      // Un-premultiply so edge pixels keep their true colour, same as luma below.
+      const ua = pixels[idx + 3] / 255;
+      const inv = ua > 0.01 ? 1 / ua : 0;
+      rgb[si * 3] = Math.min(255, r * inv);
+      rgb[si * 3 + 1] = Math.min(255, g * inv);
+      rgb[si * 3 + 2] = Math.min(255, b * inv);
 
       // Un-premultiply the blurred RGB so edge pixels retain their true color.
       // The separate alpha mask handles transparency cutoff in the dither step.
@@ -119,5 +131,5 @@ export function processImage(
     }
   }
 
-  return { grayscale, alpha, width: sampledW, height: sampledH };
+  return { grayscale, alpha, rgb, width: sampledW, height: sampledH };
 }

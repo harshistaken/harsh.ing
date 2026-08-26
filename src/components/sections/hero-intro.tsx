@@ -8,6 +8,11 @@ export function HeroIntro() {
             {/* Avatar — interactive dithered particle canvas */}
             <div className="aspect-square w-full shrink-0 min-[560px]:h-[300px] min-[560px]:w-[300px]">
                 <DitherImage src="/avatar-big.png" className="block h-full w-full" />
+                {/* Colour experiment, parked. The suit photo works as a source for
+                    colorMode="source", but the dither CONFIG is tuned for a two-tone
+                    stencil, so a photograph renders solid in the shadows. It needs a
+                    transparent cutout, or its own CONFIG. Flip to:
+                    <DitherImage src="/avatar-suit.webp" colorMode="source" saturate={-0.25} lift={1.45} className="block h-full w-full" /> */}
             </div>
 
             {/* Text + CTA */}

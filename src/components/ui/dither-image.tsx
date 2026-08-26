@@ -19,6 +19,14 @@ import { useIsMobile } from "@/lib/use-is-mobile";
 interface DitherImageProps {
     src: string;
     className?: string;
+    /** "theme" tints every dot with the theme's ink colour, which is what a
+     *  two-tone line drawing wants. "source" gives each dot the colour of the
+     *  pixel underneath it, which is what a photograph wants. */
+    colorMode?: "theme" | "source";
+    /** source mode only: 0 keeps the photo's own colour, higher values push it */
+    saturate?: number;
+    /** source mode only: multiplies lightness, to lift a dark image off a dark ground */
+    lift?: number;
 }
 
 const CONFIG = {
@@ -34,7 +42,7 @@ const CONFIG = {
     cornerRadius: 0.00,
 } as const;
 
-export function DitherImage({ src, className }: DitherImageProps) {
+export function DitherImage({ src, className, colorMode = "theme", saturate = 0, lift = 1 }: DitherImageProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const systemRef = useRef<DotSystem | null>(null);
     const mouseRef = useRef({ x: 0, y: 0, active: false });
@@ -131,10 +139,19 @@ export function DitherImage({ src, className }: DitherImageProps) {
 
             const dotScale = isMobile ? CONFIG.dotScale * 0.8 : CONFIG.dotScale;
 
-            systemRef.current = createDotSystem(positions, s, dotScale, ox, oy);
+            systemRef.current = createDotSystem(
+                positions,
+                s,
+                dotScale,
+                ox,
+                oy,
+                colorMode === "source"
+                    ? { rgb: processed.rgb, gridW: processed.width, saturate, lift }
+                    : undefined
+            );
             startLoop();
         },
-        [isMobile, startLoop]
+        [isMobile, startLoop, colorMode, saturate, lift]
     );
 
     useEffect(() => {
