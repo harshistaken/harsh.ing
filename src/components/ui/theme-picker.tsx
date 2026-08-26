@@ -43,7 +43,7 @@ function Swatches({ theme, mode }: { theme: ThemeDefinition; mode: "light" | "da
       {dots.map((color, i) => (
         <div
           key={i}
-          style={{ background: color, border: "1px solid oklch(1 0 0 / 0.08)" }}
+          style={{ background: color, border: "1px solid var(--border-default)" }}
           className="size-[10px] rounded-full"
         />
       ))}
@@ -181,8 +181,8 @@ export function ThemePicker() {
         aria-label="Open theme picker"
         className="fixed right-4 bottom-4 z-[9999] flex size-10 items-center justify-center rounded-full shadow-lg backdrop-blur-md transition-transform duration-200 hover:scale-110 active:scale-95"
         style={{
-          background: "oklch(0.1 0.005 85 / 0.88)",
-          border: "1px solid oklch(1 0 0 / 0.08)",
+          background: "color-mix(in oklab, var(--bg-surface) 88%, transparent)",
+          border: "1px solid var(--border-default)",
         }}
       >
         <div
@@ -200,18 +200,18 @@ export function ThemePicker() {
       aria-label="Theme picker"
       className="fixed right-4 bottom-4 z-[9999] w-[260px] overflow-hidden rounded-xl shadow-2xl backdrop-blur-xl"
       style={{
-        background: "oklch(0.1 0.005 85 / 0.92)",
-        border: "1px solid oklch(1 0 0 / 0.08)",
+        background: "color-mix(in oklab, var(--bg-surface) 94%, transparent)",
+        border: "1px solid var(--border-default)",
       }}
     >
       {/* Header */}
       <div
         className="flex items-center justify-between px-3 py-2.5"
-        style={{ borderBottom: "1px solid oklch(1 0 0 / 0.06)" }}
+        style={{ borderBottom: "1px solid var(--border-subtle)" }}
       >
         <span
           className="font-jetbrains text-[11px] font-semibold tracking-wider"
-          style={{ color: "oklch(0.95 0 0 / 0.85)" }}
+          style={{ color: "var(--text-primary)" }}
         >
           THEME
         </span>
@@ -221,14 +221,14 @@ export function ThemePicker() {
             aria-label={`Switch to ${mode === "dark" ? "light" : "dark"} mode`}
             className="flex size-7 items-center justify-center rounded-md transition-colors duration-150"
             style={{
-              color: "oklch(0.95 0 0 / 0.5)",
-              background: "oklch(1 0 0 / 0.04)",
+              color: "var(--text-secondary)",
+              background: "var(--bg-secondary)",
             }}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "oklch(0.95 0 0 / 0.9)")
+              (e.currentTarget.style.color = "var(--text-primary)")
             }
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "oklch(0.95 0 0 / 0.5)")
+              (e.currentTarget.style.color = "var(--text-secondary)")
             }
           >
             <ModeIcon mode={mode} />
@@ -237,12 +237,12 @@ export function ThemePicker() {
             onClick={() => setIsOpen(false)}
             aria-label="Close theme picker"
             className="flex size-7 items-center justify-center rounded-md transition-colors duration-150"
-            style={{ color: "oklch(0.95 0 0 / 0.35)" }}
+            style={{ color: "var(--text-tertiary)" }}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "oklch(0.95 0 0 / 0.9)")
+              (e.currentTarget.style.color = "var(--text-primary)")
             }
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "oklch(0.95 0 0 / 0.35)")
+              (e.currentTarget.style.color = "var(--text-tertiary)")
             }
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -267,21 +267,21 @@ export function ThemePicker() {
               onClick={() => setActiveId(theme.id)}
               className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left transition-colors duration-150"
               style={{
-                background: isActive ? "oklch(1 0 0 / 0.08)" : "transparent",
+                background: isActive ? "var(--bg-tertiary)" : "transparent",
                 color: isActive
-                  ? "oklch(0.95 0 0 / 0.95)"
-                  : "oklch(0.95 0 0 / 0.5)",
+                  ? "var(--text-primary)"
+                  : "var(--text-secondary)",
               }}
               onMouseEnter={(e) => {
                 if (!isActive) {
-                  e.currentTarget.style.background = "oklch(1 0 0 / 0.04)";
-                  e.currentTarget.style.color = "oklch(0.95 0 0 / 0.8)";
+                  e.currentTarget.style.background = "var(--bg-secondary)";
+                  e.currentTarget.style.color = "var(--text-primary)";
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isActive) {
                   e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.color = "oklch(0.95 0 0 / 0.5)";
+                  e.currentTarget.style.color = "var(--text-secondary)";
                 }
               }}
             >
@@ -289,9 +289,9 @@ export function ThemePicker() {
               <kbd
                 className="flex size-[18px] shrink-0 items-center justify-center rounded font-jetbrains text-[10px] leading-none"
                 style={{
-                  border: `1px solid oklch(1 0 0 / ${isActive ? 0.15 : 0.06})`,
-                  background: isActive ? "oklch(1 0 0 / 0.06)" : "transparent",
-                  color: `oklch(0.95 0 0 / ${isActive ? 0.7 : 0.25})`,
+                  border: `1px solid ${isActive ? "var(--border-strong)" : "var(--border-subtle)"}`,
+                  background: isActive ? "var(--bg-tertiary)" : "transparent",
+                  color: isActive ? "var(--text-secondary)" : "var(--text-muted)",
                 }}
               >
                 {i + 1}
@@ -307,8 +307,8 @@ export function ThemePicker() {
                     <span
                       className="shrink-0 rounded-full px-1.5 py-px font-jetbrains text-[9px]"
                       style={{
-                        background: "oklch(1 0 0 / 0.1)",
-                        color: "oklch(0.95 0 0 / 0.6)",
+                        background: "var(--bg-tertiary)",
+                        color: "var(--text-secondary)",
                       }}
                     >
                       ACTIVE
@@ -317,7 +317,7 @@ export function ThemePicker() {
                 </div>
                 <span
                   className="block truncate font-space text-[10px]"
-                  style={{ color: "oklch(0.95 0 0 / 0.25)" }}
+                  style={{ color: "var(--text-muted)" }}
                 >
                   {theme.description}
                 </span>
@@ -331,10 +331,10 @@ export function ThemePicker() {
       </div>
 
       {/* Footer */}
-      <div className="px-3 py-1.5" style={{ borderTop: "1px solid oklch(1 0 0 / 0.06)" }}>
+      <div className="px-3 py-1.5" style={{ borderTop: "1px solid var(--border-subtle)" }}>
         <span
           className="font-space text-[10px]"
-          style={{ color: "oklch(0.95 0 0 / 0.2)" }}
+          style={{ color: "var(--text-muted)" }}
         >
           1-{themes.length} select · D mode · T toggle · Esc close
         </span>
