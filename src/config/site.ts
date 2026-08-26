@@ -14,5 +14,8 @@ export const SITE = {
     // X is deliberately not listed: the account is public but Harsh does not
     // link it from the site, and sameAs would tell search engines to associate
     // the identities anyway.
-    sameAs: [SOCIAL.github, SOCIAL.linkedin],
+    // GitHub only. sameAs is machine-readable identity linking that Google
+    // indexes, so listing LinkedIn here would publish the association no matter
+    // what the referrer gate does in the UI.
+    sameAs: [SOCIAL.github],
 } as const;

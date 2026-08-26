@@ -8,6 +8,32 @@ import { SOCIAL } from "@/config/links";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+/**
+ * Asks the server which gated profiles this visitor is allowed to see.
+ *
+ * The URLs are not in this bundle and not in the page source. They are fetched
+ * at runtime and only returned when the referrer qualifies, so someone arriving
+ * from Discord never receives them at all. The referrer is client-supplied and
+ * therefore forgeable; this removes casual cross-discovery rather than
+ * guaranteeing anything.
+ */
+function useGatedLinks() {
+    const [links, setLinks] = useState<Record<string, string>>({});
+
+    useEffect(() => {
+        const from = document.referrer;
+        if (!from) return;
+        const controller = new AbortController();
+        fetch(`/api/link?from=${encodeURIComponent(from)}`, { signal: controller.signal })
+            .then((r) => (r.ok ? r.json() : null))
+            .then((d) => { if (d?.links) setLinks(d.links); })
+            .catch(() => { /* stay closed if the lookup fails */ });
+        return () => controller.abort();
+    }, []);
+
+    return links;
+}
+
 type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
 /* ─── Node Data ─── */
@@ -25,7 +51,7 @@ interface NodeDef {
 
 const NODES: NodeDef[] = [
     { id: "github", label: "github", href: SOCIAL.github, iconLight: GitHubLight, iconDark: GitHubDark, x: 15, y: 30 },
-    { id: "linkedin", label: "linkedin", href: SOCIAL.linkedin, iconLight: LinkedIn, iconDark: LinkedIn, x: 42, y: 72 },
+    { id: "linkedin", label: "linkedin", tooltip: "hehe private!", iconLight: LinkedIn, iconDark: LinkedIn, x: 42, y: 72 },
     { id: "x", label: "x / twitter", tooltip: "hehe private!", iconLight: XLight, iconDark: XDark, x: 70, y: 25 },
     { id: "mail", label: "gmail", href: `mailto:${SOCIAL.email}`, iconLight: Gmail, iconDark: Gmail, x: 30, y: 55 },
     { id: "cal", label: "cal.com", href: SOCIAL.cal, iconLight: CalcomLight, iconDark: CalcomDark, x: 78, y: 65 },
@@ -36,6 +62,16 @@ const EDGES: [number, number][] = [
 ];
 
 /* ─── Node Icon Renderer ─── */
+
+
+/** Overlays whatever the gate allowed onto the static node list. */
+function useResolvedNodes(): NodeDef[] {
+    const gated = useGatedLinks();
+    return NODES.map((n) => {
+        const href = n.href ?? gated[n.id];
+        return href ? { ...n, href, tooltip: undefined } : n;
+    });
+}
 
 function NodeIcon({ node, size }: { node: NodeDef; size: number }) {
     const { resolvedTheme } = useTheme();
@@ -52,6 +88,7 @@ function NodeIcon({ node, size }: { node: NodeDef; size: number }) {
 /* ─── Constellation Canvas ─── */
 
 function SignalBoard() {
+    const nodes = useResolvedNodes();
     const containerRef = useRef<HTMLDivElement>(null);
     const [mouse, setMouse] = useState({ x: 50, y: 50 });
     const [hoveredNode, setHoveredNode] = useState<string | null>(null);
@@ -94,8 +131,8 @@ function SignalBoard() {
             {/* SVG edges */}
             <svg className="pointer-events-none absolute inset-0 h-full w-full" preserveAspectRatio="none">
                 {EDGES.map(([a, b], i) => {
-                    const na = NODES[a];
-                    const nb = NODES[b];
+                    const na = nodes[a];
+                    const nb = nodes[b];
                     const midX = (na.x + nb.x) / 2;
                     const midY = (na.y + nb.y) / 2;
                     const d = distTo(midX, midY);
@@ -121,7 +158,7 @@ function SignalBoard() {
             </svg>
 
             {/* Nodes */}
-            {NODES.map((node, i) => {
+            {nodes.map((node, i) => {
                 const d = distTo(node.x, node.y);
                 const isClose = hasMounted && d < 25;
                 const isHovered = hoveredNode === node.id;
@@ -228,9 +265,10 @@ function SignalBoard() {
 /* ─── Mobile Layout ─── */
 
 function MobileConnections() {
+    const nodes = useResolvedNodes();
     return (
         <div className="flex flex-wrap justify-center gap-3">
-            {NODES.map((node, i) =>
+            {nodes.map((node, i) =>
                 node.href ? (
                     <motion.a
                         key={node.id}
