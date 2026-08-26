@@ -6,11 +6,11 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-    { href: "#projects", label: "/WORK" },
-    { href: "#contact", label: "/CONTACT" },
+    { id: "experience", label: "/WORK" },
+    { id: "contact", label: "/CONTACT" },
 ] as const;
 
-const SECTION_IDS = NAV_LINKS.map((link) => link.href.slice(1));
+const SECTION_IDS = NAV_LINKS.map((link) => link.id);
 
 export function Navbar() {
     const pathname = usePathname();
@@ -48,13 +48,15 @@ export function Navbar() {
 
                 <div className="flex items-center gap-6">
                     {NAV_LINKS.map((link) => {
-                        const sectionId = link.href.slice(1);
+                        const sectionId = link.id;
+                        // bare "#id" is dead on /work, /about and /blogs, so route home first
+                        const href = isHome ? `#${link.id}` : `/#${link.id}`;
                         const isActive = activeSection === sectionId;
 
                         return (
                             <a
-                                key={link.href}
-                                href={link.href}
+                                key={link.id}
+                                href={href}
                                 className={cn(
                                     "font-jetbrains text-[13px] font-normal uppercase leading-none outline-none transition-colors duration-200 focus-visible:text-accent-primary",
                                     isActive ? "text-accent-primary" : "text-text-secondary hover:text-text-primary",

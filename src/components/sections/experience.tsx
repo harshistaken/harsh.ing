@@ -302,7 +302,7 @@ export function Experience() {
     const eduIndex = workEntries.length;
 
     return (
-        <section className="mt-24">
+        <section id="experience" className="mt-24">
             <h2 className="font-micro text-[40px] leading-none text-text-primary">EXPERIENCE</h2>
 
             <div className="mt-10 flex flex-col gap-3">
