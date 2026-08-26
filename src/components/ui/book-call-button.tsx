@@ -53,7 +53,7 @@ export function BookCallButton() {
             href={SOCIAL.cal}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative flex w-full items-center justify-center overflow-hidden border border-accent-primary px-3 py-1.5 font-jetbrains text-[12px] uppercase tracking-wider outline-none focus-visible:text-accent-primary"
+            className="group relative flex w-full items-center justify-center overflow-hidden border border-accent-primary px-3 py-1.5 font-jetbrains text-[12px] uppercase tracking-wider focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-primary"
             onPointerEnter={(e) => {
                 if (e.pointerType === "mouse") {
                     setHovered(true);

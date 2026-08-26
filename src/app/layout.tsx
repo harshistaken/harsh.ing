@@ -10,7 +10,7 @@ import { SITE } from "@/config/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: SITE.title,
+    title: { default: SITE.title, template: `%s · ${SITE.name}` },
     description: SITE.description,
     metadataBase: new URL(SITE.url),
     applicationName: SITE.name,
