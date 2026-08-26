@@ -26,7 +26,7 @@ interface NodeDef {
 const NODES: NodeDef[] = [
     { id: "github", label: "github", href: SOCIAL.github, iconLight: GitHubLight, iconDark: GitHubDark, x: 15, y: 30 },
     { id: "linkedin", label: "linkedin", href: SOCIAL.linkedin, iconLight: LinkedIn, iconDark: LinkedIn, x: 42, y: 72 },
-    { id: "x", label: "x / twitter", href: SOCIAL.x, iconLight: XLight, iconDark: XDark, x: 70, y: 25 },
+    { id: "x", label: "x / twitter", tooltip: "hehe private!", iconLight: XLight, iconDark: XDark, x: 70, y: 25 },
     { id: "mail", label: "gmail", href: `mailto:${SOCIAL.email}`, iconLight: Gmail, iconDark: Gmail, x: 30, y: 55 },
     { id: "cal", label: "cal.com", href: SOCIAL.cal, iconLight: CalcomLight, iconDark: CalcomDark, x: 78, y: 65 },
 ];

@@ -11,5 +11,8 @@ export const SITE = {
     jobTitle: "Design Engineer",
     employer: "Hammurabi AI",
     location: { city: "Pune", country: "IN" },
-    sameAs: [SOCIAL.github, SOCIAL.linkedin, SOCIAL.x],
+    // X is deliberately not listed: the account is public but Harsh does not
+    // link it from the site, and sameAs would tell search engines to associate
+    // the identities anyway.
+    sameAs: [SOCIAL.github, SOCIAL.linkedin],
 } as const;

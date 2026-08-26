@@ -7,5 +7,5 @@ export const SOCIAL = {
     linkedin: "[redacted]",
     x: "[redacted]",
     email: "harshyadav.build@gmail.com",
-    cal: "https://cal.com/harshistaken",
+    cal: "https://cal.com/harshing",
 } as const;

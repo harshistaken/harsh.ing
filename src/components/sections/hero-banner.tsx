@@ -28,6 +28,22 @@ export function HeroBanner() {
     // something most never reveal, and lazy does not help because it is
     // inside the viewport. Mount it the first time it is actually wanted.
     const [colorWanted, setColorWanted] = useState(false);
+    // The grey layer must not fade until the colour image has actually decoded,
+    // otherwise the reveal is an empty box while 1.5MB downloads.
+    const [colorLoaded, setColorLoaded] = useState(false);
+
+    // Warm the colour banner once the browser is idle. Keeps it off the
+    // critical path but ready before most people reach for it.
+    useEffect(() => {
+        const w = window as Window & { requestIdleCallback?: (cb: () => void) => number };
+        const start = () => setColorWanted(true);
+        if (w.requestIdleCallback) {
+            const id = w.requestIdleCallback(start);
+            return () => (window as Window & { cancelIdleCallback?: (h: number) => void }).cancelIdleCallback?.(id);
+        }
+        const t = setTimeout(start, 2500);
+        return () => clearTimeout(t);
+    }, []);
     const bannerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -63,7 +79,7 @@ export function HeroBanner() {
             onClick={handleBannerTap}
         >
             {colorWanted && (
-                <Image src={VARIANTS[active].color} alt="" width={540} height={230} unoptimized loading="eager" className="block h-full w-full object-cover" />
+                <Image src={VARIANTS[active].color} alt="" width={540} height={230} unoptimized loading="eager" onLoad={() => setColorLoaded(true)} className="block h-full w-full object-cover" />
             )}
 
             <Image
@@ -75,7 +91,7 @@ export function HeroBanner() {
                 priority
                 className={cn(
                     "absolute inset-0 block h-full w-full object-cover motion-safe:transition-opacity motion-safe:duration-700 motion-safe:ease-in-out",
-                    revealed ? "opacity-0" : "opacity-100",
+                    revealed && colorLoaded ? "opacity-0" : "opacity-100",
                 )}
             />
 
