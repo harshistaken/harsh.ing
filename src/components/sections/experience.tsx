@@ -17,6 +17,24 @@ function barConfig(entry: ExperienceEntry) {
     return { ...BAR_PALETTE[entry.barColor], label: entry.barLabel ?? "" };
 }
 
+/* ─── Bullet text: **keyword** renders at medium weight in the primary colour ─── */
+function BulletText({ text }: { text: string }) {
+    const parts = text.split(/\*\*(.+?)\*\*/g);
+    return (
+        <>
+            {parts.map((part, i) =>
+                i % 2 === 1 ? (
+                    <span key={i} className="font-medium text-text-primary">
+                        {part}
+                    </span>
+                ) : (
+                    part
+                ),
+            )}
+        </>
+    );
+}
+
 /* ─── Year label ─── */
 function YearTick({ text, delay = 0 }: { text: string; delay?: number }) {
     return (
@@ -155,7 +173,7 @@ function WorkCard({ entry, index }: { entry: ExperienceEntry; index: number }) {
                     {entry.bullets.map((bullet, i) => (
                         <li key={i} className="flex gap-2 font-space text-[14px] leading-normal text-text-secondary">
                             <span className={`mt-1 shrink-0 ${entry.active ? "text-accent-primary" : "text-text-muted"}`}>▪</span>
-                            <span>{bullet}</span>
+                            <span><BulletText text={bullet} /></span>
                         </li>
                     ))}
                 </ul>
