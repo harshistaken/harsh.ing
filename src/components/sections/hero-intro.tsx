@@ -1,14 +1,6 @@
 import Image from "next/image";
 import { DitherImage } from "@/components/ui/dither-image";
 import { BookCallButton } from "@/components/ui/book-call-button";
-import { SOCIAL } from "@/config/links";
-
-/** Prefilled so the request arrives with enough context to answer it. */
-const RESUME_REQUEST = `mailto:${SOCIAL.email}?subject=${encodeURIComponent(
-    "Resume request",
-)}&body=${encodeURIComponent(
-    "Hi Harsh,\n\nI'd like a copy of your resume.\n\nWho I am:\nCompany / role:\nWhat it's for:\n\nThanks",
-)}`;
 
 export function HeroIntro() {
     return (
@@ -63,22 +55,8 @@ export function HeroIntro() {
                     <span className="text-text-primary underline decoration-border-strong underline-offset-2">new opportunities</span>.
                 </p>
 
-                <div className="flex flex-col gap-2 pt-1">
+                <div className="pt-1">
                     <BookCallButton />
-                    {/* Request, not download. The repo is public, so a PDF in /public is
-                        fetchable straight from GitHub raw whatever the site does, which
-                        means the only way to actually control who gets it is not to ship
-                        it. This opens a prefilled mail instead, and Harsh decides who to
-                        send it to. */}
-                    <a
-                        href={RESUME_REQUEST}
-                        className="group/cv flex w-full items-center justify-center gap-1.5 border border-border-default px-3 py-1.5 font-jetbrains text-[12px] uppercase tracking-wider text-text-secondary transition-colors duration-200 hover:border-border-strong hover:text-text-primary"
-                    >
-                        <span>Request Resume</span>
-                        <span aria-hidden className="text-text-tertiary transition-transform duration-200 group-hover/cv:translate-x-0.5">
-                            &rarr;
-                        </span>
-                    </a>
                 </div>
             </div>
         </div>
