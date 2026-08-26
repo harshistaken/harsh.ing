@@ -89,9 +89,15 @@ export function ThemePicker() {
 
   // Restore from localStorage
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved && themes.some((t) => t.id === saved)) {
-      setActiveId(saved);
+    // localStorage throws in locked-down browsers and private modes.
+    // A theme preference is never worth taking the page down for.
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && themes.some((t) => t.id === saved)) {
+        setActiveId(saved);
+      }
+    } catch {
+      // ignore: fall through to the default theme
     }
     setMounted(true);
   }, []);
@@ -108,7 +114,11 @@ export function ThemePicker() {
       applyTheme(theme, mode);
     }
 
-    localStorage.setItem(STORAGE_KEY, activeId);
+    try {
+      localStorage.setItem(STORAGE_KEY, activeId);
+    } catch {
+      // ignore: the theme still applies, it just will not persist
+    }
   }, [activeId, mode, mounted]);
 
   // Cleanup overrides on unmount

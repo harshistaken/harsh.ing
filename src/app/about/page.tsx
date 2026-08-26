@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "About",
+    robots: { index: false, follow: true },
+};
+
 export default function About() {
     return (
         <main className="flex min-h-[calc(100vh-56px)] items-center justify-center px-6">

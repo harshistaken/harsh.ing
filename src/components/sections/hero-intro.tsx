@@ -12,6 +12,9 @@ export function HeroIntro() {
 
             {/* Text + CTA */}
             <div className="flex min-w-0 flex-1 flex-col justify-center gap-4">
+                {/* The page had no h1. The visible intro is prose, so the heading is
+                    given to assistive tech and search without disturbing the layout. */}
+                <h1 className="sr-only">Harsh Yadav, design engineer</h1>
                 <p className="font-space text-[16px] leading-normal text-text-secondary">
                     I&apos;m <span className="text-text-primary underline decoration-border-strong underline-offset-2">Harsh Yadav</span>. I design software, then write the code that ships it. Most
                     recently design and frontend at <span className="text-text-primary underline decoration-border-strong underline-offset-2">CureMeAbroad</span>. Before that, sole frontend engineer on
