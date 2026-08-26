@@ -88,10 +88,18 @@ export function DitherImage({
     const isMobile = useIsMobile();
     const { resolvedTheme } = useTheme();
 
+    /* The render loop and the resize handler are long-lived closures built
+       once, so they cannot see a later render's value; the current dot colour
+       is mirrored into a ref for them to read. Writing that ref during render
+       is an impure render, so the write lives in an effect. It is declared
+       ahead of every effect that reads the ref and effects run in declaration
+       order, so the mirror is current by the time they run. */
     const dotColorRef = useRef({ r: 232, g: 225, b: 215 });
-    dotColorRef.current = resolvedTheme === "light"
-        ? { r: 50, g: 42, b: 32 }     // #322a20 — warm dark brown
-        : { r: 232, g: 225, b: 215 };  // #e8e1d7 — warm off-white
+    useEffect(() => {
+        dotColorRef.current = resolvedTheme === "light"
+            ? { r: 50, g: 42, b: 32 }     // #322a20 — warm dark brown
+            : { r: 232, g: 225, b: 215 };  // #e8e1d7 — warm off-white
+    }, [resolvedTheme]);
 
     const startLoop = useCallback(() => {
         if (runningRef.current) return;

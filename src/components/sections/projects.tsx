@@ -2,10 +2,9 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
-import Link from "next/link";
+import { m as motion, useInView } from "framer-motion";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { GithubIcon, ArrowUpRight01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { GithubIcon, ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
 import { projects, type Project } from "@/content/projects";
 import { ProjectThumbnail } from "@/components/ui/project-thumbnail";

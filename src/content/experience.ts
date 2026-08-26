@@ -16,6 +16,12 @@ export interface ExperienceEntry {
 }
 
 export const TIMELINE_START_YEAR = 2018;
+/** Hardcoded on purpose — see PRESENT below for the hydration reason.
+ *  Nothing renders this today: experience.tsx imports only `experience`,
+ *  `formatDate` and `ExperienceEntry`, and the timeline bars are sized by
+ *  flexbox, so TIMELINE_END_YEAR, PRESENT, dateToY and getBarHeight are all
+ *  currently unconsumed. It does not go stale on screen. Bump it by hand only
+ *  if those helpers get wired up — never replace it with a new Date() read. */
 export const TIMELINE_END_YEAR = 2026;
 export const YEAR_HEIGHT = 80;
 

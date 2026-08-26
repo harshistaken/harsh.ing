@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { GitHubDark, GitHubLight } from "@ridemountainpig/svgl-react";
 import { cn } from "@/lib/utils";
@@ -100,7 +100,7 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
     const data = yearData[activeYear];
     const { cells, totalColumns, monthLabels } = useMemo(
         () => buildGrid(data.contributions),
-        [activeYear, data.contributions],
+        [data.contributions],
     );
 
     useEffect(() => {
@@ -111,6 +111,10 @@ export function GitHubGraphClient({ yearData, availableYears }: GitHubGraphClien
 
     const gridWidth = totalColumns * COL_WIDTH - GAP;
     const [mounted, setMounted] = useState(false);
+    // Hydration guard, not a cascade: the server has no resolved theme, so the
+    // GitHub mark can only be picked after mount. Flipping this flag exactly
+    // once is the entire purpose of the effect.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     useEffect(() => setMounted(true), []);
     const GitHubIcon = resolvedTheme === "light" ? GitHubLight : GitHubDark;
 

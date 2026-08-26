@@ -32,7 +32,7 @@ export function Footer() {
             {/* Info bar */}
             <div className="mx-auto max-w-2xl px-6">
                 <div className="flex items-center justify-between py-4">
-                    <span className="font-space text-[10px] tracking-wider text-text-muted">&copy; 2026 Harsh Yadav. All rights reserved. Built with &hearts;</span>
+                    <span className="font-space text-[10px] tracking-wider text-text-muted">&copy; Harsh Yadav. All rights reserved. Built with &hearts;</span>
                     <ThemeToggle />
                 </div>
             </div>

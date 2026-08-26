@@ -94,6 +94,11 @@ export function ThemePicker() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved && themes.some((t) => t.id === saved)) {
+        // One-shot read of an external store that does not exist during SSR or
+        // hydration, so it can only happen after mount. Not a cascading render.
+        // (The rule reports only the first setState in an effect, so this also
+        // covers the setMounted(true) hydration guard below.)
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setActiveId(saved);
       }
     } catch {

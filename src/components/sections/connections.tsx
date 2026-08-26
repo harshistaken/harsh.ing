@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback, type ComponentType, type SVGProps } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { GitHubDark, GitHubLight, LinkedIn, XDark, XLight, CalcomDark, CalcomLight, Gmail } from "@ridemountainpig/svgl-react";
 import { SOCIAL } from "@/config/links";
@@ -76,6 +76,10 @@ function useResolvedNodes(): NodeDef[] {
 function NodeIcon({ node, size }: { node: NodeDef; size: number }) {
     const { resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    // Hydration guard, not a cascade: the server has no resolved theme, so the
+    // icon variant can only be picked after mount. Flipping this flag exactly
+    // once is the entire purpose of the effect.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     useEffect(() => setMounted(true), []);
 
     if (!mounted) return <div style={{ width: size, height: size }} />;
@@ -96,6 +100,10 @@ function SignalBoard() {
     const rafRef = useRef<number>(0);
 
     useEffect(() => {
+        // Hydration guard, not a cascade: the proximity glow and the ambient
+        // particles stay off until the client is live so the first paint
+        // matches the server HTML. Flipping it once on mount is the intent.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setHasMounted(true);
         return () => cancelAnimationFrame(rafRef.current);
     }, []);

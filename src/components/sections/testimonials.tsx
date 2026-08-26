@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useCallback, useEffect } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { testimonials, type Testimonial } from "@/content/testimonials";
 
 const GLYPHS = "█▓░▒#@$%&!?*+=~^<>{}[]|/\\";
