@@ -27,6 +27,14 @@ export interface DotColorSource {
   saturate?: number;
   /** multiplies lightness, useful for lifting a dark photo off a dark ground */
   lift?: number;
+  /** Drop dots that cannot be seen against the page.
+   *  "dark"  culls near-black dots, so shadows fall away to a dark ground.
+   *  "light" culls near-white dots, so highlights fall away to a light ground.
+   *  Without this the image fills in solid on whichever end matches the page
+   *  and stops reading as something made of dots. */
+  cull?: "dark" | "light" | "none";
+  /** 0..255 luma cutoff for cull */
+  cullAt?: number;
 }
 
 const SHOCKWAVE_SPEED = 225;
@@ -61,9 +69,11 @@ export function createDotSystem(
   const sys: DotSystem = { count, baseX, baseY, dx, dy, size: scaleFactor * dotScale };
 
   if (colorSource) {
-    const { rgb, gridW, saturate = 0, lift = 1 } = colorSource;
+    const { rgb, gridW, saturate = 0, lift = 1, cull = "none", cullAt = 40 } = colorSource;
     const colors = new Uint32Array(count);
+    const keep = cull === "none" ? null : new Uint8Array(count);
     const maxSample = rgb.length / 3 - 1;
+    let kept = 0;
 
     for (let i = 0; i < count; i++) {
       // points are grid coordinates, so they index the sample grid directly
@@ -95,9 +105,38 @@ export function createDotSystem(
 
       // ABGR, little-endian, matching renderDots
       colors[i] = (255 << 24) | (b << 16) | (g << 8) | r;
+
+      if (keep) {
+        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+        const visible = cull === "dark" ? luma >= cullAt : luma <= 255 - cullAt;
+        keep[i] = visible ? 1 : 0;
+        if (visible) kept++;
+      }
     }
 
-    sys.colors = colors;
+    if (keep && kept < count) {
+      // rebuild the arrays without the invisible dots so the render loop
+      // never walks them
+      const nx = new Float32Array(kept);
+      const ny = new Float32Array(kept);
+      const nc = new Uint32Array(kept);
+      let j = 0;
+      for (let i = 0; i < count; i++) {
+        if (!keep[i]) continue;
+        nx[j] = baseX[i];
+        ny[j] = baseY[i];
+        nc[j] = colors[i];
+        j++;
+      }
+      sys.count = kept;
+      sys.baseX = nx;
+      sys.baseY = ny;
+      sys.dx = new Float32Array(kept);
+      sys.dy = new Float32Array(kept);
+      sys.colors = nc;
+    } else {
+      sys.colors = colors;
+    }
   }
 
   return sys;

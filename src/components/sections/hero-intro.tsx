@@ -11,6 +11,8 @@ export function HeroIntro() {
                     src="/avatar-suit.webp"
                     colorMode="source"
                     invert="auto"
+                    cull="auto"
+                    cullAt={72}
                     threshold={185}
                     gridSize={235}
                     blur={1.3}

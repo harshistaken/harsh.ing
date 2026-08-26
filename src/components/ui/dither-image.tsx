@@ -42,6 +42,13 @@ interface DitherImageProps {
     /** tone curve applied before dithering */
     gamma?: number;
     contrast?: number;
+    /** Drop dots that match the page and so cannot be seen. "auto" culls
+     *  shadows on a dark ground and highlights on a light one, which is what
+     *  keeps the image reading as something made of dots rather than filling
+     *  in solid at whichever end matches the background. */
+    cull?: "dark" | "light" | "none" | "auto";
+    /** 0..255 luma cutoff for cull */
+    cullAt?: number;
 }
 
 const CONFIG = {
@@ -69,6 +76,8 @@ export function DitherImage({
     blur = CONFIG.blur,
     gamma = CONFIG.gamma,
     contrast = CONFIG.contrast,
+    cull = "none",
+    cullAt = 40,
 }: DitherImageProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const systemRef = useRef<DotSystem | null>(null);
@@ -174,12 +183,19 @@ export function DitherImage({
                 ox,
                 oy,
                 colorMode === "source"
-                    ? { rgb: processed.rgb, gridW: processed.width, saturate, lift }
+                    ? {
+                          rgb: processed.rgb,
+                          gridW: processed.width,
+                          saturate,
+                          lift,
+                          cull: cull === "auto" ? (resolvedTheme === "light" ? "light" : "dark") : cull,
+                          cullAt,
+                      }
                     : undefined
             );
             startLoop();
         },
-        [isMobile, startLoop, colorMode, saturate, lift, invert, threshold, gridSize, blur, gamma, contrast, resolvedTheme]
+        [isMobile, startLoop, colorMode, saturate, lift, invert, threshold, gridSize, blur, gamma, contrast, cull, cullAt, resolvedTheme]
     );
 
     useEffect(() => {
