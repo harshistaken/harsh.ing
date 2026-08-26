@@ -27,6 +27,21 @@ interface DitherImageProps {
     saturate?: number;
     /** source mode only: multiplies lightness, to lift a dark image off a dark ground */
     lift?: number;
+    /** CONFIG.invert is right for a two-tone stencil and wrong for a photograph,
+     *  where it punches holes through the brightest areas.
+     *  "auto" inverts in light mode only: the gaps between dots are the page,
+     *  so on a dark ground they read as shadow and on a light ground they read
+     *  as highlight. Without the flip a photo's tones inverse when the theme does. */
+    invert?: boolean | "auto";
+    /** luma cutoff for placing a dot; lower keeps more of a photo's highlights */
+    threshold?: number;
+    /** dot grid resolution. Higher resolves more detail at more dots. */
+    gridSize?: number;
+    /** source blur before sampling. A stencil wants softening, a photo does not. */
+    blur?: number;
+    /** tone curve applied before dithering */
+    gamma?: number;
+    contrast?: number;
 }
 
 const CONFIG = {
@@ -42,7 +57,19 @@ const CONFIG = {
     cornerRadius: 0.00,
 } as const;
 
-export function DitherImage({ src, className, colorMode = "theme", saturate = 0, lift = 1 }: DitherImageProps) {
+export function DitherImage({
+    src,
+    className,
+    colorMode = "theme",
+    saturate = 0,
+    lift = 1,
+    invert = CONFIG.invert,
+    threshold = CONFIG.threshold,
+    gridSize = CONFIG.gridSize,
+    blur = CONFIG.blur,
+    gamma = CONFIG.gamma,
+    contrast = CONFIG.contrast,
+}: DitherImageProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const systemRef = useRef<DotSystem | null>(null);
     const mouseRef = useRef({ x: 0, y: 0, active: false });
@@ -105,11 +132,11 @@ export function DitherImage({ src, className, colorMode = "theme", saturate = 0,
 
             const processed = processImage(
                 img,
-                CONFIG.gridSize,
+                gridSize,
                 1,
-                CONFIG.contrast,
-                CONFIG.gamma,
-                CONFIG.blur,
+                contrast,
+                gamma,
+                blur,
                 CONFIG.highlightsCompression
             );
 
@@ -117,11 +144,12 @@ export function DitherImage({ src, className, colorMode = "theme", saturate = 0,
                 processed.grayscale,
                 processed.width,
                 processed.height,
-                { threshold: CONFIG.threshold, serpentine: true, errorStrength: 1.0 },
+                { threshold, serpentine: true, errorStrength: 1.0 },
                 processed.alpha
             );
 
-            if (CONFIG.invert) {
+            const doInvert = invert === "auto" ? resolvedTheme === "light" : invert;
+            if (doInvert) {
                 positions = invertWithMask(
                     positions,
                     processed.width,
@@ -151,7 +179,7 @@ export function DitherImage({ src, className, colorMode = "theme", saturate = 0,
             );
             startLoop();
         },
-        [isMobile, startLoop, colorMode, saturate, lift]
+        [isMobile, startLoop, colorMode, saturate, lift, invert, threshold, gridSize, blur, gamma, contrast, resolvedTheme]
     );
 
     useEffect(() => {
