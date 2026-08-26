@@ -144,7 +144,7 @@ export function Services() {
                     transition={{ duration: 0.5, delay: 0.3, ease }}
                 >
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent-tertiary animate-[status-pulse_2s_ease-in-out_infinite]" />
-                    CURRENTLY ACCEPTING NEW PROJECTS
+                    OPEN TO FULL-TIME ROLES AND FREELANCE PROJECTS
                 </motion.p>
                 <a
                     href={SOCIAL.cal}
