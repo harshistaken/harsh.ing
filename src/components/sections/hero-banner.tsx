@@ -23,6 +23,11 @@ export function HeroBanner() {
     const [active, setActive] = useState(0);
     const [revealed, setRevealed] = useState(false);
     const [tapped, setTapped] = useState(false);
+    // The colour banner is 1.5MB and sits invisible under the grey one until
+    // hover. Mounting it on load costs every visitor that download for
+    // something most never reveal, and lazy does not help because it is
+    // inside the viewport. Mount it the first time it is actually wanted.
+    const [colorWanted, setColorWanted] = useState(false);
     const bannerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -39,6 +44,7 @@ export function HeroBanner() {
     }, [revealed]);
 
     function handleBannerTap() {
+        setColorWanted(true);
         setRevealed((prev) => !prev);
         setTapped(true);
     }
@@ -48,6 +54,7 @@ export function HeroBanner() {
             ref={bannerRef}
             className="relative cursor-pointer overflow-hidden border border-border-strong h-[118px] md:h-[134px]"
             onPointerEnter={(e) => {
+                setColorWanted(true);
                 if (e.pointerType === "mouse") setRevealed(true);
             }}
             onPointerLeave={(e) => {
@@ -55,7 +62,9 @@ export function HeroBanner() {
             }}
             onClick={handleBannerTap}
         >
-            <Image src={VARIANTS[active].color} alt="" width={540} height={230} unoptimized loading="eager" className="block h-full w-full object-cover" />
+            {colorWanted && (
+                <Image src={VARIANTS[active].color} alt="" width={540} height={230} unoptimized loading="eager" className="block h-full w-full object-cover" />
+            )}
 
             <Image
                 src={VARIANTS[active].gray}
