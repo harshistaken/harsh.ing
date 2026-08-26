@@ -258,6 +258,46 @@ body {
 }
 
 /* ============================================
+   FOCUS RING
+
+   One rule for the whole app. Anything focusable that does not opt out
+   gets this; without it the browser falls back to its own blue outline,
+   which belongs to no theme here.
+
+   Deliberately unlayered. Tailwind's utilities live in @layer utilities,
+   and unlayered rules beat every layer regardless of source order, so
+   this wins over a stray `outline-none` rather than losing to it.
+
+   The colour is mixed from --accent-primary rather than hardcoded, so it
+   tracks all eight palettes and both modes with no per-theme entries. The
+   softer alpha is what keeps a 3px ring from reading as an error state.
+   ============================================ */
+/* Longhands, not the `outline` shorthand. The build emits a no-color-mix
+   fallback copy of any shorthand it sees, and that copy carries no colour,
+   so on most elements the ring silently fell back to currentColor and came
+   out grey or green depending on the text it sat next to. Setting
+   outline-color on its own leaves nothing for the fallback to reset. */
+:focus-visible {
+    outline-width: 3px;
+    outline-style: solid;
+    outline-color: color-mix(in oklab, var(--accent-primary) 55%, transparent);
+    outline-offset: 2px;
+}
+
+/* Pointer users never see it; only keyboard focus does. */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Windows high contrast: the mixed colour is dropped there, so name a
+   system colour explicitly instead of inheriting a transparent ring. */
+@media (forced-colors: active) {
+    :focus-visible {
+        outline-color: Highlight;
+    }
+}
+
+/* ============================================
    REDUCED MOTION
    ============================================ */
 @media (prefers-reduced-motion: reduce) {

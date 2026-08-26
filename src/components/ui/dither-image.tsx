@@ -139,6 +139,20 @@ export function DitherImage({
             const rect = canvas.getBoundingClientRect();
             const img = await loadImage(imgSrc);
 
+            /* Everything below is one synchronous ~145ms pass over the pixel
+               buffer. Run inline it lands in the middle of the load window and
+               shows up as blocking time. Yielding first lets the browser finish
+               painting and handle input; the work costs the same, it just stops
+               holding up the frame. */
+            await new Promise<void>((resolve) => {
+                if (typeof requestIdleCallback === "function") {
+                    requestIdleCallback(() => resolve(), { timeout: 300 });
+                } else {
+                    requestAnimationFrame(() => setTimeout(resolve, 0));
+                }
+            });
+            if (!canvasRef.current) return;
+
             const processed = processImage(
                 img,
                 gridSize,
