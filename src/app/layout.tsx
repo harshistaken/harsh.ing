@@ -13,8 +13,15 @@ export const metadata: Metadata = {
     title: SITE.title,
     description: SITE.description,
     metadataBase: new URL(SITE.url),
+    applicationName: SITE.name,
+    authors: [{ name: SITE.name, url: SITE.url }],
+    creator: SITE.name,
     icons: {
-        icon: "/favicon.ico",
+        icon: [
+            { url: "/favicon.ico", sizes: "any" },
+            { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+            { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+        ],
         apple: "/apple-icon.png",
     },
     openGraph: {
@@ -24,15 +31,19 @@ export const metadata: Metadata = {
         siteName: SITE.domain,
         locale: SITE.locale,
         type: "website",
-        images: [{ url: "/og-twitter.png", width: 1200, height: 630, alt: `${SITE.name} - Software Developer` }],
+        images: [{ url: "/og.png", width: 1200, height: 630, alt: `${SITE.name}, ${SITE.jobTitle}` }],
     },
     twitter: {
         card: "summary_large_image",
         title: SITE.title,
         description: SITE.descriptionShort,
-        images: ["/og-twitter.png"],
+        images: ["/og.png"],
     },
-    robots: { index: true, follow: true },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+    },
     alternates: { canonical: SITE.url },
 };
 
@@ -45,6 +56,17 @@ const jsonLd = {
     worksFor: { "@type": "Organization", name: SITE.employer },
     address: { "@type": "PostalAddress", addressLocality: SITE.location.city, addressCountry: SITE.location.country },
     sameAs: SITE.sameAs,
+    description: SITE.descriptionShort,
+    image: `${SITE.url}/og.png`,
+    knowsAbout: [
+        "Design systems",
+        "Product design",
+        "Frontend engineering",
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Web performance",
+    ],
 };
 
 export default function RootLayout({
