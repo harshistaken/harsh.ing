@@ -8,7 +8,7 @@ import { experience, formatDate, type ExperienceEntry } from "@/content/experien
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const BAR_PALETTE = {
-    accent: { color: "bg-accent-primary", hoverColor: "group-hover:bg-accent-primary-hover", textClass: "text-bg-primary/50 group-hover:text-bg-primary/80" },
+    accent: { color: "bg-accent-primary", hoverColor: "group-hover:bg-accent-primary-hover", textClass: "text-bg-primary" },
     gray: { color: "bg-text-muted/40", hoverColor: "group-hover:bg-text-muted/60", textClass: "text-text-primary/40 group-hover:text-text-primary/70" },
     green: { color: "bg-accent-secondary/40", hoverColor: "group-hover:bg-accent-secondary/60", textClass: "text-text-primary/40 group-hover:text-text-primary/70" },
 } as const;
@@ -253,7 +253,7 @@ function EducationRow({
                     animate={inView ? { scaleY: 1 } : {}}
                     transition={{ duration: 0.6, delay: barDelay + 0.15, ease }}
                 >
-                    <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[8px] font-semibold uppercase tracking-[0.15em] text-bg-primary/50 motion-safe:transition-opacity motion-safe:duration-300 group-hover:text-bg-primary/80">
+                    <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap font-jetbrains text-[8px] font-semibold uppercase tracking-[0.15em] text-bg-primary">
                         EDUCATION
                     </span>
                 </motion.div>

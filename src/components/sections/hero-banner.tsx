@@ -88,6 +88,7 @@ export function HeroBanner() {
                 width={540}
                 height={230}
                 unoptimized
+                priority
                 className={cn(
                     "absolute inset-0 block h-full w-full object-cover motion-safe:transition-opacity motion-safe:duration-700 motion-safe:ease-in-out",
                     revealed && colorLoaded ? "opacity-0" : "opacity-100",

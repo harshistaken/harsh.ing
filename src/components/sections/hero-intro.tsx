@@ -33,18 +33,18 @@ export function HeroIntro() {
                     I&apos;m <span className="text-text-primary underline decoration-border-strong underline-offset-2">Harsh Yadav</span>. I design software, then write the code that ships it. Most
                     recently design and frontend at{" "}
                     <span className="inline-flex items-center gap-1">
-                        <Image src="/icons/CureMeAbroad.png" alt="" width={20} height={20} className="inline-block h-3 w-auto" />
+                        <Image src="/icons/CureMeAbroad.png" alt="" width={20} height={20} className="inline-block h-2.5 w-auto" />
                         <span className="text-text-primary underline decoration-border-strong underline-offset-2">CureMeAbroad</span>
                     </span>
                     . Before that, sole frontend engineer on
                     legal AI at{" "}
                     <span className="inline-flex items-center gap-1">
-                        <Image src="/icons/Hammurabi.svg" alt="" width={28} height={14} className="inline-block h-2.5 w-auto" />
+                        <Image src="/icons/Hammurabi.svg" alt="" width={28} height={14} className="inline-block h-2 w-auto" />
                         <span className="text-text-primary underline decoration-border-strong underline-offset-2">Hammurabi</span>
                     </span>
                     , where I still design the system today. Started out freelancing on{" "}
                     <span className="inline-flex items-center gap-1">
-                        <Image src="/icons/Upwork.svg" alt="" width={14} height={14} className="inline-block size-4" />
+                        <Image src="/icons/Upwork.svg" alt="" width={14} height={14} className="inline-block size-3" />
                         <span className="text-text-primary underline decoration-border-strong underline-offset-2">Upwork</span>
                     </span>
                     .

@@ -19,6 +19,12 @@ export const TIMELINE_START_YEAR = 2018;
 export const TIMELINE_END_YEAR = 2026;
 export const YEAR_HEIGHT = 80;
 
+/** The top of the timeline. Active entries run to here rather than to the
+ *  wall clock. This page is statically generated with a 1h revalidate, so a
+ *  clock read happens at build time on the server and at hydration on the
+ *  client, and the two disagree. That was a real hydration mismatch. */
+export const PRESENT = { month: 12, year: TIMELINE_END_YEAR } as const;
+
 export const experience: ExperienceEntry[] = [
     {
         type: "work",
@@ -143,7 +149,7 @@ export function dateToY(month: number, year: number): number {
 }
 
 export function getBarHeight(start: { month: number; year: number }, end?: { month: number; year: number }): number {
-    const endDate = end ?? { month: new Date().getMonth() + 1, year: new Date().getFullYear() };
+    const endDate = end ?? PRESENT;
     const months = (endDate.year - start.year) * 12 + (endDate.month - start.month);
     return Math.max(8, (months / 12) * YEAR_HEIGHT);
 }
